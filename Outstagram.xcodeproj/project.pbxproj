@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0867A84D296CD69D002F3170 /* UIView+Anchors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867A84C296CD69D002F3170 /* UIView+Anchors.swift */; };
+		0867A84F296CDC4D002F3170 /* UIViewController+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867A84E296CDC4D002F3170 /* UIViewController+Gradient.swift */; };
+		0867A852296CDDFF002F3170 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867A851296CDDFF002F3170 /* CustomTextField.swift */; };
 		08D65988296B7C610089624D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D65987296B7C610089624D /* AppDelegate.swift */; };
 		08D6598C296B7C610089624D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D6598B296B7C610089624D /* LoginViewController.swift */; };
 		08D65991296B7C630089624D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08D65990296B7C630089624D /* Assets.xcassets */; };
@@ -15,6 +18,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0867A84C296CD69D002F3170 /* UIView+Anchors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Anchors.swift"; sourceTree = "<group>"; };
+		0867A84E296CDC4D002F3170 /* UIViewController+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Gradient.swift"; sourceTree = "<group>"; };
+		0867A851296CDDFF002F3170 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
 		08D65984296B7C610089624D /* Outstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Outstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08D65987296B7C610089624D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08D6598B296B7C610089624D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -70,6 +76,24 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		0867A84B296CD492002F3170 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				0867A850296CDDDA002F3170 /* Extensions */,
+				0867A851296CDDFF002F3170 /* CustomTextField.swift */,
+			);
+			name = Utilities;
+			sourceTree = "<group>";
+		};
+		0867A850296CDDDA002F3170 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				0867A84C296CD69D002F3170 /* UIView+Anchors.swift */,
+				0867A84E296CDC4D002F3170 /* UIViewController+Gradient.swift */,
+			);
+			name = Extensions;
+			sourceTree = "<group>";
+		};
 		08D6597B296B7C600089624D = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +119,7 @@
 				08103E5B296C7A68006120E7 /* Model */,
 				08103E5D296C7A74006120E7 /* View */,
 				08103E5E296C7A79006120E7 /* Controller */,
+				0867A84B296CD492002F3170 /* Utilities */,
 				08103E5A296C79D0006120E7 /* Files */,
 			);
 			path = Outstagram;
@@ -249,8 +274,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0867A84F296CDC4D002F3170 /* UIViewController+Gradient.swift in Sources */,
 				08D6598C296B7C610089624D /* LoginViewController.swift in Sources */,
+				0867A84D296CD69D002F3170 /* UIView+Anchors.swift in Sources */,
 				08D65988296B7C610089624D /* AppDelegate.swift in Sources */,
+				0867A852296CDDFF002F3170 /* CustomTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
