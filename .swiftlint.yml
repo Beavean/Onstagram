@@ -1,0 +1,6 @@
+included:
+  - Outstagram
+excluded:
+  - Pods
+
+line_length: 150
