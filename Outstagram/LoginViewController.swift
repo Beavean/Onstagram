@@ -12,41 +12,19 @@ final class LoginViewController: UIViewController {
 
     // MARK: - UI Elements
 
-    private let logoContainerView: UIImageView = {
-        let logoImageView = UIImageView(image: UIImage(systemName: "camera"))
-        logoImageView.contentMode = .scaleAspectFit
-        logoImageView.tintColor = .white
-        logoImageView.setDimensions(height: 150, width: 150)
-        return logoImageView
+    private let logoContainerView = AuthenticationImageView(image: UIImage(systemName: "camera"))
+    private let logoLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .white
+        label.text = "O U T S T A G R A M"
+        label.font = UIFont.systemFont(ofSize: 24, weight: .heavy)
+        label.textAlignment = .center
+        return label
     }()
-
-    private let emailTextField = CustomTextField(placeholder: "Email")
-    private let passwordTextField = CustomTextField(placeholder: "Password", isSecureField: true)
-
-    private lazy var loginButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.alpha = 0.5
-        button.setTitle("Login", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .orange
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
-        button.isEnabled = false
-        button.layer.cornerRadius = 5
-        return button
-    }()
-
-    private lazy var dontHaveAccountButton: UIButton = {
-        let button = UIButton(type: .system)
-        let mainAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.white]
-        let attributedTitle = NSMutableAttributedString(string: "Don't have an account? ", attributes: mainAttributes)
-        let secondaryAttributes = [
-            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18),
-            NSAttributedString.Key.foregroundColor: UIColor.white
-        ]
-        attributedTitle.append(NSAttributedString(string: "Sign Up", attributes: secondaryAttributes))
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        return button
-    }()
+    private let emailTextField = AuthenticationTextField(placeholder: "Email")
+    private let passwordTextField = AuthenticationTextField(placeholder: "Password", isSecureField: true)
+    private let loginButton = AuthenticationButton(labelText: "Login")
+    private let dontHaveAccountButton = AuthenticationSwitchButton(firstLabelText: "Don't have an account?", secondLabelText: "Sign Up")
 
     // MARK: - Lifecycle
 
@@ -84,6 +62,8 @@ final class LoginViewController: UIViewController {
         navigationController?.navigationBar.barStyle = .black
         view.addSubview(logoContainerView)
         logoContainerView.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, right: view.rightAnchor, height: 150)
+        view.addSubview(logoLabel)
+        logoLabel.anchor(top: logoContainerView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, height: 60)
         configureStackView()
         view.addSubview(dontHaveAccountButton)
         dontHaveAccountButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, height: 50)
@@ -95,7 +75,7 @@ final class LoginViewController: UIViewController {
         stackView.spacing = 10
         stackView.distribution = .fillEqually
         view.addSubview(stackView)
-        stackView.anchor(top: logoContainerView.bottomAnchor,
+        stackView.anchor(top: logoLabel.bottomAnchor,
                          left: view.leftAnchor,
                          right: view.rightAnchor,
                          paddingTop: 40,

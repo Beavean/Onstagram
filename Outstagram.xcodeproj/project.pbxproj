@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		083A1FD6296F670E0050C2DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 083A1FD5296F670E0050C2DA /* GoogleService-Info.plist */; };
+		083A1FD8296F676D0050C2DA /* AuthenticationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083A1FD7296F676D0050C2DA /* AuthenticationButton.swift */; };
+		083A1FDA296F69B30050C2DA /* AuthenticationSwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083A1FD9296F69B30050C2DA /* AuthenticationSwitchButton.swift */; };
+		083A1FDD296F6BA30050C2DA /* AuthenticationImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083A1FDC296F6BA30050C2DA /* AuthenticationImageView.swift */; };
 		0867A84D296CD69D002F3170 /* UIView+Anchors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867A84C296CD69D002F3170 /* UIView+Anchors.swift */; };
 		0867A84F296CDC4D002F3170 /* UIViewController+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867A84E296CDC4D002F3170 /* UIViewController+Gradient.swift */; };
-		0867A852296CDDFF002F3170 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867A851296CDDFF002F3170 /* CustomTextField.swift */; };
+		0867A852296CDDFF002F3170 /* AuthenticationTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867A851296CDDFF002F3170 /* AuthenticationTextField.swift */; };
 		08C6AE41296EE0D400362910 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C6AE40296EE0D400362910 /* SignUpViewController.swift */; };
 		08D65988296B7C610089624D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D65987296B7C610089624D /* AppDelegate.swift */; };
 		08D6598C296B7C610089624D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D6598B296B7C610089624D /* LoginViewController.swift */; };
@@ -19,9 +23,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		083A1FD5296F670E0050C2DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Users/Beavean/Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		083A1FD7296F676D0050C2DA /* AuthenticationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationButton.swift; sourceTree = "<group>"; };
+		083A1FD9296F69B30050C2DA /* AuthenticationSwitchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationSwitchButton.swift; sourceTree = "<group>"; };
+		083A1FDC296F6BA30050C2DA /* AuthenticationImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationImageView.swift; sourceTree = "<group>"; };
 		0867A84C296CD69D002F3170 /* UIView+Anchors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Anchors.swift"; sourceTree = "<group>"; };
 		0867A84E296CDC4D002F3170 /* UIViewController+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Gradient.swift"; sourceTree = "<group>"; };
-		0867A851296CDDFF002F3170 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
+		0867A851296CDDFF002F3170 /* AuthenticationTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTextField.swift; sourceTree = "<group>"; };
 		08C6AE40296EE0D400362910 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		08D65984296B7C610089624D /* Outstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Outstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08D65987296B7C610089624D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +60,7 @@
 				08D65990296B7C630089624D /* Assets.xcassets */,
 				08D65992296B7C630089624D /* LaunchScreen.storyboard */,
 				08D65995296B7C630089624D /* Info.plist */,
+				083A1FD5296F670E0050C2DA /* GoogleService-Info.plist */,
 			);
 			name = Files;
 			sourceTree = "<group>";
@@ -79,11 +88,22 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
+		083A1FDB296F6B3A0050C2DA /* CustomViews */ = {
+			isa = PBXGroup;
+			children = (
+				0867A851296CDDFF002F3170 /* AuthenticationTextField.swift */,
+				083A1FD7296F676D0050C2DA /* AuthenticationButton.swift */,
+				083A1FD9296F69B30050C2DA /* AuthenticationSwitchButton.swift */,
+				083A1FDC296F6BA30050C2DA /* AuthenticationImageView.swift */,
+			);
+			name = CustomViews;
+			sourceTree = "<group>";
+		};
 		0867A84B296CD492002F3170 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				0867A850296CDDDA002F3170 /* Extensions */,
-				0867A851296CDDFF002F3170 /* CustomTextField.swift */,
+				083A1FDB296F6B3A0050C2DA /* CustomViews */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -208,6 +228,7 @@
 			files = (
 				08D65994296B7C630089624D /* LaunchScreen.storyboard in Resources */,
 				08D65991296B7C630089624D /* Assets.xcassets in Resources */,
+				083A1FD6296F670E0050C2DA /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,10 +300,13 @@
 			files = (
 				08C6AE41296EE0D400362910 /* SignUpViewController.swift in Sources */,
 				0867A84F296CDC4D002F3170 /* UIViewController+Gradient.swift in Sources */,
+				083A1FDA296F69B30050C2DA /* AuthenticationSwitchButton.swift in Sources */,
+				083A1FD8296F676D0050C2DA /* AuthenticationButton.swift in Sources */,
 				08D6598C296B7C610089624D /* LoginViewController.swift in Sources */,
 				0867A84D296CD69D002F3170 /* UIView+Anchors.swift in Sources */,
+				083A1FDD296F6BA30050C2DA /* AuthenticationImageView.swift in Sources */,
 				08D65988296B7C610089624D /* AppDelegate.swift in Sources */,
-				0867A852296CDDFF002F3170 /* CustomTextField.swift in Sources */,
+				0867A852296CDDFF002F3170 /* AuthenticationTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

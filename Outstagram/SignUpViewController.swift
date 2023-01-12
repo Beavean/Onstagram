@@ -11,44 +11,13 @@ final class SignUpViewController: UIViewController, UINavigationControllerDelega
 
     // MARK: - UI Elements
 
-    private lazy var profilePhotoImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "person.crop.circle.badge.plus"))
-        imageView.setDimensions(height: 150, width: 150)
-        imageView.contentMode = .scaleAspectFill
-        imageView.tintColor = .white
-        return imageView
-    }()
-
-    private let emailTextField = CustomTextField(placeholder: "Email")
-    private let fullNameTextField = CustomTextField(placeholder: "Full Name")
-    private let usernameTextField = CustomTextField(placeholder: "Username")
-    private let passwordTextField = CustomTextField(placeholder: "Password", isSecureField: true)
-
-    private lazy var signUpButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.alpha = 0.5
-        button.setTitle("Sign Up", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .orange
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .heavy)
-        button.isEnabled = false
-        button.layer.cornerRadius = 5
-        return button
-    }()
-
-    private lazy var alreadyHaveAccountButton: UIButton = {
-        let button = UIButton(type: .system)
-        let mainAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.white]
-        let attributedTitle = NSMutableAttributedString(string: "Already have an account? ", attributes: mainAttributes)
-        let secondaryAttributes = [
-            NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 18),
-            NSAttributedString.Key.foregroundColor: UIColor.white
-        ]
-        attributedTitle.append(NSAttributedString(string: "Sign In", attributes: secondaryAttributes))
-        button.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
-        button.setAttributedTitle(attributedTitle, for: .normal)
-        return button
-    }()
+    private let profilePhotoImageView = AuthenticationImageView(image: UIImage(systemName: "person.crop.circle.badge.plus"))
+    private let emailTextField = AuthenticationTextField(placeholder: "Email")
+    private let fullNameTextField = AuthenticationTextField(placeholder: "Full Name")
+    private let usernameTextField = AuthenticationTextField(placeholder: "Username")
+    private let passwordTextField = AuthenticationTextField(placeholder: "Password", isSecureField: true)
+    private let signUpButton = AuthenticationButton(labelText: "Sign Up")
+    private let alreadyHaveAccountButton = AuthenticationSwitchButton(firstLabelText: "Already have an account?", secondLabelText: "Sign In")
 
     // MARK: - Properties
 
@@ -72,6 +41,11 @@ final class SignUpViewController: UIViewController, UINavigationControllerDelega
     }
 
     @objc func handleSignUp() {
+        guard let email = emailTextField.text,
+              let password = passwordTextField.text,
+              let fullName = fullNameTextField.text,
+              let username = usernameTextField.text?.lowercased()
+        else { return }
 
     }
 
@@ -97,12 +71,12 @@ final class SignUpViewController: UIViewController, UINavigationControllerDelega
         view.addSubview(profilePhotoImageView)
         profilePhotoImageView.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 40, width: 140, height: 140)
         profilePhotoImageView.centerX(inView: view)
-        configureViewComponents()
+        configureStackView()
         view.addSubview(alreadyHaveAccountButton)
         alreadyHaveAccountButton.anchor(left: view.leftAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, right: view.rightAnchor, height: 50)
     }
 
-    private func configureViewComponents() {
+    private func configureStackView() {
         let stackView = UIStackView(arrangedSubviews: [emailTextField, fullNameTextField, usernameTextField, passwordTextField, signUpButton])
         stackView.axis = .vertical
         stackView.spacing = 10
@@ -125,5 +99,6 @@ final class SignUpViewController: UIViewController, UINavigationControllerDelega
         fullNameTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         usernameTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged)
+        alreadyHaveAccountButton.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
     }
 }
