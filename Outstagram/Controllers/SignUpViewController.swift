@@ -46,7 +46,6 @@ final class SignUpViewController: UIViewController, UINavigationControllerDelega
               let fullName = fullNameTextField.text,
               let username = usernameTextField.text?.lowercased()
         else { return }
-
     }
 
     @objc func formValidation() {

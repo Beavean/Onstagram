@@ -65,30 +65,25 @@
 			name = Files;
 			sourceTree = "<group>";
 		};
-		08103E5B296C7A68006120E7 /* Model */ = {
+		0867A84B296CD492002F3170 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				088938372970C13B00BE0612 /* CustomViews */,
+				088938362970C12200BE0612 /* Extensions */,
 			);
-			name = Model;
+			name = Utilities;
 			sourceTree = "<group>";
 		};
-		08103E5D296C7A74006120E7 /* View */ = {
+		088938362970C12200BE0612 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0867A84C296CD69D002F3170 /* UIView+Anchors.swift */,
+				0867A84E296CDC4D002F3170 /* UIViewController+Gradient.swift */,
 			);
-			name = View;
+			path = Extensions;
 			sourceTree = "<group>";
 		};
-		08103E5E296C7A79006120E7 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				08D6598B296B7C610089624D /* LoginViewController.swift */,
-				08C6AE40296EE0D400362910 /* SignUpViewController.swift */,
-			);
-			name = Controller;
-			sourceTree = "<group>";
-		};
-		083A1FDB296F6B3A0050C2DA /* CustomViews */ = {
+		088938372970C13B00BE0612 /* CustomViews */ = {
 			isa = PBXGroup;
 			children = (
 				0867A851296CDDFF002F3170 /* AuthenticationTextField.swift */,
@@ -96,25 +91,30 @@
 				083A1FD9296F69B30050C2DA /* AuthenticationSwitchButton.swift */,
 				083A1FDC296F6BA30050C2DA /* AuthenticationImageView.swift */,
 			);
-			name = CustomViews;
+			path = CustomViews;
 			sourceTree = "<group>";
 		};
-		0867A84B296CD492002F3170 /* Utilities */ = {
+		088938382970C15100BE0612 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				0867A850296CDDDA002F3170 /* Extensions */,
-				083A1FDB296F6B3A0050C2DA /* CustomViews */,
 			);
-			name = Utilities;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		0867A850296CDDDA002F3170 /* Extensions */ = {
+		088938392970C15B00BE0612 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0867A84C296CD69D002F3170 /* UIView+Anchors.swift */,
-				0867A84E296CDC4D002F3170 /* UIViewController+Gradient.swift */,
 			);
-			name = Extensions;
+			path = Views;
+			sourceTree = "<group>";
+		};
+		0889383A2970C16B00BE0612 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				08D6598B296B7C610089624D /* LoginViewController.swift */,
+				08C6AE40296EE0D400362910 /* SignUpViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		08D6597B296B7C600089624D = {
@@ -139,9 +139,9 @@
 			isa = PBXGroup;
 			children = (
 				08D65987296B7C610089624D /* AppDelegate.swift */,
-				08103E5B296C7A68006120E7 /* Model */,
-				08103E5D296C7A74006120E7 /* View */,
-				08103E5E296C7A79006120E7 /* Controller */,
+				088938392970C15B00BE0612 /* Views */,
+				0889383A2970C16B00BE0612 /* Controllers */,
+				088938382970C15100BE0612 /* Models */,
 				0867A84B296CD492002F3170 /* Utilities */,
 				08103E5A296C79D0006120E7 /* Files */,
 			);
