@@ -14,6 +14,8 @@
 		0867A84D296CD69D002F3170 /* UIView+Anchors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867A84C296CD69D002F3170 /* UIView+Anchors.swift */; };
 		0867A84F296CDC4D002F3170 /* UIViewController+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867A84E296CDC4D002F3170 /* UIViewController+Gradient.swift */; };
 		0867A852296CDDFF002F3170 /* AuthenticationTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867A851296CDDFF002F3170 /* AuthenticationTextField.swift */; };
+		0889383C2970C98800BE0612 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889383B2970C98800BE0612 /* UIViewController+Alert.swift */; };
+		0889383E2970CBF800BE0612 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889383D2970CBF800BE0612 /* Constants.swift */; };
 		08C6AE41296EE0D400362910 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C6AE40296EE0D400362910 /* SignUpViewController.swift */; };
 		08D65988296B7C610089624D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D65987296B7C610089624D /* AppDelegate.swift */; };
 		08D6598C296B7C610089624D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D6598B296B7C610089624D /* LoginViewController.swift */; };
@@ -30,6 +32,8 @@
 		0867A84C296CD69D002F3170 /* UIView+Anchors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Anchors.swift"; sourceTree = "<group>"; };
 		0867A84E296CDC4D002F3170 /* UIViewController+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Gradient.swift"; sourceTree = "<group>"; };
 		0867A851296CDDFF002F3170 /* AuthenticationTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTextField.swift; sourceTree = "<group>"; };
+		0889383B2970C98800BE0612 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		0889383D2970CBF800BE0612 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		08C6AE40296EE0D400362910 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		08D65984296B7C610089624D /* Outstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Outstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08D65987296B7C610089624D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -70,6 +74,7 @@
 			children = (
 				088938372970C13B00BE0612 /* CustomViews */,
 				088938362970C12200BE0612 /* Extensions */,
+				0889383D2970CBF800BE0612 /* Constants.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -78,6 +83,7 @@
 			isa = PBXGroup;
 			children = (
 				0867A84C296CD69D002F3170 /* UIView+Anchors.swift */,
+				0889383B2970C98800BE0612 /* UIViewController+Alert.swift */,
 				0867A84E296CDC4D002F3170 /* UIViewController+Gradient.swift */,
 			);
 			path = Extensions;
@@ -299,10 +305,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				08C6AE41296EE0D400362910 /* SignUpViewController.swift in Sources */,
+				0889383E2970CBF800BE0612 /* Constants.swift in Sources */,
 				0867A84F296CDC4D002F3170 /* UIViewController+Gradient.swift in Sources */,
 				083A1FDA296F69B30050C2DA /* AuthenticationSwitchButton.swift in Sources */,
 				083A1FD8296F676D0050C2DA /* AuthenticationButton.swift in Sources */,
 				08D6598C296B7C610089624D /* LoginViewController.swift in Sources */,
+				0889383C2970C98800BE0612 /* UIViewController+Alert.swift in Sources */,
 				0867A84D296CD69D002F3170 /* UIView+Anchors.swift in Sources */,
 				083A1FDD296F6BA30050C2DA /* AuthenticationImageView.swift in Sources */,
 				08D65988296B7C610089624D /* AppDelegate.swift in Sources */,

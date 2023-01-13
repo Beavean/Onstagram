@@ -6,8 +6,10 @@
 //
 
 import UIKit
+import FirebaseStorage
+import FirebaseAuth
 
-final class SignUpViewController: UIViewController, UINavigationControllerDelegate {
+final class SignUpViewController: UIViewController {
 
     // MARK: - UI Elements
 
@@ -21,7 +23,9 @@ final class SignUpViewController: UIViewController, UINavigationControllerDelega
 
     // MARK: - Properties
 
-    var imageSelected = false
+    private var imageSelected = false {
+        didSet { formValidation() }
+    }
 
     // MARK: - Lifecycle
 
@@ -33,22 +37,34 @@ final class SignUpViewController: UIViewController, UINavigationControllerDelega
 
     // MARK: - Actions
 
-    @objc func handleSelectProfilePhoto() {
+    @objc private func handleSelectProfilePhoto() {
+        let imagePicker = UIImagePickerController()
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        self.present(imagePicker, animated: true, completion: nil)
     }
 
-    @objc func handleShowLogin() {
+    @objc private func handleShowLogin() {
         navigationController?.popViewController(animated: true)
     }
 
-    @objc func handleSignUp() {
+    @objc private func handleSignUp() {
         guard let email = emailTextField.text,
               let password = passwordTextField.text,
               let fullName = fullNameTextField.text,
               let username = usernameTextField.text?.lowercased()
         else { return }
+        Auth.auth().createUser(withEmail: email, password: password) { [weak self] authResult, error in
+            self?.showAlertWith(error)
+            guard let profileImg = self?.profilePhotoImageView.image,
+                  let uploadData = profileImg.jpegData(compressionQuality: 0.3)
+            else { return }
+            let filename = NSUUID().uuidString
+            let storageRef = Storage.storage().reference().child("profile_images").child(filename)
+        }
     }
 
-    @objc func formValidation() {
+    @objc private func formValidation() {
         guard
             emailTextField.hasText,
             passwordTextField.hasText,
@@ -93,11 +109,30 @@ final class SignUpViewController: UIViewController, UINavigationControllerDelega
     private func configureActions() {
         let gesture = UITapGestureRecognizer(target: self, action: #selector(handleSelectProfilePhoto))
         profilePhotoImageView.addGestureRecognizer(gesture)
+        profilePhotoImageView.isUserInteractionEnabled = true
         signUpButton.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
         emailTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         fullNameTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         usernameTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         alreadyHaveAccountButton.addTarget(self, action: #selector(handleShowLogin), for: .touchUpInside)
+    }
+}
+
+// MARK: - UIImagePickerControllerDelegate & UINavigationControllerDelegate
+
+extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        guard let profileImage = info[.editedImage] as? UIImage else {
+            imageSelected = false
+            return
+        }
+        imageSelected = true
+        profilePhotoImageView.layer.cornerRadius = profilePhotoImageView.frame.width / 2
+        profilePhotoImageView.layer.masksToBounds = true
+        profilePhotoImageView.layer.borderColor = UIColor.white.cgColor
+        profilePhotoImageView.layer.borderWidth = 3
+        profilePhotoImageView.image = profileImage.withRenderingMode(.alwaysOriginal)
+        self.dismiss(animated: true, completion: nil)
     }
 }
