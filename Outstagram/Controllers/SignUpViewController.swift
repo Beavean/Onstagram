@@ -60,7 +60,25 @@ final class SignUpViewController: UIViewController {
                   let uploadData = profileImg.jpegData(compressionQuality: 0.3)
             else { return }
             let filename = NSUUID().uuidString
-            let storageRef = Storage.storage().reference().child("profile_images").child(filename)
+            let storageRef = Storage.storage().reference().child(K.FB.profileImageReference).child(filename)
+            storageRef.putData(uploadData) { _, error in
+                if let error {
+                    self?.showAlertWith(error)
+                    return
+                }
+                storageRef.downloadURL { downloadURL, error in
+                    self?.showAlertWith(error)
+                    guard let profileImageUrl = downloadURL?.absoluteString, let uid = authResult?.user.uid else { return }
+                    let dictionaryValues = ["name": fullName,
+                                            "username": username,
+                                            "profileImageUrl": profileImageUrl]
+                    let values = [uid: dictionaryValues]
+                    K.FB.usersReference.updateChildValues(values) { error, _ in
+                        self?.showAlertWith(error)
+                        self?.dismiss(animated: true, completion: nil)
+                    }
+                }
+            }
         }
     }
 

@@ -17,4 +17,12 @@ extension UIViewController {
             self.present(alert, animated: true)
         }
     }
+
+    func showAlertWith(title: String, message: String = "") {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default))
+        DispatchQueue.main.async {
+            self.present(alert, animated: true)
+        }
+    }
 }
