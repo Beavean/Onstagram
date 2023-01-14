@@ -42,6 +42,15 @@ final class LoginViewController: UIViewController {
     }
 
     @objc private func handleLogin() {
+        guard let email = emailTextField.text, let password = passwordTextField.text else { return }
+        Auth.auth().signIn(withEmail: email, password: password) { [weak self] _, error in
+            if let error {
+                self?.showAlertWith(error)
+                return
+            }
+            let mainTabViewController = MainTabController()
+            self?.present(mainTabViewController, animated: true)
+        }
     }
 
     @objc private func formValidation() {

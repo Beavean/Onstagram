@@ -16,6 +16,12 @@
 		0867A852296CDDFF002F3170 /* AuthenticationTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867A851296CDDFF002F3170 /* AuthenticationTextField.swift */; };
 		0889383C2970C98800BE0612 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889383B2970C98800BE0612 /* UIViewController+Alert.swift */; };
 		0889383E2970CBF800BE0612 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889383D2970CBF800BE0612 /* Constants.swift */; };
+		08893844297319A400BE0612 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08893843297319A400BE0612 /* MainTabViewController.swift */; };
+		0889384629731C8B00BE0612 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889384529731C8B00BE0612 /* FeedViewController.swift */; };
+		0889384829731CA400BE0612 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889384729731CA400BE0612 /* SearchViewController.swift */; };
+		0889384A29731CB900BE0612 /* UploadPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889384929731CB900BE0612 /* UploadPostViewController.swift */; };
+		0889384C29731CD600BE0612 /* NotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889384B29731CD600BE0612 /* NotificationsTableViewController.swift */; };
+		0889384E29731CED00BE0612 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889384D29731CED00BE0612 /* UserProfileViewController.swift */; };
 		08C6AE41296EE0D400362910 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C6AE40296EE0D400362910 /* SignUpViewController.swift */; };
 		08D65988296B7C610089624D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D65987296B7C610089624D /* AppDelegate.swift */; };
 		08D6598C296B7C610089624D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D6598B296B7C610089624D /* LoginViewController.swift */; };
@@ -34,6 +40,12 @@
 		0867A851296CDDFF002F3170 /* AuthenticationTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTextField.swift; sourceTree = "<group>"; };
 		0889383B2970C98800BE0612 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		0889383D2970CBF800BE0612 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		08893843297319A400BE0612 /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
+		0889384529731C8B00BE0612 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		0889384729731CA400BE0612 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		0889384929731CB900BE0612 /* UploadPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPostViewController.swift; sourceTree = "<group>"; };
+		0889384B29731CD600BE0612 /* NotificationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewController.swift; sourceTree = "<group>"; };
+		0889384D29731CED00BE0612 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		08C6AE40296EE0D400362910 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		08D65984296B7C610089624D /* Outstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Outstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08D65987296B7C610089624D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -119,6 +131,12 @@
 			children = (
 				08D6598B296B7C610089624D /* LoginViewController.swift */,
 				08C6AE40296EE0D400362910 /* SignUpViewController.swift */,
+				08893843297319A400BE0612 /* MainTabViewController.swift */,
+				0889384529731C8B00BE0612 /* FeedViewController.swift */,
+				0889384729731CA400BE0612 /* SearchViewController.swift */,
+				0889384929731CB900BE0612 /* UploadPostViewController.swift */,
+				0889384B29731CD600BE0612 /* NotificationsTableViewController.swift */,
+				0889384D29731CED00BE0612 /* UserProfileViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -304,11 +322,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0889384A29731CB900BE0612 /* UploadPostViewController.swift in Sources */,
 				08C6AE41296EE0D400362910 /* SignUpViewController.swift in Sources */,
+				0889384C29731CD600BE0612 /* NotificationsTableViewController.swift in Sources */,
+				0889384E29731CED00BE0612 /* UserProfileViewController.swift in Sources */,
 				0889383E2970CBF800BE0612 /* Constants.swift in Sources */,
 				0867A84F296CDC4D002F3170 /* UIViewController+Gradient.swift in Sources */,
+				0889384629731C8B00BE0612 /* FeedViewController.swift in Sources */,
 				083A1FDA296F69B30050C2DA /* AuthenticationSwitchButton.swift in Sources */,
 				083A1FD8296F676D0050C2DA /* AuthenticationButton.swift in Sources */,
+				0889384829731CA400BE0612 /* SearchViewController.swift in Sources */,
+				08893844297319A400BE0612 /* MainTabViewController.swift in Sources */,
 				08D6598C296B7C610089624D /* LoginViewController.swift in Sources */,
 				0889383C2970C98800BE0612 /* UIViewController+Alert.swift in Sources */,
 				0867A84D296CD69D002F3170 /* UIView+Anchors.swift in Sources */,
