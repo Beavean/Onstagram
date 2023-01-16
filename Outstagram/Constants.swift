@@ -17,6 +17,11 @@ enum K {
         static let profileImageReference = "profile_images"
         static let usersReference = databaseReference.child("users")
     }
+
+    enum UI {
+        static let cellIdentifier = "Cell"
+        static let headerIdentifier = String(describing: UserProfileHeader.self)
+    }
 }
 
 // swiftlint:enable type_name

@@ -34,7 +34,7 @@ final class LoginViewController: UIViewController {
         configureActions()
     }
 
-    // MARK: - Actions
+    // MARK: - Handlers
 
     @objc private func handleShowSignUp() {
         let controller = SignUpViewController()
@@ -48,8 +48,9 @@ final class LoginViewController: UIViewController {
                 self?.showAlertWith(error)
                 return
             }
-            let mainTabViewController = MainTabController()
-            self?.present(mainTabViewController, animated: true)
+            let mainTabViewController = MainTabViewController()
+            mainTabViewController.configureViewControllers()
+            self?.dismiss(animated: true)
         }
     }
 

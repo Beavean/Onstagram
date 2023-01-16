@@ -35,13 +35,13 @@ final class SignUpViewController: UIViewController {
         configureActions()
     }
 
-    // MARK: - Actions
+    // MARK: - Handlers
 
     @objc private func handleSelectProfilePhoto() {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
-        self.present(imagePicker, animated: true, completion: nil)
+        self.present(imagePicker, animated: true)
     }
 
     @objc private func handleShowLogin() {
@@ -75,7 +75,7 @@ final class SignUpViewController: UIViewController {
                     let values = [uid: dictionaryValues]
                     K.FB.usersReference.updateChildValues(values) { error, _ in
                         self?.showAlertWith(error)
-                        self?.dismiss(animated: true, completion: nil)
+                        self?.dismiss(animated: true)
                     }
                 }
             }
@@ -151,6 +151,6 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
         profilePhotoImageView.layer.borderColor = UIColor.white.cgColor
         profilePhotoImageView.layer.borderWidth = 3
         profilePhotoImageView.image = profileImage.withRenderingMode(.alwaysOriginal)
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true)
     }
 }

@@ -22,6 +22,7 @@
 		0889384A29731CB900BE0612 /* UploadPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889384929731CB900BE0612 /* UploadPostViewController.swift */; };
 		0889384C29731CD600BE0612 /* NotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889384B29731CD600BE0612 /* NotificationsTableViewController.swift */; };
 		0889384E29731CED00BE0612 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889384D29731CED00BE0612 /* UserProfileViewController.swift */; };
+		0889385629736AAB00BE0612 /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889385529736AAB00BE0612 /* UserProfileHeader.swift */; };
 		08C6AE41296EE0D400362910 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C6AE40296EE0D400362910 /* SignUpViewController.swift */; };
 		08D65988296B7C610089624D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D65987296B7C610089624D /* AppDelegate.swift */; };
 		08D6598C296B7C610089624D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D6598B296B7C610089624D /* LoginViewController.swift */; };
@@ -46,6 +47,7 @@
 		0889384929731CB900BE0612 /* UploadPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPostViewController.swift; sourceTree = "<group>"; };
 		0889384B29731CD600BE0612 /* NotificationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewController.swift; sourceTree = "<group>"; };
 		0889384D29731CED00BE0612 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
+		0889385529736AAB00BE0612 /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
 		08C6AE40296EE0D400362910 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		08D65984296B7C610089624D /* Outstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Outstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08D65987296B7C610089624D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -129,16 +131,65 @@
 		0889383A2970C16B00BE0612 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				08D6598B296B7C610089624D /* LoginViewController.swift */,
-				08C6AE40296EE0D400362910 /* SignUpViewController.swift */,
+				0889384F29736A5700BE0612 /* Authentication */,
 				08893843297319A400BE0612 /* MainTabViewController.swift */,
-				0889384529731C8B00BE0612 /* FeedViewController.swift */,
-				0889384729731CA400BE0612 /* SearchViewController.swift */,
-				0889384929731CB900BE0612 /* UploadPostViewController.swift */,
-				0889384B29731CD600BE0612 /* NotificationsTableViewController.swift */,
-				0889384D29731CED00BE0612 /* UserProfileViewController.swift */,
+				0889385029736A6600BE0612 /* Feed */,
+				0889385129736A7100BE0612 /* Search */,
+				0889385229736A7900BE0612 /* UploadPost */,
+				0889385329736A8900BE0612 /* Notifications */,
+				0889385429736A9100BE0612 /* UserProfile */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		0889384F29736A5700BE0612 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				08D6598B296B7C610089624D /* LoginViewController.swift */,
+				08C6AE40296EE0D400362910 /* SignUpViewController.swift */,
+			);
+			path = Authentication;
+			sourceTree = "<group>";
+		};
+		0889385029736A6600BE0612 /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				0889384529731C8B00BE0612 /* FeedViewController.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		0889385129736A7100BE0612 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				0889384729731CA400BE0612 /* SearchViewController.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		0889385229736A7900BE0612 /* UploadPost */ = {
+			isa = PBXGroup;
+			children = (
+				0889384929731CB900BE0612 /* UploadPostViewController.swift */,
+			);
+			path = UploadPost;
+			sourceTree = "<group>";
+		};
+		0889385329736A8900BE0612 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				0889384B29731CD600BE0612 /* NotificationsTableViewController.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		0889385429736A9100BE0612 /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				0889384D29731CED00BE0612 /* UserProfileViewController.swift */,
+				0889385529736AAB00BE0612 /* UserProfileHeader.swift */,
+			);
+			path = UserProfile;
 			sourceTree = "<group>";
 		};
 		08D6597B296B7C600089624D = {
@@ -325,6 +376,7 @@
 				0889384A29731CB900BE0612 /* UploadPostViewController.swift in Sources */,
 				08C6AE41296EE0D400362910 /* SignUpViewController.swift in Sources */,
 				0889384C29731CD600BE0612 /* NotificationsTableViewController.swift in Sources */,
+				0889385629736AAB00BE0612 /* UserProfileHeader.swift in Sources */,
 				0889384E29731CED00BE0612 /* UserProfileViewController.swift in Sources */,
 				0889383E2970CBF800BE0612 /* Constants.swift in Sources */,
 				0867A84F296CDC4D002F3170 /* UIViewController+Gradient.swift in Sources */,

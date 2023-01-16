@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class MainTabController: UITabBarController, UITabBarControllerDelegate {
+class MainTabViewController: UITabBarController, UITabBarControllerDelegate {
 
     // MARK: - Properties
 
@@ -55,9 +55,9 @@ class MainTabController: UITabBarController, UITabBarControllerDelegate {
         var selectedImage: UIImage? {
             switch self {
             case .feed:
-                return UIImage(systemName: "person.fill")
+                return UIImage(systemName: "house.fill")
             case .search:
-                return UIImage(systemName: "person.fill")
+                return UIImage(systemName: "sparkle.magnifyingglass")
             case .uploadPost:
                 return UIImage(systemName: "plus.app")
             case .notifications:
@@ -72,13 +72,18 @@ class MainTabController: UITabBarController, UITabBarControllerDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.delegate = self
+        delegate = self
         configureViewControllers()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        checkIfUserIsLoggedIn()
     }
 
     // MARK: - Handlers
 
-    private func configureViewControllers() {
+    func configureViewControllers() {
         var createdControllers = [UIViewController]()
         NavigationItems.allCases.forEach { item in
             createdControllers.append(createNavigationController(unselectedImage: item.unselectedImage,
@@ -97,5 +102,12 @@ class MainTabController: UITabBarController, UITabBarControllerDelegate {
         navController.tabBarItem.selectedImage = selectedImage
         navController.navigationBar.tintColor = .black
         return navController
+    }
+
+    private func checkIfUserIsLoggedIn() {
+        guard Auth.auth().currentUser == nil else { return }
+        let navigationController = UINavigationController(rootViewController: LoginViewController())
+        navigationController.modalPresentationStyle = .fullScreen
+        self.present(navigationController, animated: true)
     }
 }
