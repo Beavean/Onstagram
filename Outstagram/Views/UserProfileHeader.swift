@@ -22,6 +22,7 @@ class UserProfileHeader: UICollectionViewCell {
 
     private let nameLabel: UILabel = {
         let label = UILabel()
+        label.text = "Full Name"
         label.font = UIFont.boldSystemFont(ofSize: 12)
         return label
     }()
@@ -84,14 +85,14 @@ class UserProfileHeader: UICollectionViewCell {
 
     private let gridButton: UIButton = {
         let button = UIButton(type: .system)
-        let image = UIImage(systemName: "heart")
+        let image = UIImage(systemName: "squareshape.split.3x3")
         button.setImage(image, for: .normal)
         return button
     }()
 
     private let listButton: UIButton = {
         let button = UIButton(type: .system)
-        let image = UIImage(systemName: "heart")
+        let image = UIImage(systemName: "rectangle.grid.1x2")
         button.setImage(image, for: .normal)
         button.tintColor = UIColor(white: 0, alpha: 0.2)
         return button
@@ -99,11 +100,20 @@ class UserProfileHeader: UICollectionViewCell {
 
     private let bookmarkButton: UIButton = {
         let button = UIButton(type: .system)
-        let image = UIImage(systemName: "heart")
+        let image = UIImage(systemName: "bookmark")
         button.setImage(image, for: .normal)
         button.tintColor = UIColor(white: 0, alpha: 0.2)
         return button
     }()
+
+    // MARK: - Properties
+
+    var user: User? {
+        didSet {
+            let fullName = user?.name
+            nameLabel.text = fullName
+        }
+    }
 
     // MARK: - Init
 
@@ -111,11 +121,11 @@ class UserProfileHeader: UICollectionViewCell {
         super.init(frame: frame)
 
         addSubview(profileImageView)
-        profileImageView.anchor(top: self.topAnchor, left: self.leftAnchor, paddingTop: 16, paddingLeft: 12, width: 80, height: 80)
+        profileImageView.anchor(top: topAnchor, left: leftAnchor, paddingTop: 16, paddingLeft: 12, width: 80, height: 80)
         profileImageView.layer.cornerRadius = 80 / 2
 
         addSubview(nameLabel)
-        nameLabel.anchor(top: profileImageView.bottomAnchor, left: self.leftAnchor, paddingTop: 12, paddingLeft: 12)
+        nameLabel.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, paddingTop: 12, paddingLeft: 12)
 
         configureUserStats()
 
@@ -163,7 +173,7 @@ class UserProfileHeader: UICollectionViewCell {
         addSubview(topDividerView)
         addSubview(bottomDividerView)
 
-        stackView.anchor(left: leftAnchor, bottom: self.bottomAnchor, right: rightAnchor, height: 50)
+        stackView.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 50)
         topDividerView.anchor(top: stackView.topAnchor, left: leftAnchor, right: rightAnchor, height: 0.5)
         bottomDividerView.anchor(top: stackView.bottomAnchor, left: leftAnchor, right: rightAnchor, height: 0.5)
     }
@@ -175,7 +185,7 @@ class UserProfileHeader: UICollectionViewCell {
         stackView.distribution = .fillEqually
 
         addSubview(stackView)
-        stackView.anchor(top: self.topAnchor,
+        stackView.anchor(top: topAnchor,
                          left: profileImageView.rightAnchor,
                          right: rightAnchor, paddingTop: 12,
                          paddingLeft: 12,
