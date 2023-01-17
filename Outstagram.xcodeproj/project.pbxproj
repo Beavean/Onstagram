@@ -25,6 +25,7 @@
 		0889384C29731CD600BE0612 /* NotificationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889384B29731CD600BE0612 /* NotificationsTableViewController.swift */; };
 		0889384E29731CED00BE0612 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889384D29731CED00BE0612 /* UserProfileViewController.swift */; };
 		0889385629736AAB00BE0612 /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889385529736AAB00BE0612 /* UserProfileHeader.swift */; };
+		08B87F6D29775BB2007DFD3D /* SearchUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B87F6C29775BB2007DFD3D /* SearchUserCell.swift */; };
 		08C6AE41296EE0D400362910 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C6AE40296EE0D400362910 /* SignUpViewController.swift */; };
 		08D65988296B7C610089624D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D65987296B7C610089624D /* AppDelegate.swift */; };
 		08D6598C296B7C610089624D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D6598B296B7C610089624D /* LoginViewController.swift */; };
@@ -52,6 +53,7 @@
 		0889384B29731CD600BE0612 /* NotificationsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsTableViewController.swift; sourceTree = "<group>"; };
 		0889384D29731CED00BE0612 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		0889385529736AAB00BE0612 /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
+		08B87F6C29775BB2007DFD3D /* SearchUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserCell.swift; sourceTree = "<group>"; };
 		08C6AE40296EE0D400362910 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		08D65984296B7C610089624D /* Outstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Outstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08D65987296B7C610089624D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				0889385529736AAB00BE0612 /* UserProfileHeader.swift */,
+				08B87F6C29775BB2007DFD3D /* SearchUserCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				0889384829731CA400BE0612 /* SearchViewController.swift in Sources */,
 				08893844297319A400BE0612 /* MainTabViewController.swift in Sources */,
 				08D6598C296B7C610089624D /* LoginViewController.swift in Sources */,
+				08B87F6D29775BB2007DFD3D /* SearchUserCell.swift in Sources */,
 				0889383C2970C98800BE0612 /* UIViewController+Alert.swift in Sources */,
 				0867A84D296CD69D002F3170 /* UIView+Anchors.swift in Sources */,
 				083A1FDD296F6BA30050C2DA /* AuthenticationImageView.swift in Sources */,

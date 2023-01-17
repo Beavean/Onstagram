@@ -60,13 +60,13 @@ final class SignUpViewController: UIViewController {
                   let uploadData = profileImg.jpegData(compressionQuality: 0.3)
             else { return }
             let filename = NSUUID().uuidString
-            let storageRef = Storage.storage().reference().child(K.FB.profileImageReference).child(filename)
-            storageRef.putData(uploadData) { _, error in
+            let storageReference = Storage.storage().reference().child(K.FB.profileImageReference).child(filename)
+            storageReference.putData(uploadData) { _, error in
                 if let error {
                     self?.showAlertWith(error)
                     return
                 }
-                storageRef.downloadURL { downloadURL, error in
+                storageReference.downloadURL { downloadURL, error in
                     self?.showAlertWith(error)
                     guard let profileImageUrl = downloadURL?.absoluteString, let uid = authResult?.user.uid else { return }
                     let dictionaryValues = ["name": fullName,
@@ -74,7 +74,18 @@ final class SignUpViewController: UIViewController {
                                             "profileImageUrl": profileImageUrl]
                     let values = [uid: dictionaryValues]
                     K.FB.usersReference.updateChildValues(values) { error, _ in
-                        self?.showAlertWith(error)
+                        if let error {
+                            self?.showAlertWith(error)
+                        } else {
+                            self?.showAlertWith(title: "Successfully signed up!")
+                        }
+                        guard let mainTabVC = UIApplication
+                            .shared
+                            .windows
+                            .filter({$0.isKeyWindow})
+                            .first?
+                            .rootViewController as? MainTabViewController else { return }
+                        mainTabVC.configureViewControllers()
                         self?.dismiss(animated: true)
                     }
                 }

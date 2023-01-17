@@ -47,9 +47,16 @@ final class LoginViewController: UIViewController {
             if let error {
                 self?.showAlertWith(error)
                 return
+            } else {
+                self?.showAlertWith(title: "Logged in successfully")
             }
-            let mainTabViewController = MainTabViewController()
-            mainTabViewController.configureViewControllers()
+            guard let mainTabVC = UIApplication
+                .shared
+                .windows
+                .filter({$0.isKeyWindow})
+                .first?
+                .rootViewController as? MainTabViewController else { return }
+            mainTabVC.configureViewControllers()
             self?.dismiss(animated: true)
         }
     }
