@@ -15,6 +15,7 @@
 		0867A84F296CDC4D002F3170 /* UIViewController+Gradient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867A84E296CDC4D002F3170 /* UIViewController+Gradient.swift */; };
 		0867A852296CDDFF002F3170 /* AuthenticationTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867A851296CDDFF002F3170 /* AuthenticationTextField.swift */; };
 		087091362976AE8900807D39 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087091352976AE8900807D39 /* User.swift */; };
+		087091382976B5A600807D39 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087091372976B5A600807D39 /* CustomImageView.swift */; };
 		0889383C2970C98800BE0612 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889383B2970C98800BE0612 /* UIViewController+Alert.swift */; };
 		0889383E2970CBF800BE0612 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889383D2970CBF800BE0612 /* Constants.swift */; };
 		08893844297319A400BE0612 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08893843297319A400BE0612 /* MainTabViewController.swift */; };
@@ -41,6 +42,7 @@
 		0867A84E296CDC4D002F3170 /* UIViewController+Gradient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Gradient.swift"; sourceTree = "<group>"; };
 		0867A851296CDDFF002F3170 /* AuthenticationTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTextField.swift; sourceTree = "<group>"; };
 		087091352976AE8900807D39 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		087091372976B5A600807D39 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		0889383B2970C98800BE0612 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		0889383D2970CBF800BE0612 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		08893843297319A400BE0612 /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				083A1FD7296F676D0050C2DA /* AuthenticationButton.swift */,
 				083A1FD9296F69B30050C2DA /* AuthenticationSwitchButton.swift */,
 				083A1FDC296F6BA30050C2DA /* AuthenticationImageView.swift */,
+				087091372976B5A600807D39 /* CustomImageView.swift */,
 			);
 			path = CustomViews;
 			sourceTree = "<group>";
@@ -386,6 +389,7 @@
 				0867A84F296CDC4D002F3170 /* UIViewController+Gradient.swift in Sources */,
 				0889384629731C8B00BE0612 /* FeedViewController.swift in Sources */,
 				083A1FDA296F69B30050C2DA /* AuthenticationSwitchButton.swift in Sources */,
+				087091382976B5A600807D39 /* CustomImageView.swift in Sources */,
 				083A1FD8296F676D0050C2DA /* AuthenticationButton.swift in Sources */,
 				0889384829731CA400BE0612 /* SearchViewController.swift in Sources */,
 				08893844297319A400BE0612 /* MainTabViewController.swift in Sources */,

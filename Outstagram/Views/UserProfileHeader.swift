@@ -12,8 +12,8 @@ class UserProfileHeader: UICollectionViewCell {
 
     // MARK: - UI Elements
 
-    private let profileImageView: UIImageView = {
-        let imageView = UIImageView()
+    private let profileImageView: CustomImageView = {
+        let imageView = CustomImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.backgroundColor = .lightGray
@@ -112,6 +112,7 @@ class UserProfileHeader: UICollectionViewCell {
         didSet {
             let fullName = user?.name
             nameLabel.text = fullName
+            profileImageView.loadImage(with: user?.profileImageUrl)
         }
     }
 
