@@ -7,9 +7,9 @@
 
 import UIKit
 
-class CustomImageView: UIImageView {
+final class CustomImageView: UIImageView {
 
-    private var imageCache = [String: UIImage]()
+    var imageCache = [String: UIImage]()
 
     var lastImgUrlUsedToLoadImage: String?
 

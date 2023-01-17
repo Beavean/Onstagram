@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AuthenticationSwitchButton: UIButton {
+final class AuthenticationSwitchButton: UIButton {
 
     init(firstLabelText: String, secondLabelText: String) {
         super.init(frame: .zero)

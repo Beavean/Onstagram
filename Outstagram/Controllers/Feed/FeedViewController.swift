@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class FeedViewController: UICollectionViewController {
+final class FeedViewController: UICollectionViewController {
 
     // MARK: - Properties
 

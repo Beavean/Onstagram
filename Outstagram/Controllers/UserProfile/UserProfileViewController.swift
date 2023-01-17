@@ -9,7 +9,7 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class UserProfileViewController: UICollectionViewController {
+final class UserProfileViewController: UICollectionViewController {
 
     // MARK: - Properties
 

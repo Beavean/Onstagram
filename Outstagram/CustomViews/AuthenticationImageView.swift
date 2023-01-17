@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AuthenticationImageView: UIImageView {
+final class AuthenticationImageView: UIImageView {
 
     override init(image: UIImage?) {
         super.init(frame: .zero)

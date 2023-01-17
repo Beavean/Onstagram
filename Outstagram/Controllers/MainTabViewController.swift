@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class MainTabViewController: UITabBarController, UITabBarControllerDelegate {
+final class MainTabViewController: UITabBarController, UITabBarControllerDelegate {
 
     // MARK: - Properties
 

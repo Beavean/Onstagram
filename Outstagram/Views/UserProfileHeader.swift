@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseAuth
 
-class UserProfileHeader: UICollectionViewCell {
+final class UserProfileHeader: UICollectionViewCell {
 
     // MARK: - UI Elements
 

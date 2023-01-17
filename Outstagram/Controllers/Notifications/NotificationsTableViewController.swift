@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NotificationsTableViewController: UITableViewController {
+final class NotificationsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

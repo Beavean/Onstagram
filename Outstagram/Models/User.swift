@@ -7,7 +7,7 @@
 
 import Foundation
 
-class User {
+final class User {
 
     var username: String!
     var name: String!

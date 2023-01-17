@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AuthenticationButton: UIButton {
+final class AuthenticationButton: UIButton {
 
     init(labelText: String) {
         super.init(frame: .zero)
