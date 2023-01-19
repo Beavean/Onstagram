@@ -8,6 +8,13 @@
 import UIKit
 import FirebaseAuth
 
+protocol UserProfileHeaderDelegate: AnyObject {
+    func handleEditFollowTapped(for header: UserProfileHeader)
+    func setUserStats(for header: UserProfileHeader)
+    func handleFollowersTapped(for header: UserProfileHeader)
+    func handleFollowingTapped(for header: UserProfileHeader)
+}
+
 final class UserProfileHeader: UICollectionViewCell {
 
     // MARK: - UI Elements
@@ -27,11 +34,11 @@ final class UserProfileHeader: UICollectionViewCell {
         return label
     }()
 
-    private lazy var postsLabel = createProfileLabel(title: "0", subTitle: "posts", selector: nil)
-    private lazy var followersLabel = createProfileLabel(title: "0", subTitle: "followers", selector: #selector(handleFollowersTapped))
-    private lazy var followingLabel = createProfileLabel(title: "0", subTitle: "following", selector: #selector(handleFollowingTapped))
+    lazy var postsLabel = createProfileLabel(title: "0", subTitle: "posts", selector: nil)
+    lazy var followersLabel = createProfileLabel(title: "0", subTitle: "followers", selector: #selector(handleFollowersTapped))
+    lazy var followingLabel = createProfileLabel(title: "0", subTitle: "following", selector: #selector(handleFollowingTapped))
 
-    private lazy var editProfileFollowButton: UIButton = {
+    lazy var editProfileFollowButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Follow", for: .normal)
         button.layer.cornerRadius = 3
@@ -68,6 +75,7 @@ final class UserProfileHeader: UICollectionViewCell {
 
     // MARK: - Properties
 
+    weak var delegate: UserProfileHeaderDelegate?
     var user: User? {
         didSet {
             let fullName = user?.name
@@ -81,16 +89,12 @@ final class UserProfileHeader: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         addSubview(profileImageView)
         profileImageView.anchor(top: topAnchor, left: leftAnchor, paddingTop: 16, paddingLeft: 12, width: 80, height: 80)
         profileImageView.layer.cornerRadius = 80 / 2
-
         addSubview(nameLabel)
         nameLabel.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, paddingTop: 12, paddingLeft: 12)
-
         configureUserStats()
-
         addSubview(editProfileFollowButton)
         editProfileFollowButton.anchor(top: postsLabel.bottomAnchor,
                                        left: postsLabel.leftAnchor,
@@ -108,13 +112,20 @@ final class UserProfileHeader: UICollectionViewCell {
 
     // MARK: - Handlers
 
-    @objc private func handleFollowersTapped() {
+    @objc func handleFollowersTapped() {
+        delegate?.handleFollowersTapped(for: self)
     }
 
-    @objc private func handleFollowingTapped() {
+    @objc func handleFollowingTapped() {
+        delegate?.handleFollowingTapped(for: self)
     }
 
-    @objc private func handleEditProfileFollow() {
+    @objc func handleEditProfileFollow() {
+        delegate?.handleEditFollowTapped(for: self)
+    }
+
+    func setUserStats(for user: User?) {
+        delegate?.setUserStats(for: self)
     }
 
     // MARK: - Helpers
@@ -122,19 +133,14 @@ final class UserProfileHeader: UICollectionViewCell {
     private func configureBottomToolBar() {
         let topDividerView = UIView()
         topDividerView.backgroundColor = .lightGray
-
         let bottomDividerView = UIView()
         bottomDividerView.backgroundColor = .lightGray
-
         let stackView = UIStackView(arrangedSubviews: [gridButton, listButton, bookmarkButton])
-
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-
         addSubview(stackView)
         addSubview(topDividerView)
         addSubview(bottomDividerView)
-
         stackView.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 50)
         topDividerView.anchor(top: stackView.topAnchor, left: leftAnchor, right: rightAnchor, height: 0.5)
         bottomDividerView.anchor(top: stackView.bottomAnchor, left: leftAnchor, right: rightAnchor, height: 0.5)
@@ -142,10 +148,8 @@ final class UserProfileHeader: UICollectionViewCell {
 
     private func configureUserStats() {
         let stackView = UIStackView(arrangedSubviews: [postsLabel, followersLabel, followingLabel])
-
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-
         addSubview(stackView)
         stackView.anchor(top: topAnchor,
                          left: profileImageView.rightAnchor,
@@ -162,6 +166,9 @@ final class UserProfileHeader: UICollectionViewCell {
         } else {
             editProfileFollowButton.setTitleColor(.white, for: .normal)
             editProfileFollowButton.backgroundColor = .systemBlue
+            user.checkIfUserIsFollowed { [weak self] followed in
+                self?.editProfileFollowButton.setTitle(followed ? "Following" : "Follow", for: .normal)
+            }
         }
     }
 

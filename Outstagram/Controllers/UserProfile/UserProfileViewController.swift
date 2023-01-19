@@ -67,6 +67,7 @@ final class UserProfileViewController: UICollectionViewController {
                                                                            for: indexPath) as? UserProfileHeader
         else { return UICollectionReusableView() }
         header.user = self.user
+        header.delegate = self
         navigationItem.title = user?.username
         return header
     }
@@ -84,5 +85,75 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
         CGSize(width: view.frame.width, height: 200)
+    }
+}
+
+// MARK: - UserProfileHeaderDelegate
+
+extension UserProfileViewController: UserProfileHeaderDelegate {
+
+    func handleFollowersTapped(for header: UserProfileHeader) {
+    }
+
+    func handleFollowingTapped(for header: UserProfileHeader) {
+    }
+
+    func handleEditFollowTapped(for header: UserProfileHeader) {
+        guard let user = header.user else { return }
+        // FIXME: - Edit profile
+        if header.editProfileFollowButton.titleLabel?.text == "Edit Profile" {
+        } else {
+            if header.editProfileFollowButton.titleLabel?.text == "Follow" {
+                header.editProfileFollowButton.setTitle("Following", for: .normal)
+                user.follow()
+            } else {
+                header.editProfileFollowButton.setTitle("Follow", for: .normal)
+                user.unfollow()
+            }
+        }
+    }
+
+    func setUserStats(for header: UserProfileHeader) {
+        guard let uid = header.user?.uid else { return }
+        var numberOfFollowers: Int!
+        var numberOfFollowing: Int!
+        K.FB.userFollowersRef.child(uid).observe(.value) { snapshot in
+            if let snapshot = snapshot.value as? [String: AnyObject] {
+                numberOfFollowers = snapshot.count
+            } else {
+                numberOfFollowers = 0
+            }
+            let attributedText = NSMutableAttributedString(string: "\(numberOfFollowers!)\n",
+                                                           attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
+            attributedText.append(NSAttributedString(string: "followers",
+                                                     attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+                                                                  NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+            header.followersLabel.attributedText = attributedText
+        }
+
+        K.FB.userFollowingRef.child(uid).observe(.value) { snapshot in
+            if let snapshot = snapshot.value as? [String: AnyObject] {
+                numberOfFollowing = snapshot.count
+            } else {
+                numberOfFollowing = 0
+            }
+            let attributedText = NSMutableAttributedString(string: "\(numberOfFollowing!)\n",
+                                                           attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
+            attributedText.append(NSAttributedString(string: "following",
+                                                     attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+                                                                  NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+            header.followingLabel.attributedText = attributedText
+        }
+
+        K.FB.userPostsRef.child(uid).observeSingleEvent(of: .value) { snapshot in
+            guard let snapshot = snapshot.children.allObjects as? [DataSnapshot] else { return }
+            let postCount = snapshot.count
+            let attributedText = NSMutableAttributedString(string: "\(postCount)\n",
+                                                           attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
+            attributedText.append(NSAttributedString(string: "posts",
+                                                     attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+                                                                  NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+            header.postsLabel.attributedText = attributedText
+        }
     }
 }

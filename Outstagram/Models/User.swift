@@ -30,15 +30,38 @@ final class User {
     }
 
     func follow() {
-        guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        guard let uid = uid else { return }
+        guard let currentUid = Auth.auth().currentUser?.uid, let uid else { return }
         self.isFollowed = true
         K.FB.userFollowingRef.child(currentUid).updateChildValues([uid: 1])
         K.FB.userFollowersRef.child(uid).updateChildValues([currentUid: 1])
         uploadFollowNotificationToServer()
-        K.FB.userPostsRef.child(uid).observe(.childAdded) { (snapshot) in
+        K.FB.userPostsRef.child(uid).observe(.childAdded) { snapshot in
             let postId = snapshot.key
             K.FB.userFeedRef.child(currentUid).updateChildValues([postId: 1])
+        }
+    }
+
+    func unfollow() {
+        guard let currentUid = Auth.auth().currentUser?.uid, let uid else { return }
+        self.isFollowed = false
+        K.FB.userFollowingRef.child(currentUid).child(uid).removeValue()
+        K.FB.userFollowersRef.child(uid).child(currentUid).removeValue()
+        K.FB.userPostsRef.child(uid).observe(.childAdded) { snapshot in
+            let postId = snapshot.key
+            K.FB.userFeedRef.child(currentUid).child(postId).removeValue()
+        }
+    }
+
+    func checkIfUserIsFollowed(completion: @escaping(Bool) -> Void) {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        K.FB.userFollowingRef.child(currentUid).observeSingleEvent(of: .value) { snapshot in
+            if snapshot.hasChild(self.uid) {
+                self.isFollowed = true
+                completion(true)
+            } else {
+                self.isFollowed = false
+                completion(false)
+            }
         }
     }
 
