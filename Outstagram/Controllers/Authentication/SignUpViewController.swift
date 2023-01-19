@@ -108,6 +108,10 @@ final class SignUpViewController: UIViewController {
         signUpButton.alpha = 1
     }
 
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
     // MARK: - Helpers
 
     private func configureUI() {
@@ -136,6 +140,8 @@ final class SignUpViewController: UIViewController {
     }
 
     private func configureActions() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
         let gesture = UITapGestureRecognizer(target: self, action: #selector(handleSelectProfilePhoto))
         profilePhotoImageView.addGestureRecognizer(gesture)
         profilePhotoImageView.isUserInteractionEnabled = true

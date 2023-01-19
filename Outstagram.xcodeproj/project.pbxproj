@@ -26,6 +26,7 @@
 		0889384E29731CED00BE0612 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889384D29731CED00BE0612 /* UserProfileViewController.swift */; };
 		0889385629736AAB00BE0612 /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889385529736AAB00BE0612 /* UserProfileHeader.swift */; };
 		08B87F6D29775BB2007DFD3D /* SearchUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B87F6C29775BB2007DFD3D /* SearchUserCell.swift */; };
+		08B87F7129789C83007DFD3D /* Dev.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B87F7029789C83007DFD3D /* Dev.swift */; };
 		08C6AE41296EE0D400362910 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C6AE40296EE0D400362910 /* SignUpViewController.swift */; };
 		08D65988296B7C610089624D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D65987296B7C610089624D /* AppDelegate.swift */; };
 		08D6598C296B7C610089624D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D6598B296B7C610089624D /* LoginViewController.swift */; };
@@ -54,6 +55,7 @@
 		0889384D29731CED00BE0612 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		0889385529736AAB00BE0612 /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
 		08B87F6C29775BB2007DFD3D /* SearchUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserCell.swift; sourceTree = "<group>"; };
+		08B87F7029789C83007DFD3D /* Dev.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dev.swift; sourceTree = "<group>"; };
 		08C6AE40296EE0D400362910 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		08D65984296B7C610089624D /* Outstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Outstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08D65987296B7C610089624D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				088938372970C13B00BE0612 /* CustomViews */,
 				088938362970C12200BE0612 /* Extensions */,
 				0889383D2970CBF800BE0612 /* Constants.swift */,
+				08B87F7029789C83007DFD3D /* Dev.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -394,6 +397,7 @@
 				083A1FDA296F69B30050C2DA /* AuthenticationSwitchButton.swift in Sources */,
 				087091382976B5A600807D39 /* CustomImageView.swift in Sources */,
 				083A1FD8296F676D0050C2DA /* AuthenticationButton.swift in Sources */,
+				08B87F7129789C83007DFD3D /* Dev.swift in Sources */,
 				0889384829731CA400BE0612 /* SearchViewController.swift in Sources */,
 				08893844297319A400BE0612 /* MainTabViewController.swift in Sources */,
 				08D6598C296B7C610089624D /* LoginViewController.swift in Sources */,

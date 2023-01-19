@@ -71,6 +71,10 @@ final class LoginViewController: UIViewController {
         }
     }
 
+    @objc private func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
     // MARK: - Helpers
 
     private func configureUI() {
@@ -102,6 +106,8 @@ final class LoginViewController: UIViewController {
     }
 
     private func configureActions() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tap)
         emailTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         passwordTextField.addTarget(self, action: #selector(formValidation), for: .editingChanged)
         loginButton.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)

@@ -6,16 +6,33 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 final class SearchViewController: UITableViewController {
+
+    // MARK: - Properties
+
+    var users = [User]() {
+        didSet { self.tableView.reloadData() }
+    }
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(SearchUserCell.self, forCellReuseIdentifier: K.UI.searchUserCellIdentifier)
         tableView.separatorStyle = .none
+        fetchUsers()
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table view methods
+
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let user = users[indexPath.row]
+        let userProfileVC = UserProfileViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        userProfileVC.user = user
+        navigationController?.pushViewController(userProfileVC, animated: true)
+    }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         60
@@ -26,12 +43,24 @@ final class SearchViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        4
+        users.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: K.UI.searchUserCellIdentifier, for: indexPath) as? SearchUserCell
         else { return UITableViewCell() }
+        cell.user = users[indexPath.row]
         return cell
+    }
+
+    // MARK: - API
+
+    private func fetchUsers() {
+        K.FB.usersReference.observe(.childAdded) { [weak self] snapshot, _ in
+            let uid = snapshot.key
+            guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
+            let user = User(uid: uid, dictionary: dictionary)
+            self?.users.append(user)
+        }
     }
 }

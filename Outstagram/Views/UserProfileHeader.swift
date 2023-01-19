@@ -27,53 +27,13 @@ final class UserProfileHeader: UICollectionViewCell {
         return label
     }()
 
-    private let postsLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        let attributedText = NSMutableAttributedString(string: "5\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
-        attributedText.append(NSAttributedString(string: "posts",
-                                                 attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
-                                                              NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
-        label.attributedText = attributedText
-        return label
-    }()
-
-    private lazy var followersLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        let attributedText = NSMutableAttributedString(string: "0\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
-        attributedText.append(NSAttributedString(string: "followers",
-                                                 attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
-                                                              NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
-        label.attributedText = attributedText
-        let followTap = UITapGestureRecognizer(target: self, action: #selector(handleFollowersTapped))
-        followTap.numberOfTapsRequired = 1
-        label.isUserInteractionEnabled = true
-        label.addGestureRecognizer(followTap)
-        return label
-    }()
-
-    private lazy var followingLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        let attributedText = NSMutableAttributedString(string: "0\n", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
-        attributedText.append(NSAttributedString(string: "following", attributes:
-                                                    [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
-                                                     NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
-        label.attributedText = attributedText
-        let followTap = UITapGestureRecognizer(target: self, action: #selector(handleFollowingTapped))
-        followTap.numberOfTapsRequired = 1
-        label.isUserInteractionEnabled = true
-        label.addGestureRecognizer(followTap)
-        return label
-    }()
+    private lazy var postsLabel = createProfileLabel(title: "0", subTitle: "posts", selector: nil)
+    private lazy var followersLabel = createProfileLabel(title: "0", subTitle: "followers", selector: #selector(handleFollowersTapped))
+    private lazy var followingLabel = createProfileLabel(title: "0", subTitle: "following", selector: #selector(handleFollowingTapped))
 
     private lazy var editProfileFollowButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Loading", for: .normal)
+        button.setTitle("Follow", for: .normal)
         button.layer.cornerRadius = 3
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 0.5
@@ -113,6 +73,7 @@ final class UserProfileHeader: UICollectionViewCell {
             let fullName = user?.name
             nameLabel.text = fullName
             profileImageView.loadImage(with: user?.profileImageUrl)
+            configureEditProfileFollowButton()
         }
     }
 
@@ -192,5 +153,34 @@ final class UserProfileHeader: UICollectionViewCell {
                          paddingLeft: 12,
                          paddingRight: 12,
                          height: 50)
+    }
+
+    private func configureEditProfileFollowButton() {
+        guard let currentUid = Auth.auth().currentUser?.uid, let user else { return }
+        if currentUid == user.uid {
+            editProfileFollowButton.setTitle("Edit Profile", for: .normal)
+        } else {
+            editProfileFollowButton.setTitleColor(.white, for: .normal)
+            editProfileFollowButton.backgroundColor = .systemBlue
+        }
+    }
+
+    private func createProfileLabel(title: String, subTitle: String, selector: Selector?) -> UILabel {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        let attributedText = NSMutableAttributedString(string: title + "\n",
+                                                       attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14)])
+        attributedText.append(NSAttributedString(string: subTitle,
+                                                 attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14),
+                                                              NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+        label.attributedText = attributedText
+        if let selector {
+            let followTap = UITapGestureRecognizer(target: self, action: selector)
+            followTap.numberOfTapsRequired = 1
+            label.isUserInteractionEnabled = true
+            label.addGestureRecognizer(followTap)
+        }
+        return label
     }
 }
