@@ -26,7 +26,9 @@
 		0889384E29731CED00BE0612 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889384D29731CED00BE0612 /* UserProfileViewController.swift */; };
 		0889385629736AAB00BE0612 /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889385529736AAB00BE0612 /* UserProfileHeader.swift */; };
 		08B87F6D29775BB2007DFD3D /* SearchUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B87F6C29775BB2007DFD3D /* SearchUserCell.swift */; };
-		08B87F7129789C83007DFD3D /* Dev.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B87F7029789C83007DFD3D /* Dev.swift */; };
+		08C109CA297AEBCF0020DD18 /* FollowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C109C9297AEBCF0020DD18 /* FollowViewController.swift */; };
+		08C109CC297AECF20020DD18 /* FollowLikeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C109CB297AECF20020DD18 /* FollowLikeCell.swift */; };
+		08C109CE297AEDA50020DD18 /* UIButton+Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C109CD297AEDA50020DD18 /* UIButton+Configure.swift */; };
 		08C6AE41296EE0D400362910 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C6AE40296EE0D400362910 /* SignUpViewController.swift */; };
 		08D65988296B7C610089624D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D65987296B7C610089624D /* AppDelegate.swift */; };
 		08D6598C296B7C610089624D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D6598B296B7C610089624D /* LoginViewController.swift */; };
@@ -55,7 +57,9 @@
 		0889384D29731CED00BE0612 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		0889385529736AAB00BE0612 /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
 		08B87F6C29775BB2007DFD3D /* SearchUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserCell.swift; sourceTree = "<group>"; };
-		08B87F7029789C83007DFD3D /* Dev.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dev.swift; sourceTree = "<group>"; };
+		08C109C9297AEBCF0020DD18 /* FollowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
+		08C109CB297AECF20020DD18 /* FollowLikeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowLikeCell.swift; sourceTree = "<group>"; };
+		08C109CD297AEDA50020DD18 /* UIButton+Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Configure.swift"; sourceTree = "<group>"; };
 		08C6AE40296EE0D400362910 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		08D65984296B7C610089624D /* Outstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Outstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08D65987296B7C610089624D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -97,7 +101,6 @@
 				088938372970C13B00BE0612 /* CustomViews */,
 				088938362970C12200BE0612 /* Extensions */,
 				0889383D2970CBF800BE0612 /* Constants.swift */,
-				08B87F7029789C83007DFD3D /* Dev.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -108,6 +111,7 @@
 				0867A84C296CD69D002F3170 /* UIView+Anchors.swift */,
 				0889383B2970C98800BE0612 /* UIViewController+Alert.swift */,
 				0867A84E296CDC4D002F3170 /* UIViewController+Gradient.swift */,
+				08C109CD297AEDA50020DD18 /* UIButton+Configure.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -137,6 +141,7 @@
 			children = (
 				0889385529736AAB00BE0612 /* UserProfileHeader.swift */,
 				08B87F6C29775BB2007DFD3D /* SearchUserCell.swift */,
+				08C109CB297AECF20020DD18 /* FollowLikeCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				0889384D29731CED00BE0612 /* UserProfileViewController.swift */,
+				08C109C9297AEBCF0020DD18 /* FollowViewController.swift */,
 			);
 			path = UserProfile;
 			sourceTree = "<group>";
@@ -388,16 +394,17 @@
 			files = (
 				0889384A29731CB900BE0612 /* UploadPostViewController.swift in Sources */,
 				08C6AE41296EE0D400362910 /* SignUpViewController.swift in Sources */,
+				08C109CA297AEBCF0020DD18 /* FollowViewController.swift in Sources */,
 				0889384C29731CD600BE0612 /* NotificationsTableViewController.swift in Sources */,
 				0889385629736AAB00BE0612 /* UserProfileHeader.swift in Sources */,
 				0889384E29731CED00BE0612 /* UserProfileViewController.swift in Sources */,
 				0889383E2970CBF800BE0612 /* Constants.swift in Sources */,
 				0867A84F296CDC4D002F3170 /* UIViewController+Gradient.swift in Sources */,
 				0889384629731C8B00BE0612 /* FeedViewController.swift in Sources */,
+				08C109CE297AEDA50020DD18 /* UIButton+Configure.swift in Sources */,
 				083A1FDA296F69B30050C2DA /* AuthenticationSwitchButton.swift in Sources */,
 				087091382976B5A600807D39 /* CustomImageView.swift in Sources */,
 				083A1FD8296F676D0050C2DA /* AuthenticationButton.swift in Sources */,
-				08B87F7129789C83007DFD3D /* Dev.swift in Sources */,
 				0889384829731CA400BE0612 /* SearchViewController.swift in Sources */,
 				08893844297319A400BE0612 /* MainTabViewController.swift in Sources */,
 				08D6598C296B7C610089624D /* LoginViewController.swift in Sources */,
@@ -407,6 +414,7 @@
 				083A1FDD296F6BA30050C2DA /* AuthenticationImageView.swift in Sources */,
 				08D65988296B7C610089624D /* AppDelegate.swift in Sources */,
 				0867A852296CDDFF002F3170 /* AuthenticationTextField.swift in Sources */,
+				08C109CC297AECF20020DD18 /* FollowLikeCell.swift in Sources */,
 				087091362976AE8900807D39 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
