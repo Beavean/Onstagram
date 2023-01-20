@@ -31,6 +31,7 @@ enum K {
     enum UI {
         static let cellIdentifier = "Cell"
         static let searchUserCellIdentifier = "SearchUserCell"
+        static let followCellIdentifier = "FollowCell"
         static let headerIdentifier = String(describing: UserProfileHeader.self)
     }
 }

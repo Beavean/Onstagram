@@ -82,6 +82,7 @@ final class UserProfileHeader: UICollectionViewCell {
             nameLabel.text = fullName
             profileImageView.loadImage(with: user?.profileImageUrl)
             configureEditProfileFollowButton()
+            setUserStats(for: user)
         }
     }
 
