@@ -37,7 +37,7 @@ final class UserProfileViewController: UICollectionViewController {
 
     // MARK: - API
 
-    func fetchCurrentUserData() {
+    private func fetchCurrentUserData() {
         guard let currentUid = Auth.auth().currentUser?.uid, user == nil else { return }
         K.FB.usersReference.child(currentUid).observeSingleEvent(of: .value) { [weak self] snapshot, _ in
             guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
@@ -48,9 +48,11 @@ final class UserProfileViewController: UICollectionViewController {
             self?.collectionView?.reloadData()
         }
     }
+}
 
-    // MARK: UICollectionViewDataSource
+// MARK: UICollectionView
 
+extension UserProfileViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         1
     }
@@ -93,9 +95,17 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout {
 extension UserProfileViewController: UserProfileHeaderDelegate {
 
     func handleFollowersTapped(for header: UserProfileHeader) {
+        let followViewController = FollowLikeViewController()
+        followViewController.viewingMode = .followers
+        followViewController.uid = user?.uid
+        navigationController?.pushViewController(followViewController, animated: true)
     }
 
     func handleFollowingTapped(for header: UserProfileHeader) {
+        let followViewController = FollowLikeViewController()
+        followViewController.viewingMode = .following
+        followViewController.uid = user?.uid
+        navigationController?.pushViewController(followViewController, animated: true)
     }
 
     func handleEditFollowTapped(for header: UserProfileHeader) {
@@ -117,7 +127,7 @@ extension UserProfileViewController: UserProfileHeaderDelegate {
         guard let uid = header.user?.uid else { return }
         var numberOfFollowers: Int!
         var numberOfFollowing: Int!
-        K.FB.userFollowersRef.child(uid).observe(.value) { snapshot in
+        K.FB.userFollowersReference.child(uid).observe(.value) { snapshot in
             if let snapshot = snapshot.value as? [String: AnyObject] {
                 numberOfFollowers = snapshot.count
             } else {
@@ -131,7 +141,7 @@ extension UserProfileViewController: UserProfileHeaderDelegate {
             header.followersLabel.attributedText = attributedText
         }
 
-        K.FB.userFollowingRef.child(uid).observe(.value) { snapshot in
+        K.FB.userFollowingReference.child(uid).observe(.value) { snapshot in
             if let snapshot = snapshot.value as? [String: AnyObject] {
                 numberOfFollowing = snapshot.count
             } else {
@@ -145,7 +155,7 @@ extension UserProfileViewController: UserProfileHeaderDelegate {
             header.followingLabel.attributedText = attributedText
         }
 
-        K.FB.userPostsRef.child(uid).observeSingleEvent(of: .value) { snapshot in
+        K.FB.userPostsReference.child(uid).observeSingleEvent(of: .value) { snapshot in
             guard let snapshot = snapshot.children.allObjects as? [DataSnapshot] else { return }
             let postCount = snapshot.count
             let attributedText = NSMutableAttributedString(string: "\(postCount)\n",

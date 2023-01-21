@@ -6,13 +6,11 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 final class FollowLikeViewController: UITableViewController {
 
     // MARK: - Properties
-
-    var followCurrentKey: String?
-    var likeCurrentKey: String?
 
     enum ViewingMode: Int {
         case following = 0
@@ -20,26 +18,149 @@ final class FollowLikeViewController: UITableViewController {
         case likes = 2
     }
 
-    var postId: String?
+    private var followCurrentKey: String?
+    private var likeCurrentKey: String?
+    private var postId: String?
+    private var users = [User]()
     var viewingMode: ViewingMode!
     var uid: String?
-    var users = [User]()
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.register(FollowLikeCell.self, forCellReuseIdentifier: K.UI.followCellIdentifier)
         configureNavigationTitle()
         fetchUsers()
         tableView.separatorColor = .clear
     }
 
-    // MARK: - UITableView
+    // MARK: - Handlers
 
-   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60
+    private func configureNavigationTitle() {
+        guard let viewingMode = self.viewingMode else { return }
+        switch viewingMode {
+        case .followers: navigationItem.title = "Followers"
+        case .following: navigationItem.title = "Following"
+        case .likes: navigationItem.title = "Likes"
+        }
+    }
+
+    // MARK: - API
+
+    private func fetchUser(withUid uid: String) {
+        Database.fetchUser(with: uid) { [weak self] user in
+            self?.users.append(user)
+            self?.tableView.reloadData()
+        }
+    }
+
+    private func fetchUsers() {
+        guard let databaseReference = getDatabaseReference(), let viewingMode = self.viewingMode else { return }
+        switch viewingMode {
+        case .followers, .following:
+            guard let uid = self.uid else { return }
+            if followCurrentKey == nil {
+                getFollowCurrentKey(reference: databaseReference, uid: uid)
+            } else {
+                setFollowCurrentKey(reference: databaseReference, uid: uid)
+            }
+        case .likes:
+            guard let postId = self.postId else { return }
+            if likeCurrentKey == nil {
+                getLikeCurrentKey(reference: databaseReference, postId: postId)
+            } else {
+                setLikeCurrentKey(reference: databaseReference, postId: postId)
+            }
+        }
+    }
+
+    private func getDatabaseReference() -> DatabaseReference? {
+        guard let viewingMode = self.viewingMode else { return nil }
+        switch viewingMode {
+        case .followers:
+            return K.FB.userFollowersReference
+        case .following:
+            return K.FB.userFollowingReference
+        case .likes:
+            return K.FB.postLikesReference
+        }
+    }
+
+    private func getFollowCurrentKey(reference: DatabaseReference, uid: String) {
+        reference.child(uid).queryLimited(toLast: 4).observeSingleEvent(of: .value) { [weak self] snapshot in
+            guard let first = snapshot.children.allObjects.first as? DataSnapshot,
+                  let allObjects = snapshot.children.allObjects as? [DataSnapshot]
+            else { return }
+            allObjects.forEach { snapshot in
+                let followUid = snapshot.key
+                self?.fetchUser(withUid: followUid)
+            }
+            self?.followCurrentKey = first.key
+        }
+    }
+
+    private func setFollowCurrentKey(reference: DatabaseReference, uid: String) {
+        reference.child(uid)
+            .queryOrderedByKey()
+            .queryEnding(atValue: self.followCurrentKey)
+            .queryLimited(toLast: 5)
+            .observeSingleEvent(of: .value) { [weak self] snapshot in
+                guard let first = snapshot.children.allObjects.first as? DataSnapshot,
+                      let allObjects = snapshot.children.allObjects as? [DataSnapshot]
+                else { return }
+                allObjects.forEach { snapshot in
+                    let followUid = snapshot.key
+                    if followUid != self?.followCurrentKey {
+                        self?.fetchUser(withUid: followUid)
+                    }
+                }
+                self?.followCurrentKey = first.key
+            }
+    }
+
+    private func getLikeCurrentKey(reference: DatabaseReference, postId: String) {
+        reference.child(postId).queryLimited(toLast: 4).observeSingleEvent(of: .value) { [weak self] snapshot in
+            guard let first = snapshot.children.allObjects.first as? DataSnapshot,
+                  let allObjects = snapshot.children.allObjects as? [DataSnapshot]
+            else { return }
+            allObjects.forEach { snapshot in
+                let likeUid = snapshot.key
+                self?.fetchUser(withUid: likeUid)
+            }
+            self?.likeCurrentKey = first.key
+        }
+    }
+
+    private func setLikeCurrentKey(reference: DatabaseReference, postId: String) {
+        reference.child(postId)
+            .queryOrderedByKey()
+            .queryEnding(atValue: self.likeCurrentKey)
+            .queryLimited(toLast: 5)
+            .observeSingleEvent(of: .value) { [weak self] snapshot in
+                guard let first = snapshot.children.allObjects.first as? DataSnapshot,
+                      let allObjects = snapshot.children.allObjects as? [DataSnapshot]
+                else { return }
+                allObjects.forEach { snapshot in
+                    let likeUid = snapshot.key
+                    if likeUid != self?.likeCurrentKey {
+                        self?.fetchUser(withUid: likeUid)
+                    }
+                }
+                self?.likeCurrentKey = first.key
+            }
+    }
+}
+
+// MARK: - UITableView
+
+extension FollowLikeViewController {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        60
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        1
     }
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -51,7 +172,7 @@ final class FollowLikeViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        users.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -65,9 +186,11 @@ final class FollowLikeViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     }
+}
 
-    // MARK: - FollowCellDelegate Protocol
+// MARK: - FollowCellDelegate
 
+extension FollowLikeViewController: FollowCellDelegate {
     func handleFollowTapped(for cell: FollowLikeCell) {
         guard let user = cell.user else { return }
         if user.isFollowed {
@@ -75,8 +198,7 @@ final class FollowLikeViewController: UITableViewController {
             cell.followButton.setTitle("Follow", for: .normal)
             cell.followButton.setTitleColor(.white, for: .normal)
             cell.followButton.layer.borderWidth = 0
-            cell.followButton.backgroundColor = UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)
-
+            cell.followButton.backgroundColor = .systemBlue
         } else {
             user.follow()
             cell.followButton.setTitle("Following", for: .normal)
@@ -86,26 +208,4 @@ final class FollowLikeViewController: UITableViewController {
             cell.followButton.backgroundColor = .white
         }
     }
-
-    // MARK: - Handlers
-
-    func configureNavigationTitle() {
-        guard let viewingMode = self.viewingMode else { return }
-        switch viewingMode {
-        case .followers: navigationItem.title = "Followers"
-        case .following: navigationItem.title = "Following"
-        case .likes: navigationItem.title = "Likes"
-        }
-    }
-
-    // MARK: - API
-
-    func fetchUser(withUid uid: String) {
-    }
-
-    func fetchUsers() {
-    }
-}
-
-extension FollowLikeViewController: FollowCellDelegate {
 }

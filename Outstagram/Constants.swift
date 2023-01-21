@@ -16,11 +16,12 @@ enum K {
         static let databaseReference = Database.database().reference()
         static let profileImageReference = "profile_images"
         static let usersReference = databaseReference.child("users")
-        static let userFollowersRef = databaseReference.child("user-followers")
-        static let userFollowingRef = databaseReference.child("user-following")
+        static let userFollowersReference = databaseReference.child("user-followers")
+        static let userFollowingReference = databaseReference.child("user-following")
         static let notificationsReference = databaseReference.child("notifications")
-        static let userPostsRef = databaseReference.child("user-posts")
-        static let userFeedRef = databaseReference.child("user-feed")
+        static let userPostsReference = databaseReference.child("user-posts")
+        static let userFeedReference = databaseReference.child("user-feed")
+        static let postLikesReference = databaseReference.child("post-likes")
 
     }
 

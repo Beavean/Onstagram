@@ -14,29 +14,7 @@ protocol FollowCellDelegate: AnyObject {
 
 class FollowLikeCell: UITableViewCell {
 
-    // MARK: - Properties
-
-    weak var delegate: FollowCellDelegate?
-    var user: User? {
-        didSet {
-            guard let profileImageUrl = user?.profileImageUrl,
-                  let username = user?.username,
-                  let fullName = user?.name else { return }
-            profileImageView.loadImage(with: profileImageUrl)
-            self.textLabel?.text = username
-            self.detailTextLabel?.text = fullName
-            if user?.uid == Auth.auth().currentUser?.uid {
-                followButton.isHidden = true
-            }
-            user?.checkIfUserIsFollowed(completion: { (followed) in
-                if followed {
-                    self.followButton.configure(didFollow: true)
-                } else {
-                    self.followButton.configure(didFollow: false)
-                }
-            })
-        }
-    }
+    // MARK: - UI Elements
 
     let profileImageView: CustomImageView = {
         let imageView = CustomImageView()
@@ -54,6 +32,30 @@ class FollowLikeCell: UITableViewCell {
         button.addTarget(self, action: #selector(handleFollowTapped), for: .touchUpInside)
         return button
     }()
+
+    // MARK: - Properties
+
+    weak var delegate: FollowCellDelegate?
+    var user: User? {
+        didSet {
+            guard let profileImageUrl = user?.profileImageUrl,
+                  let username = user?.username,
+                  let fullName = user?.name else { return }
+            profileImageView.loadImage(with: profileImageUrl)
+            self.textLabel?.text = username
+            self.detailTextLabel?.text = fullName
+            if user?.uid == Auth.auth().currentUser?.uid {
+                followButton.isHidden = true
+            }
+            user?.checkIfUserIsFollowed { [weak self] followed in
+                if followed {
+                    self?.followButton.configure(didFollow: true)
+                } else {
+                    self?.followButton.configure(didFollow: false)
+                }
+            }
+        }
+    }
 
     // MARK: - Handlers
 

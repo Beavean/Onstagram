@@ -53,7 +53,7 @@ final class LoginViewController: UIViewController {
             guard let mainTabVC = UIApplication
                 .shared
                 .windows
-                .filter({$0.isKeyWindow})
+                .filter({ $0.isKeyWindow })
                 .first?
                 .rootViewController as? MainTabViewController else { return }
             mainTabVC.configureViewControllers()

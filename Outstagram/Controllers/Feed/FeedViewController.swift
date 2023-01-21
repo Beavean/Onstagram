@@ -10,8 +10,6 @@ import FirebaseAuth
 
 final class FeedViewController: UICollectionViewController {
 
-    // MARK: - Properties
-
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
