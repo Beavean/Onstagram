@@ -31,10 +31,10 @@ enum K {
 
     enum UI {
         static let cellIdentifier = "Cell"
-        static let searchUserCellIdentifier = "SearchUserCell"
-        static let followCellIdentifier = "FollowCell"
-        static let reuseIdentifier = "SelectPhotoCell"
-//        static let headerIdentifier = "SelectPhotoHeader"
+        static let searchUserCellIdentifier = String(describing: SearchUserCell.self)
+        static let followCellIdentifier = String(describing: FollowLikeCell.self)
+        static let selectPhotoCellIdentifier = String(describing: SelectPhotoCell.self)
+        static let selectPhotoHeaderIdentifier = String(describing: SelectPhotoHeader.self)
         static let userProfileHeaderIdentifier = String(describing: UserProfileHeader.self)
     }
 }

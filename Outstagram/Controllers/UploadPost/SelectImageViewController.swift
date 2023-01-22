@@ -15,11 +15,18 @@ final class SelectImageViewController: UICollectionViewController {
     private var images = [UIImage]()
     private var assets = [PHAsset]()
     private var selectedImage: UIImage?
-    // FIXME: - SelectPhotoHeader
+    private var header: SelectPhotoHeader?
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // FIXME: - register cell classes
+        collectionView?.register(SelectPhotoCell.self,
+                                 forCellWithReuseIdentifier: K.UI.selectPhotoCellIdentifier)
+        collectionView?.register(SelectPhotoHeader.self,
+                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                 withReuseIdentifier: K.UI.selectPhotoHeaderIdentifier)
+
         collectionView?.backgroundColor = .white
         configureNavigationButtons()
         fetchPhotos()
@@ -66,19 +73,39 @@ final class SelectImageViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView,
                                  viewForSupplementaryElementOfKind kind: String,
                                  at indexPath: IndexPath) -> UICollectionReusableView {
-        // FIXME: - Create
-        return UICollectionReusableView()
+        guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                           withReuseIdentifier: K.UI.selectPhotoHeaderIdentifier,
+                                                                           for: indexPath) as? SelectPhotoHeader
+        else { return UICollectionReusableView() }
+        self.header = header
+        if let selectedImage = self.selectedImage {
+            if let index = self.images.firstIndex(of: selectedImage) {
+                let selectedAsset = self.assets[index]
+                let imageManager = PHImageManager.default()
+                let targetSize = CGSize(width: 600, height: 600)
+                imageManager.requestImage(for: selectedAsset,
+                                          targetSize: targetSize,
+                                          contentMode: .default,
+                                          options: nil) { image, _ in
+                    header.photoImageView.image = image
+                }
+            }
+        }
+        return header
+
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        // FIXME: - Create
-        return UICollectionViewCell()
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.UI.selectPhotoCellIdentifier,
+                                                            for: indexPath) as? SelectPhotoCell
+        else { return UICollectionViewCell() }
+        cell.photoImageView.image = images[indexPath.row]
+        return cell
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         self.selectedImage = images[indexPath.row]
         self.collectionView?.reloadData()
-
         let indexPath = IndexPath(item: 0, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
     }
