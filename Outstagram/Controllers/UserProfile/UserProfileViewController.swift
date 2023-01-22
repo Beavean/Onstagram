@@ -31,7 +31,7 @@ final class UserProfileViewController: UICollectionViewController {
         collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: K.UI.cellIdentifier)
         collectionView.register(UserProfileHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: K.UI.headerIdentifier)
+                                withReuseIdentifier: K.UI.userProfileHeaderIdentifier)
         collectionView.backgroundColor = .white
     }
 
@@ -65,7 +65,7 @@ extension UserProfileViewController {
                                  viewForSupplementaryElementOfKind kind: String,
                                  at indexPath: IndexPath) -> UICollectionReusableView {
         guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                           withReuseIdentifier: K.UI.headerIdentifier,
+                                                                           withReuseIdentifier: K.UI.userProfileHeaderIdentifier,
                                                                            for: indexPath) as? UserProfileHeader
         else { return UICollectionReusableView() }
         header.user = self.user
@@ -93,7 +93,6 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - UserProfileHeaderDelegate
 
 extension UserProfileViewController: UserProfileHeaderDelegate {
-
     func handleFollowersTapped(for header: UserProfileHeader) {
         let followViewController = FollowLikeViewController()
         followViewController.viewingMode = .followers

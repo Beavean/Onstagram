@@ -104,6 +104,25 @@ final class MainTabViewController: UITabBarController, UITabBarControllerDelegat
         return navController
     }
 
+    // MARK: - UITabBar
+
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        let index = viewControllers?.firstIndex(of: viewController)
+        if index == 2 {
+            let selectImageVC = SelectImageViewController(collectionViewLayout: UICollectionViewFlowLayout())
+            let navController = UINavigationController(rootViewController: selectImageVC)
+            navController.navigationBar.tintColor = .black
+            present(navController, animated: true, completion: nil)
+            return false
+        } else if index == 3 {
+            dot.isHidden = true
+            return true
+        }
+        return true
+    }
+
+    // MARK: - API
+
     private func checkIfUserIsLoggedIn() {
         guard Auth.auth().currentUser == nil else { return }
         let navigationController = UINavigationController(rootViewController: LoginViewController())

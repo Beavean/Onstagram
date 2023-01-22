@@ -12,7 +12,7 @@ protocol FollowCellDelegate: AnyObject {
     func handleFollowTapped(for cell: FollowLikeCell)
 }
 
-class FollowLikeCell: UITableViewCell {
+final class FollowLikeCell: UITableViewCell {
 
     // MARK: - UI Elements
 
@@ -37,29 +37,12 @@ class FollowLikeCell: UITableViewCell {
 
     weak var delegate: FollowCellDelegate?
     var user: User? {
-        didSet {
-            guard let profileImageUrl = user?.profileImageUrl,
-                  let username = user?.username,
-                  let fullName = user?.name else { return }
-            profileImageView.loadImage(with: profileImageUrl)
-            self.textLabel?.text = username
-            self.detailTextLabel?.text = fullName
-            if user?.uid == Auth.auth().currentUser?.uid {
-                followButton.isHidden = true
-            }
-            user?.checkIfUserIsFollowed { [weak self] followed in
-                if followed {
-                    self?.followButton.configure(didFollow: true)
-                } else {
-                    self?.followButton.configure(didFollow: false)
-                }
-            }
-        }
+        didSet { configureCellWithUser() }
     }
 
     // MARK: - Handlers
 
-    @objc func handleFollowTapped() {
+    @objc private func handleFollowTapped() {
         delegate?.handleFollowTapped(for: self)
     }
 
@@ -97,5 +80,24 @@ class FollowLikeCell: UITableViewCell {
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    private func configureCellWithUser() {
+        guard let profileImageUrl = user?.profileImageUrl,
+              let username = user?.username,
+              let fullName = user?.name else { return }
+        profileImageView.loadImage(with: profileImageUrl)
+        self.textLabel?.text = username
+        self.detailTextLabel?.text = fullName
+        if user?.uid == Auth.auth().currentUser?.uid {
+            followButton.isHidden = true
+        }
+        user?.checkIfUserIsFollowed { [weak self] followed in
+            if followed {
+                self?.followButton.configure(didFollow: true)
+            } else {
+                self?.followButton.configure(didFollow: false)
+            }
+        }
     }
 }

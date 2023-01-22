@@ -113,15 +113,15 @@ final class UserProfileHeader: UICollectionViewCell {
 
     // MARK: - Handlers
 
-    @objc func handleFollowersTapped() {
+    @objc private func handleFollowersTapped() {
         delegate?.handleFollowersTapped(for: self)
     }
 
-    @objc func handleFollowingTapped() {
+    @objc private func handleFollowingTapped() {
         delegate?.handleFollowingTapped(for: self)
     }
 
-    @objc func handleEditProfileFollow() {
+    @objc private func handleEditProfileFollow() {
         delegate?.handleEditFollowTapped(for: self)
     }
 
