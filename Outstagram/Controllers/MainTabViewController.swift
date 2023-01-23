@@ -111,6 +111,7 @@ final class MainTabViewController: UITabBarController, UITabBarControllerDelegat
         if index == 2 {
             let selectImageVC = SelectImageViewController(collectionViewLayout: UICollectionViewFlowLayout())
             let navController = UINavigationController(rootViewController: selectImageVC)
+            navController.modalPresentationStyle = .overFullScreen
             navController.navigationBar.tintColor = .black
             present(navController, animated: true, completion: nil)
             return false

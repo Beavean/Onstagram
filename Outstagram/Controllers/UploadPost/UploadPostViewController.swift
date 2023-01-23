@@ -7,9 +7,161 @@
 
 import UIKit
 
-final class UploadPostViewController: UIViewController {
+final class UploadPostViewController: UIViewController, UITextViewDelegate {
+
+    // MARK: - Properties
+
+    enum UploadAction: Int {
+        case uploadPost
+        case saveChanges
+
+        init(index: Int) {
+            switch index {
+            case 0: self = .uploadPost
+            case 1: self = .saveChanges
+            default: self = .uploadPost
+            }
+        }
+    }
+
+    var uploadAction: UploadAction!
+    var selectedImage: UIImage?
+    // FIXME: - add post
+
+    private let photoImageView: CustomImageView = {
+        let imageView = CustomImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.backgroundColor = .lightGray
+        return imageView
+    }()
+
+    private let captionTextView: UITextView = {
+        let textView = UITextView()
+        textView.backgroundColor = UIColor.systemGroupedBackground
+        textView.font = UIFont.systemFont(ofSize: 12)
+        return textView
+    }()
+
+    private lazy var actionButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.backgroundColor = UIColor(red: 149/255, green: 204/255, blue: 244/255, alpha: 1)
+        button.setTitle("Share", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 5
+        button.isEnabled = false
+        button.addTarget(self, action: #selector(handleUploadAction), for: .touchUpInside)
+        return button
+    }()
+
+    // MARK: - Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureViewComponents()
+        loadImage()
+        captionTextView.delegate = self
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        configureViewController(forUploadAction: uploadAction)
+    }
+
+    // MARK: - UITextViewDelegate
+
+    func textViewDidChange(_ textView: UITextView) {
+
+        guard !textView.text.isEmpty else {
+            actionButton.isEnabled = false
+            actionButton.backgroundColor = UIColor(red: 149/255, green: 204/255, blue: 244/255, alpha: 1)
+            return
+        }
+        actionButton.isEnabled = true
+        actionButton.backgroundColor = UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)
+    }
+
+    // MARK: - Handlers
+
+    @objc private func handleUploadAction() {
+        buttonSelector(uploadAction: uploadAction)
+    }
+
+    @objc private func handleCancel() {
+        self.dismiss(animated: true, completion: nil)
+    }
+
+    private func buttonSelector(uploadAction: UploadAction) {
+        switch uploadAction {
+        case .uploadPost:
+            handleUploadPost()
+        case .saveChanges:
+            handleSavePostChanges()
+        }
+    }
+
+    private func configureViewController(forUploadAction uploadAction: UploadAction) {
+        if uploadAction == .saveChanges {
+            // FIXME: - guard let post = self.postToEdit else { return }
+            actionButton.setTitle("Save Changes", for: .normal)
+            self.navigationItem.title = "Edit Post"
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
+            navigationController?.navigationBar.tintColor = .black
+//            photoImageView.loadImage(with: post.imageUrl)
+//            captionTextView.text = post.caption
+        } else {
+            actionButton.setTitle("Share", for: .normal)
+            self.navigationItem.title = "Upload Post"
+        }
+    }
+
+    private func loadImage() {
+        guard let selectedImage = self.selectedImage else { return }
+        photoImageView.image = selectedImage
+    }
+
+    private func configureViewComponents() {
+        view.backgroundColor = .white
+
+        view.addSubview(photoImageView)
+        photoImageView.anchor(top: view.topAnchor, left: view.leftAnchor, paddingTop: 92, paddingLeft: 12, width: 100, height: 100)
+
+        view.addSubview(captionTextView)
+        captionTextView.anchor(top: view.topAnchor,
+                               left: photoImageView.rightAnchor,
+                               right: view.rightAnchor,
+                               paddingTop: 92,
+                               paddingLeft: 12,
+                               paddingRight: 12,
+                               width: 0,
+                               height: 100)
+
+        view.addSubview(actionButton)
+        actionButton.anchor(top: photoImageView.bottomAnchor,
+                            left: view.leftAnchor,
+                            right: view.rightAnchor,
+                            paddingTop: 12,
+                            paddingLeft: 24,
+                            paddingRight: 24,
+                            width: 0,
+                            height: 40)
+    }
+
+    // MARK: - API
+
+    private func handleSavePostChanges() {
+        // FIXME: - to do
+    }
+
+    private func handleUploadPost() {
+        // FIXME: - to do
+    }
+
+    private func updateUserFeeds(with postId: String) {
+        // FIXME: - to do
+    }
+
+    private func uploadHashtagToServer(withPostId postId: String) {
+       // FIXME: - to do
     }
 }

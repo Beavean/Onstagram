@@ -8,7 +8,7 @@
 import UIKit
 import Photos
 
-final class SelectImageViewController: UICollectionViewController {
+final class SelectImageViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     // MARK: - Properties
 
@@ -92,7 +92,6 @@ final class SelectImageViewController: UICollectionViewController {
             }
         }
         return header
-
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -117,7 +116,10 @@ final class SelectImageViewController: UICollectionViewController {
     }
 
     @objc private func handleNext() {
-        // FIXME: - Create
+        let uploadPostVC = UploadPostViewController()
+        uploadPostVC.selectedImage = header?.photoImageView.image
+        uploadPostVC.uploadAction = UploadPostViewController.UploadAction(index: 0)
+        navigationController?.pushViewController(uploadPostVC, animated: true)
     }
 
     private func configureNavigationButtons() {

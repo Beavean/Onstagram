@@ -25,10 +25,6 @@ enum K {
 
     }
 
-    enum Values {
-        static let followIntValue = 2
-    }
-
     enum UI {
         static let cellIdentifier = "Cell"
         static let searchUserCellIdentifier = String(describing: SearchUserCell.self)
@@ -36,6 +32,10 @@ enum K {
         static let selectPhotoCellIdentifier = String(describing: SelectPhotoCell.self)
         static let selectPhotoHeaderIdentifier = String(describing: SelectPhotoHeader.self)
         static let userProfileHeaderIdentifier = String(describing: UserProfileHeader.self)
+    }
+
+    enum Values {
+        static let followIntValue = 2
     }
 }
 
