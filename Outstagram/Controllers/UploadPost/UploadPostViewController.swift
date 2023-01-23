@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseStorage
 
 final class UploadPostViewController: UIViewController, UITextViewDelegate {
 
@@ -45,7 +47,7 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
 
     private lazy var actionButton: UIButton = {
         let button = UIButton(type: .system)
-        button.backgroundColor = UIColor(red: 149/255, green: 204/255, blue: 244/255, alpha: 1)
+        button.backgroundColor = .systemBlue.withAlphaComponent(0.5)
         button.setTitle("Share", for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 5
@@ -71,14 +73,13 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
     // MARK: - UITextViewDelegate
 
     func textViewDidChange(_ textView: UITextView) {
-
         guard !textView.text.isEmpty else {
             actionButton.isEnabled = false
-            actionButton.backgroundColor = UIColor(red: 149/255, green: 204/255, blue: 244/255, alpha: 1)
+            actionButton.backgroundColor = .systemBlue.withAlphaComponent(0.5)
             return
         }
         actionButton.isEnabled = true
-        actionButton.backgroundColor = UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)
+        actionButton.backgroundColor = .systemBlue
     }
 
     // MARK: - Handlers
@@ -133,7 +134,7 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
                                paddingTop: 92,
                                paddingLeft: 12,
                                paddingRight: 12,
-                               width: 0,
+                               width: view.frame.width - photoImageView.frame.width - 36,
                                height: 100)
 
         view.addSubview(actionButton)
@@ -154,7 +155,53 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
     }
 
     private func handleUploadPost() {
-        // FIXME: - to do
+        guard
+            let caption = captionTextView.text,
+            let postImg = photoImageView.image,
+            let currentUid = Auth.auth().currentUser?.uid,
+            let uploadData = postImg.jpegData(compressionQuality: 0.5)
+        else { return }
+        let creationDate = Int(NSDate().timeIntervalSince1970)
+        let filename = NSUUID().uuidString
+        let storageRef = K.FBSTORE.storagePostImageReference.child(filename)
+        storageRef.putData(uploadData, metadata: nil) { [weak self] _, error in
+            if let error {
+                self?.showAlertWith(error)
+                return
+            }
+            storageRef.downloadURL(completion: { url, error in
+                guard let imageUrl = url?.absoluteString else { return }
+                if let error {
+                    self?.showAlertWith(error)
+                    return
+                }
+                let values = ["caption": caption,
+                              "creationDate": creationDate,
+                              "likes": 0,
+                              "imageUrl": imageUrl,
+                              "ownerUid": currentUid] as [String: Any]
+                let postId = K.FB.postsReference.childByAutoId()
+                guard let postKey = postId.key else { return }
+                postId.updateChildValues(values, withCompletionBlock: { error, _ in
+                    if let error {
+                        self?.showAlertWith(error)
+                        return
+                    }
+                    let userPostsRef = K.FB.userPostsReference.child(currentUid)
+                    userPostsRef.updateChildValues([postKey: 1])
+                    self?.updateUserFeeds(with: postKey)
+                    if caption.contains("#") {
+                        self?.uploadHashtagToServer(withPostId: postKey)
+                    }
+                    if caption.contains("@") {
+                        self?.uploadMentionNotification(forPostId: postKey, withText: caption, isForComment: false)
+                    }
+                    self?.dismiss(animated: true, completion: {
+                        self?.tabBarController?.selectedIndex = 0
+                    })
+                })
+            })
+        }
     }
 
     private func updateUserFeeds(with postId: String) {

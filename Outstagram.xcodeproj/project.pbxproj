@@ -37,6 +37,7 @@
 		08D6598C296B7C610089624D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D6598B296B7C610089624D /* LoginViewController.swift */; };
 		08D65991296B7C630089624D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08D65990296B7C630089624D /* Assets.xcassets */; };
 		08D65994296B7C630089624D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 08D65992296B7C630089624D /* LaunchScreen.storyboard */; };
+		08EFF3FA297F52FC0058A5D3 /* UIViewController+MentionedUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08EFF3F9297F52FC0058A5D3 /* UIViewController+MentionedUser.swift */; };
 		08F2521F297B58FD00F81DF8 /* Database+Fetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08F2521E297B58FD00F81DF8 /* Database+Fetch.swift */; };
 		FD035E89A95B3167619158F0 /* Pods_Outstagram.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A68FF7A624071D5270BB00CD /* Pods_Outstagram.framework */; };
 /* End PBXBuildFile section */
@@ -74,6 +75,7 @@
 		08D65990296B7C630089624D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		08D65993296B7C630089624D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		08D65995296B7C630089624D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		08EFF3F9297F52FC0058A5D3 /* UIViewController+MentionedUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+MentionedUser.swift"; sourceTree = "<group>"; };
 		08F2521E297B58FD00F81DF8 /* Database+Fetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Database+Fetch.swift"; sourceTree = "<group>"; };
 		A68FF7A624071D5270BB00CD /* Pods_Outstagram.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Outstagram.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C5A013E5EDFC45A2A4E7F896 /* Pods-Outstagram.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Outstagram.debug.xcconfig"; path = "Target Support Files/Pods-Outstagram/Pods-Outstagram.debug.xcconfig"; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				0867A84E296CDC4D002F3170 /* UIViewController+Gradient.swift */,
 				08C109CD297AEDA50020DD18 /* UIButton+Configure.swift */,
 				08F2521E297B58FD00F81DF8 /* Database+Fetch.swift */,
+				08EFF3F9297F52FC0058A5D3 /* UIViewController+MentionedUser.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -421,6 +424,7 @@
 				0889384829731CA400BE0612 /* SearchViewController.swift in Sources */,
 				08893844297319A400BE0612 /* MainTabViewController.swift in Sources */,
 				08D6598C296B7C610089624D /* LoginViewController.swift in Sources */,
+				08EFF3FA297F52FC0058A5D3 /* UIViewController+MentionedUser.swift in Sources */,
 				08B87F6D29775BB2007DFD3D /* SearchUserCell.swift in Sources */,
 				0889383C2970C98800BE0612 /* UIViewController+Alert.swift in Sources */,
 				0867A84D296CD69D002F3170 /* UIView+Anchors.swift in Sources */,

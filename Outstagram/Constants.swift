@@ -22,6 +22,13 @@ enum K {
         static let userPostsReference = databaseReference.child("user-posts")
         static let userFeedReference = databaseReference.child("user-feed")
         static let postLikesReference = databaseReference.child("post-likes")
+        static let postsReference = databaseReference.child("posts")
+    }
+
+    enum FBSTORE {
+        static let storageReference = Storage.storage().reference()
+        static let storagePostImageReference = storageReference.child("post_images")
+
 
     }
 
