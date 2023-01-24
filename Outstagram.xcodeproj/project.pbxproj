@@ -29,6 +29,7 @@
 		0889384E29731CED00BE0612 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889384D29731CED00BE0612 /* UserProfileViewController.swift */; };
 		0889385629736AAB00BE0612 /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889385529736AAB00BE0612 /* UserProfileHeader.swift */; };
 		08B87F6D29775BB2007DFD3D /* SearchUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B87F6C29775BB2007DFD3D /* SearchUserCell.swift */; };
+		08BDA650298099F3001732E0 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BDA64F298099F3001732E0 /* Post.swift */; };
 		08C109CA297AEBCF0020DD18 /* FollowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C109C9297AEBCF0020DD18 /* FollowViewController.swift */; };
 		08C109CC297AECF20020DD18 /* FollowLikeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C109CB297AECF20020DD18 /* FollowLikeCell.swift */; };
 		08C109CE297AEDA50020DD18 /* UIButton+Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C109CD297AEDA50020DD18 /* UIButton+Configure.swift */; };
@@ -65,6 +66,7 @@
 		0889384D29731CED00BE0612 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		0889385529736AAB00BE0612 /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
 		08B87F6C29775BB2007DFD3D /* SearchUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserCell.swift; sourceTree = "<group>"; };
+		08BDA64F298099F3001732E0 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		08C109C9297AEBCF0020DD18 /* FollowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
 		08C109CB297AECF20020DD18 /* FollowLikeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowLikeCell.swift; sourceTree = "<group>"; };
 		08C109CD297AEDA50020DD18 /* UIButton+Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Configure.swift"; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				087091352976AE8900807D39 /* User.swift */,
+				08BDA64F298099F3001732E0 /* Post.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				0889383E2970CBF800BE0612 /* Constants.swift in Sources */,
 				085E56D7297E0068007BA4AE /* SelectPhotoCell.swift in Sources */,
 				0867A84F296CDC4D002F3170 /* UIViewController+Gradient.swift in Sources */,
+				08BDA650298099F3001732E0 /* Post.swift in Sources */,
 				0889384629731C8B00BE0612 /* FeedViewController.swift in Sources */,
 				08C109CE297AEDA50020DD18 /* UIButton+Configure.swift in Sources */,
 				083A1FDA296F69B30050C2DA /* AuthenticationSwitchButton.swift in Sources */,
