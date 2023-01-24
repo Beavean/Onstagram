@@ -169,7 +169,7 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
                 self?.showAlertWith(error)
                 return
             }
-            storageRef.downloadURL(completion: { url, error in
+            storageRef.downloadURL { url, error in
                 guard let imageUrl = url?.absoluteString else { return }
                 if let error {
                     self?.showAlertWith(error)
@@ -182,7 +182,7 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
                               "ownerUid": currentUid] as [String: Any]
                 let postId = K.FB.postsReference.childByAutoId()
                 guard let postKey = postId.key else { return }
-                postId.updateChildValues(values, withCompletionBlock: { error, _ in
+                postId.updateChildValues(values) { error, _ in
                     if let error {
                         self?.showAlertWith(error)
                         return
@@ -196,11 +196,11 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
                     if caption.contains("@") {
                         self?.uploadMentionNotification(forPostId: postKey, withText: caption, isForComment: false)
                     }
-                    self?.dismiss(animated: true, completion: {
+                    self?.dismiss(animated: true) {
                         self?.tabBarController?.selectedIndex = 0
-                    })
-                })
-            })
+                    }
+                }
+            }
         }
     }
 

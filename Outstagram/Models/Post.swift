@@ -9,7 +9,7 @@ import Foundation
 import FirebaseAuth
 import FirebaseStorage
 
-class Post {
+final class Post {
 
     var caption: String!
     var likes: Int!
@@ -129,10 +129,10 @@ class Post {
                           "type": K.Values.likeIntValue,
                           "postId": postId!] as [String: Any]
             let notificationRef = K.FB.notificationsReference.child(self.ownerUid).childByAutoId()
-            notificationRef.updateChildValues(values, withCompletionBlock: { [weak self] _, _ in
+            notificationRef.updateChildValues(values) { [weak self] _, _ in
                 guard let postId = self?.postId else { return }
                 K.FB.userLikesReference.child(currentUid).child(postId).setValue(notificationRef.key)
-            })
+            }
         }
     }
 }
