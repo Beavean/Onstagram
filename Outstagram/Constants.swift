@@ -22,7 +22,12 @@ enum K {
         static let userPostsReference = databaseReference.child("user-posts")
         static let userFeedReference = databaseReference.child("user-feed")
         static let postLikesReference = databaseReference.child("post-likes")
+        static let userLikesReference = databaseReference.child("user-likes")
         static let postsReference = databaseReference.child("posts")
+        static let commentReference = databaseReference.child("comments")
+        static let hashtagPostReference = databaseReference.child("hashtag-post")
+
+
     }
 
     enum FBSTORE {
@@ -43,6 +48,7 @@ enum K {
 
     enum Values {
         static let followIntValue = 2
+        static let likeIntValue = 0
     }
 }
 
