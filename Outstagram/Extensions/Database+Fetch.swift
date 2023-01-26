@@ -16,4 +16,16 @@ extension Database {
             completion(user)
         }
     }
+
+    static func fetchPost(with postId: String, completion: @escaping(Post) -> Void) {
+        K.FB.postsReference.child(postId).observeSingleEvent(of: .value) { snapshot in
+            guard let dictionary = snapshot.value as? [String: AnyObject],
+                  let ownerUid = dictionary["ownerUid"] as? String
+            else { return }
+            Database.fetchUser(with: ownerUid) { (user) in
+                let post = Post(postId: postId, user: user, dictionary: dictionary)
+                completion(post)
+            }
+        }
+    }
 }

@@ -28,7 +28,7 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
 
     var uploadAction: UploadAction!
     var selectedImage: UIImage?
-    // FIXME: - add post
+    var postToEdit: Post?
 
     private let photoImageView: CustomImageView = {
         let imageView = CustomImageView()
@@ -103,13 +103,13 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
 
     private func configureViewController(forUploadAction uploadAction: UploadAction) {
         if uploadAction == .saveChanges {
-            // FIXME: - guard let post = self.postToEdit else { return }
+            guard let post = self.postToEdit else { return }
             actionButton.setTitle("Save Changes", for: .normal)
             self.navigationItem.title = "Edit Post"
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
             navigationController?.navigationBar.tintColor = .black
-//            photoImageView.loadImage(with: post.imageUrl)
-//            captionTextView.text = post.caption
+            photoImageView.loadImage(with: post.imageUrl)
+            captionTextView.text = post.caption
         } else {
             actionButton.setTitle("Share", for: .normal)
             self.navigationItem.title = "Upload Post"
@@ -151,7 +151,14 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
     // MARK: - API
 
     private func handleSavePostChanges() {
-        // FIXME: - to do
+        guard let post = self.postToEdit else { return }
+        guard let updatedCaption = captionTextView.text else { return }
+        if updatedCaption.contains("#") {
+            self.uploadHashtagToServer(withPostId: post.postId)
+        }
+        K.FB.postsReference.child(post.postId).child("caption").setValue(updatedCaption) { [weak self] _, _ in
+            self?.dismiss(animated: true, completion: nil)
+        }
     }
 
     private func handleUploadPost() {
@@ -204,11 +211,24 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
         }
     }
 
-    private func updateUserFeeds(with postId: String) {
-        // FIXME: - to do
+    func updateUserFeeds(with postId: String) {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        let values = [postId: 1]
+        K.FB.userFollowersReference.child(currentUid).observe(.childAdded) { snapshot in
+            let followerUid = snapshot.key
+            K.FB.userFeedReference.child(followerUid).updateChildValues(values)
+        }
+        K.FB.userFeedReference.child(currentUid).updateChildValues(values)
     }
 
-    private func uploadHashtagToServer(withPostId postId: String) {
-       // FIXME: - to do
+    func uploadHashtagToServer(withPostId postId: String) {
+        guard let caption = captionTextView.text else { return }
+        let words: [String] = caption.components(separatedBy: .whitespacesAndNewlines)
+        for var word in words where word.hasPrefix("#") {
+            word = word.trimmingCharacters(in: .punctuationCharacters)
+            word = word.trimmingCharacters(in: .symbols)
+            let hashtagValues = [postId: 1]
+            K.FB.hashtagPostReference.child(word.lowercased()).updateChildValues(hashtagValues)
+        }
     }
 }
