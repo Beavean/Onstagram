@@ -26,15 +26,11 @@ enum K {
         static let postsReference = databaseReference.child("posts")
         static let commentReference = databaseReference.child("comments")
         static let hashtagPostReference = databaseReference.child("hashtag-post")
-
-
     }
 
     enum FBSTORE {
         static let storageReference = Storage.storage().reference()
         static let storagePostImageReference = storageReference.child("post_images")
-
-
     }
 
     enum UI {
@@ -49,7 +45,11 @@ enum K {
     enum Values {
         static let followIntValue = 2
         static let likeIntValue = 0
+        static let commentMentionIntValue = 3
+        static let postMentionIntValue = 4
     }
 }
+
+// TODO: Rebuild utilities folder
 
 // swiftlint:enable type_name

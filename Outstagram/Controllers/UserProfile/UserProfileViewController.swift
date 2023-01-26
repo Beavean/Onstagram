@@ -13,6 +13,8 @@ final class UserProfileViewController: UICollectionViewController {
 
     // MARK: - Properties
 
+    var posts = [Post]()
+    var currentKey: String?
     var user: User? {
         didSet { collectionView.reloadData() }
     }
@@ -23,6 +25,8 @@ final class UserProfileViewController: UICollectionViewController {
         super.viewDidLoad()
         configure()
         fetchCurrentUserData()
+        configureRefreshControl()
+        fetchPosts()
     }
 
     // MARK: - Helpers
@@ -35,7 +39,71 @@ final class UserProfileViewController: UICollectionViewController {
         collectionView.backgroundColor = .white
     }
 
+    // MARK: - Handlers
+
+    @objc func handleRefresh() {
+        posts.removeAll(keepingCapacity: false)
+        self.currentKey = nil
+        fetchPosts()
+        collectionView?.reloadData()
+    }
+
+    func configureRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
+        collectionView?.refreshControl = refreshControl
+    }
+
     // MARK: - API
+
+    func fetchPosts() {
+        var uid: String!
+        if let user = self.user {
+            uid = user.uid
+        } else {
+            uid = Auth.auth().currentUser?.uid
+        }
+        if currentKey == nil {
+            K.FB.userPostsReference.child(uid).queryLimited(toLast: 10).observeSingleEvent(of: .value) { [weak self] snapshot in
+                self?.collectionView?.refreshControl?.endRefreshing()
+                guard let first = snapshot.children.allObjects.first as? DataSnapshot,
+                      let allObjects = snapshot.children.allObjects as? [DataSnapshot]
+                else { return }
+                allObjects.forEach { snapshot in
+                    let postId = snapshot.key
+                    self?.fetchPost(withPostId: postId)
+                }
+                self?.currentKey = first.key
+            }
+        } else {
+            K.FB.userPostsReference
+                .child(uid)
+                .queryOrderedByKey()
+                .queryEnding(atValue: self.currentKey)
+                .queryLimited(toLast: 7)
+                .observeSingleEvent(of: .value) { snapshot in
+                guard let first = snapshot.children.allObjects.first as? DataSnapshot,
+                      let allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
+                allObjects.forEach { (snapshot) in
+                    let postId = snapshot.key
+                    if postId != self.currentKey {
+                        self.fetchPost(withPostId: postId)
+                    }
+                }
+                self.currentKey = first.key
+            }
+        }
+    }
+
+    func fetchPost(withPostId postId: String) {
+        Database.fetchPost(with: postId) { (post) in
+            self.posts.append(post)
+            self.posts.sort(by: { (post1, post2) -> Bool in
+                return post1.creationDate > post2.creationDate
+            })
+            self.collectionView?.reloadData()
+        }
+    }
 
     private func fetchCurrentUserData() {
         guard let currentUid = Auth.auth().currentUser?.uid, user == nil else { return }
@@ -54,11 +122,19 @@ final class UserProfileViewController: UICollectionViewController {
 
 extension UserProfileViewController {
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
-        1
+        return 1
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if posts.count > 9 {
+            if indexPath.item == posts.count - 1 {
+                fetchPosts()
+            }
+        }
     }
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        0
+        return posts.count
     }
 
     override func collectionView(_ collectionView: UICollectionView,
@@ -68,25 +144,46 @@ extension UserProfileViewController {
                                                                            withReuseIdentifier: K.UI.userProfileHeaderIdentifier,
                                                                            for: indexPath) as? UserProfileHeader
         else { return UICollectionReusableView() }
-        header.user = self.user
         header.delegate = self
+        header.user = self.user
         navigationItem.title = user?.username
         return header
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.UI.cellIdentifier, for: indexPath)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.UI.cellIdentifier,
+                                                            for: indexPath) as? UserPostCell
+        else { return UICollectionViewCell() }
+        cell.post = posts[indexPath.item]
         return cell
-    }
-}
+    }}
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension UserProfileViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (view.frame.width - 2) / 3
+        return CGSize(width: width, height: width)
+    }
+
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
-        CGSize(width: view.frame.width, height: 200)
+        return CGSize(width: view.frame.width, height: 200)
     }
 }
 
