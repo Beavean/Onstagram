@@ -10,5 +10,6 @@ target 'Outstagram' do
   pod 'FirebaseDatabase'
   pod 'FirebaseStorage'
   pod 'SwiftLint'
+  pod 'ActiveLabel'
 
 end

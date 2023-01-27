@@ -14,17 +14,17 @@ extension UIViewController {
     func getMentionedUser(withUsername username: String) {
         K.FB.usersReference.observe(.childAdded) { snapshot in
             let uid = snapshot.key
-            K.FB.usersReference.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+            K.FB.usersReference.child(uid).observeSingleEvent(of: .value) { snapshot in
                 guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
                 if username == dictionary["username"] as? String {
-                    Database.fetchUser(with: uid, completion: { (user) in
+                    Database.fetchUser(with: uid) { user in
                         let userProfileController = UserProfileViewController(collectionViewLayout: UICollectionViewFlowLayout())
                         userProfileController.user = user
                         self.navigationController?.pushViewController(userProfileController, animated: true)
                         return
-                    })
+                    }
                 }
-            })
+            }
         }
     }
 
@@ -41,9 +41,9 @@ extension UIViewController {
         for var word in words where word.hasPrefix("@") {
             word = word.trimmingCharacters(in: .symbols)
             word = word.trimmingCharacters(in: .punctuationCharacters)
-            K.FB.usersReference.observe(.childAdded, with: { (snapshot) in
+            K.FB.usersReference.observe(.childAdded) { snapshot in
                 let uid = snapshot.key
-                K.FB.usersReference.child(uid).observeSingleEvent(of: .value, with: { (snapshot) in
+                K.FB.usersReference.child(uid).observeSingleEvent(of: .value) { snapshot in
                     guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
                     if word == dictionary["username"] as? String {
                         let notificationValues = ["postId": postId,
@@ -54,8 +54,8 @@ extension UIViewController {
                             K.FB.notificationsReference.child(uid).childByAutoId().updateChildValues(notificationValues)
                         }
                     }
-                })
-            })
+                }
+            }
         }
     }
 }
