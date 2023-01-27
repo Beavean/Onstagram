@@ -22,7 +22,7 @@ extension Database {
             guard let dictionary = snapshot.value as? [String: AnyObject],
                   let ownerUid = dictionary["ownerUid"] as? String
             else { return }
-            Database.fetchUser(with: ownerUid) { (user) in
+            Database.fetchUser(with: ownerUid) { user in
                 let post = Post(postId: postId, user: user, dictionary: dictionary)
                 completion(post)
             }

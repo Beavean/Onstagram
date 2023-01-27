@@ -20,7 +20,7 @@ final class FollowLikeViewController: UITableViewController {
 
     private var followCurrentKey: String?
     private var likeCurrentKey: String?
-    private var postId: String?
+    var postId: String?
     private var users = [User]()
     var viewingMode: ViewingMode!
     var uid: String?

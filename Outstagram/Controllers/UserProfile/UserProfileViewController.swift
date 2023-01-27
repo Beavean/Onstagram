@@ -32,7 +32,7 @@ final class UserProfileViewController: UICollectionViewController {
     // MARK: - Helpers
 
     private func configure() {
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: K.UI.cellIdentifier)
+        collectionView.register(UserPostCell.self, forCellWithReuseIdentifier: K.UI.cellIdentifier)
         collectionView.register(UserProfileHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                 withReuseIdentifier: K.UI.userProfileHeaderIdentifier)
@@ -84,7 +84,7 @@ final class UserProfileViewController: UICollectionViewController {
                 .observeSingleEvent(of: .value) { snapshot in
                 guard let first = snapshot.children.allObjects.first as? DataSnapshot,
                       let allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
-                allObjects.forEach { (snapshot) in
+                allObjects.forEach { snapshot in
                     let postId = snapshot.key
                     if postId != self.currentKey {
                         self.fetchPost(withPostId: postId)
@@ -96,11 +96,11 @@ final class UserProfileViewController: UICollectionViewController {
     }
 
     func fetchPost(withPostId postId: String) {
-        Database.fetchPost(with: postId) { (post) in
+        Database.fetchPost(with: postId) { post in
             self.posts.append(post)
-            self.posts.sort(by: { (post1, post2) -> Bool in
-                return post1.creationDate > post2.creationDate
-            })
+            self.posts.sort { (firstPost, secondPost) -> Bool in
+                return firstPost.creationDate > secondPost.creationDate
+            }
             self.collectionView?.reloadData()
         }
     }

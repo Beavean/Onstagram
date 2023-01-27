@@ -52,4 +52,6 @@ enum K {
 
 // TODO: Rebuild utilities folder
 
+// TODO: Rebuild constants
+
 // swiftlint:enable type_name
