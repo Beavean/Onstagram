@@ -10,6 +10,8 @@
 		081AE3752981D47300C4CC26 /* UserPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081AE3742981D47300C4CC26 /* UserPostCell.swift */; };
 		0821A7242983285300AEBC7C /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0821A7232983285300AEBC7C /* FeedCell.swift */; };
 		0821A7262983362B00AEBC7C /* Date+TimeAgo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0821A7252983362B00AEBC7C /* Date+TimeAgo.swift */; };
+		0838DA93298467AF008DCC3D /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0838DA92298467AF008DCC3D /* Comment.swift */; };
+		0838DA9529846800008DCC3D /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0838DA9429846800008DCC3D /* Notification.swift */; };
 		083A1FD6296F670E0050C2DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 083A1FD5296F670E0050C2DA /* GoogleService-Info.plist */; };
 		083A1FD8296F676D0050C2DA /* AuthenticationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083A1FD7296F676D0050C2DA /* AuthenticationButton.swift */; };
 		083A1FDA296F69B30050C2DA /* AuthenticationSwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083A1FD9296F69B30050C2DA /* AuthenticationSwitchButton.swift */; };
@@ -50,6 +52,8 @@
 		081AE3742981D47300C4CC26 /* UserPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostCell.swift; sourceTree = "<group>"; };
 		0821A7232983285300AEBC7C /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 		0821A7252983362B00AEBC7C /* Date+TimeAgo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+TimeAgo.swift"; sourceTree = "<group>"; };
+		0838DA92298467AF008DCC3D /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		0838DA9429846800008DCC3D /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		083A1FD5296F670E0050C2DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Users/Beavean/Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		083A1FD7296F676D0050C2DA /* AuthenticationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationButton.swift; sourceTree = "<group>"; };
 		083A1FD9296F69B30050C2DA /* AuthenticationSwitchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationSwitchButton.swift; sourceTree = "<group>"; };
@@ -113,14 +117,14 @@
 			name = Files;
 			sourceTree = "<group>";
 		};
-		0867A84B296CD492002F3170 /* Utilities */ = {
+		0838DA9129846658008DCC3D /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
 				088938372970C13B00BE0612 /* CustomViews */,
 				088938362970C12200BE0612 /* Extensions */,
 				0889383D2970CBF800BE0612 /* Constants.swift */,
 			);
-			name = Utilities;
+			path = Utilities;
 			sourceTree = "<group>";
 		};
 		088938362970C12200BE0612 /* Extensions */ = {
@@ -154,6 +158,8 @@
 			children = (
 				087091352976AE8900807D39 /* User.swift */,
 				08BDA64F298099F3001732E0 /* Post.swift */,
+				0838DA92298467AF008DCC3D /* Comment.swift */,
+				0838DA9429846800008DCC3D /* Notification.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -262,7 +268,7 @@
 				088938382970C15100BE0612 /* Models */,
 				088938392970C15B00BE0612 /* Views */,
 				0889383A2970C16B00BE0612 /* Controllers */,
-				0867A84B296CD492002F3170 /* Utilities */,
+				0838DA9129846658008DCC3D /* Utilities */,
 				08103E5A296C79D0006120E7 /* Files */,
 			);
 			path = Outstagram;
@@ -424,6 +430,7 @@
 				08C109CA297AEBCF0020DD18 /* FollowViewController.swift in Sources */,
 				0889384C29731CD600BE0612 /* NotificationsTableViewController.swift in Sources */,
 				0889385629736AAB00BE0612 /* UserProfileHeader.swift in Sources */,
+				0838DA93298467AF008DCC3D /* Comment.swift in Sources */,
 				0889384E29731CED00BE0612 /* UserProfileViewController.swift in Sources */,
 				0889383E2970CBF800BE0612 /* Constants.swift in Sources */,
 				085E56D7297E0068007BA4AE /* SelectPhotoCell.swift in Sources */,
@@ -449,6 +456,7 @@
 				0867A852296CDDFF002F3170 /* AuthenticationTextField.swift in Sources */,
 				08F2521F297B58FD00F81DF8 /* Database+Fetch.swift in Sources */,
 				0821A7242983285300AEBC7C /* FeedCell.swift in Sources */,
+				0838DA9529846800008DCC3D /* Notification.swift in Sources */,
 				08C109CC297AECF20020DD18 /* FollowLikeCell.swift in Sources */,
 				0821A7262983362B00AEBC7C /* Date+TimeAgo.swift in Sources */,
 				087091362976AE8900807D39 /* User.swift in Sources */,
