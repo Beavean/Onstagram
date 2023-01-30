@@ -156,7 +156,16 @@ extension UserProfileViewController {
         else { return UICollectionViewCell() }
         cell.post = posts[indexPath.item]
         return cell
-    }}
+    }
+
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let feedVC = FeedViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        feedVC.viewSinglePost = true
+        feedVC.userProfileController = self
+        feedVC.post = posts[indexPath.item]
+        navigationController?.pushViewController(feedVC, animated: true)
+    }
+}
 
 // MARK: - UICollectionViewDelegateFlowLayout
 

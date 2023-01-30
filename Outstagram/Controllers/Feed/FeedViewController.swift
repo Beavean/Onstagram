@@ -142,7 +142,7 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
 
     @objc func handleLogout() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { _ in
+        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive) { _ in
             do {
                 try Auth.auth().signOut()
                 let loginVC = LoginViewController()
@@ -152,7 +152,7 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
             } catch {
                 print("Failed to sign out")
             }
-        }))
+        })
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         present(alertController, animated: true, completion: nil)
     }
@@ -226,7 +226,7 @@ extension FeedViewController: FeedCellDelegate {
         guard let post = cell.post else { return }
         if post.ownerUid == Auth.auth().currentUser?.uid {
             let alertController = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
-            alertController.addAction(UIAlertAction(title: "Delete Post", style: .destructive, handler: { _ in
+            alertController.addAction(UIAlertAction(title: "Delete Post", style: .destructive) { _ in
                 post.deletePost()
                 if !self.viewSinglePost {
                     self.handleRefresh()
@@ -236,15 +236,15 @@ extension FeedViewController: FeedCellDelegate {
                         userProfileController.handleRefresh()
                     }
                 }
-            }))
+            })
 
-            alertController.addAction(UIAlertAction(title: "Edit Post", style: .default, handler: { _ in
+            alertController.addAction(UIAlertAction(title: "Edit Post", style: .default) { _ in
                 let uploadPostController = UploadPostViewController()
                 let navigationController = UINavigationController(rootViewController: uploadPostController)
                 uploadPostController.postToEdit = post
                 uploadPostController.uploadAction = UploadPostViewController.UploadAction(index: 1)
                 self.present(navigationController, animated: true, completion: nil)
-            }))
+            })
 
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             present(alertController, animated: true, completion: nil)
@@ -261,10 +261,10 @@ extension FeedViewController: FeedCellDelegate {
                 }
             }
         } else {
-            post.adjustLikes(addLike: true, completion: { likes in
+            post.adjustLikes(addLike: true) { likes in
                 cell.likesLabel.text = "\(likes) likes"
                 cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-            })
+            }
         }
     }
 

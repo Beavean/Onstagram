@@ -16,6 +16,7 @@
 		083A1FD8296F676D0050C2DA /* AuthenticationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083A1FD7296F676D0050C2DA /* AuthenticationButton.swift */; };
 		083A1FDA296F69B30050C2DA /* AuthenticationSwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083A1FD9296F69B30050C2DA /* AuthenticationSwitchButton.swift */; };
 		083A1FDD296F6BA30050C2DA /* AuthenticationImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083A1FDC296F6BA30050C2DA /* AuthenticationImageView.swift */; };
+		0849B2352988717A00B3F2DC /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0849B2342988717A00B3F2DC /* Message.swift */; };
 		085E56D5297DFC32007BA4AE /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085E56D4297DFC32007BA4AE /* SelectImageViewController.swift */; };
 		085E56D7297E0068007BA4AE /* SelectPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085E56D6297E0068007BA4AE /* SelectPhotoCell.swift */; };
 		085E56D9297E007A007BA4AE /* SelectPhotoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085E56D8297E007A007BA4AE /* SelectPhotoHeader.swift */; };
@@ -58,6 +59,7 @@
 		083A1FD7296F676D0050C2DA /* AuthenticationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationButton.swift; sourceTree = "<group>"; };
 		083A1FD9296F69B30050C2DA /* AuthenticationSwitchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationSwitchButton.swift; sourceTree = "<group>"; };
 		083A1FDC296F6BA30050C2DA /* AuthenticationImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationImageView.swift; sourceTree = "<group>"; };
+		0849B2342988717A00B3F2DC /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		085E56D4297DFC32007BA4AE /* SelectImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
 		085E56D6297E0068007BA4AE /* SelectPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoCell.swift; sourceTree = "<group>"; };
 		085E56D8297E007A007BA4AE /* SelectPhotoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoHeader.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				08BDA64F298099F3001732E0 /* Post.swift */,
 				0838DA92298467AF008DCC3D /* Comment.swift */,
 				0838DA9429846800008DCC3D /* Notification.swift */,
+				0849B2342988717A00B3F2DC /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -446,6 +449,7 @@
 				08893844297319A400BE0612 /* MainTabViewController.swift in Sources */,
 				08D6598C296B7C610089624D /* LoginViewController.swift in Sources */,
 				08EFF3FA297F52FC0058A5D3 /* UIViewController+MentionedUser.swift in Sources */,
+				0849B2352988717A00B3F2DC /* Message.swift in Sources */,
 				08B87F6D29775BB2007DFD3D /* SearchUserCell.swift in Sources */,
 				0889383C2970C98800BE0612 /* UIViewController+Alert.swift in Sources */,
 				0867A84D296CD69D002F3170 /* UIView+Anchors.swift in Sources */,
