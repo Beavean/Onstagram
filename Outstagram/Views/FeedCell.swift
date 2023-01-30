@@ -44,7 +44,7 @@ final class FeedCell: UICollectionViewCell {
         let button = UIButton(type: .system)
         button.setTitle("•••", for: .normal)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
         button.addTarget(self, action: #selector(handleOptionsTapped), for: .touchUpInside)
         return button
     }()
@@ -101,7 +101,6 @@ final class FeedCell: UICollectionViewCell {
         likeTap.numberOfTapsRequired = 1
         label.isUserInteractionEnabled = true
         label.addGestureRecognizer(likeTap)
-
         return label
     }()
 
@@ -146,7 +145,7 @@ final class FeedCell: UICollectionViewCell {
         usernameButton.anchor(left: profileImageView.rightAnchor, paddingTop: 0, paddingLeft: 8, width: 0, height: 0)
         usernameButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
         addSubview(optionsButton)
-        optionsButton.anchor(right: rightAnchor, paddingRight: 8, width: 0, height: 0)
+        optionsButton.anchor(right: rightAnchor, paddingRight: 8, width: 40, height: 40)
         optionsButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
         addSubview(postImageView)
         postImageView.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 8, width: 0, height: 0)
