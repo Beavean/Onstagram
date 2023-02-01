@@ -17,6 +17,10 @@
 		083A1FDA296F69B30050C2DA /* AuthenticationSwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083A1FD9296F69B30050C2DA /* AuthenticationSwitchButton.swift */; };
 		083A1FDD296F6BA30050C2DA /* AuthenticationImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083A1FDC296F6BA30050C2DA /* AuthenticationImageView.swift */; };
 		0849B2352988717A00B3F2DC /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0849B2342988717A00B3F2DC /* Message.swift */; };
+		0849B2372988834B00B3F2DC /* CommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0849B2362988834B00B3F2DC /* CommentViewController.swift */; };
+		0849B2392988840200B3F2DC /* CommentInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0849B2382988840200B3F2DC /* CommentInputAccessoryView.swift */; };
+		0849B23B2988843300B3F2DC /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0849B23A2988843300B3F2DC /* InputTextView.swift */; };
+		0849B23D2988854300B3F2DC /* CommentaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0849B23C2988854300B3F2DC /* CommentaryCell.swift */; };
 		085E56D5297DFC32007BA4AE /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085E56D4297DFC32007BA4AE /* SelectImageViewController.swift */; };
 		085E56D7297E0068007BA4AE /* SelectPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085E56D6297E0068007BA4AE /* SelectPhotoCell.swift */; };
 		085E56D9297E007A007BA4AE /* SelectPhotoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085E56D8297E007A007BA4AE /* SelectPhotoHeader.swift */; };
@@ -60,6 +64,10 @@
 		083A1FD9296F69B30050C2DA /* AuthenticationSwitchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationSwitchButton.swift; sourceTree = "<group>"; };
 		083A1FDC296F6BA30050C2DA /* AuthenticationImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationImageView.swift; sourceTree = "<group>"; };
 		0849B2342988717A00B3F2DC /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		0849B2362988834B00B3F2DC /* CommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewController.swift; sourceTree = "<group>"; };
+		0849B2382988840200B3F2DC /* CommentInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputAccessoryView.swift; sourceTree = "<group>"; };
+		0849B23A2988843300B3F2DC /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
+		0849B23C2988854300B3F2DC /* CommentaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentaryCell.swift; sourceTree = "<group>"; };
 		085E56D4297DFC32007BA4AE /* SelectImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
 		085E56D6297E0068007BA4AE /* SelectPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoCell.swift; sourceTree = "<group>"; };
 		085E56D8297E007A007BA4AE /* SelectPhotoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoHeader.swift; sourceTree = "<group>"; };
@@ -177,6 +185,9 @@
 				085E56D8297E007A007BA4AE /* SelectPhotoHeader.swift */,
 				081AE3742981D47300C4CC26 /* UserPostCell.swift */,
 				0821A7232983285300AEBC7C /* FeedCell.swift */,
+				0849B2382988840200B3F2DC /* CommentInputAccessoryView.swift */,
+				0849B23A2988843300B3F2DC /* InputTextView.swift */,
+				0849B23C2988854300B3F2DC /* CommentaryCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -208,6 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				0889384529731C8B00BE0612 /* FeedViewController.swift */,
+				0849B2362988834B00B3F2DC /* CommentViewController.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -432,6 +444,7 @@
 				08C6AE41296EE0D400362910 /* SignUpViewController.swift in Sources */,
 				08C109CA297AEBCF0020DD18 /* FollowViewController.swift in Sources */,
 				0889384C29731CD600BE0612 /* NotificationsTableViewController.swift in Sources */,
+				0849B2372988834B00B3F2DC /* CommentViewController.swift in Sources */,
 				0889385629736AAB00BE0612 /* UserProfileHeader.swift in Sources */,
 				0838DA93298467AF008DCC3D /* Comment.swift in Sources */,
 				0889384E29731CED00BE0612 /* UserProfileViewController.swift in Sources */,
@@ -439,8 +452,10 @@
 				085E56D7297E0068007BA4AE /* SelectPhotoCell.swift in Sources */,
 				0867A84F296CDC4D002F3170 /* UIViewController+Gradient.swift in Sources */,
 				08BDA650298099F3001732E0 /* Post.swift in Sources */,
+				0849B2392988840200B3F2DC /* CommentInputAccessoryView.swift in Sources */,
 				0889384629731C8B00BE0612 /* FeedViewController.swift in Sources */,
 				08C109CE297AEDA50020DD18 /* UIButton+Configure.swift in Sources */,
+				0849B23D2988854300B3F2DC /* CommentaryCell.swift in Sources */,
 				081AE3752981D47300C4CC26 /* UserPostCell.swift in Sources */,
 				083A1FDA296F69B30050C2DA /* AuthenticationSwitchButton.swift in Sources */,
 				087091382976B5A600807D39 /* CustomImageView.swift in Sources */,
@@ -450,6 +465,7 @@
 				08D6598C296B7C610089624D /* LoginViewController.swift in Sources */,
 				08EFF3FA297F52FC0058A5D3 /* UIViewController+MentionedUser.swift in Sources */,
 				0849B2352988717A00B3F2DC /* Message.swift in Sources */,
+				0849B23B2988843300B3F2DC /* InputTextView.swift in Sources */,
 				08B87F6D29775BB2007DFD3D /* SearchUserCell.swift in Sources */,
 				0889383C2970C98800BE0612 /* UIViewController+Alert.swift in Sources */,
 				0867A84D296CD69D002F3170 /* UIView+Anchors.swift in Sources */,

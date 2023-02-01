@@ -44,6 +44,7 @@ enum K {
 
     enum Values {
         static let followIntValue = 2
+        static let commentIntValue = 1
         static let likeIntValue = 0
         static let commentMentionIntValue = 3
         static let postMentionIntValue = 4
