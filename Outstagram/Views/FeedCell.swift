@@ -153,7 +153,7 @@ final class FeedCell: UICollectionViewCell {
 
         configureActionButtons()
         addSubview(likesLabel)
-        likesLabel.anchor(top: likeButton.bottomAnchor, left: leftAnchor, paddingTop: -4, paddingLeft: 8, height: 20)
+        likesLabel.anchor(top: likeButton.bottomAnchor, left: leftAnchor, paddingTop: -4, paddingLeft: 8, height: 16)
         addSubview(captionLabel)
         captionLabel.anchor(top: likesLabel.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 8, paddingLeft: 8, paddingRight: 8)
         addSubview(postTimeLabel)
