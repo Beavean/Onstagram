@@ -1,5 +1,5 @@
 //
-//  CommentViewController.swift
+//  CommentaryViewController.swift
 //  Outstagram
 //
 //  Created by Beavean on 31.01.2023.
@@ -9,18 +9,16 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-private let reuseIdentifier = "CommentCell"
-
-class CommentViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+class CommentaryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     // MARK: - Properties
 
-    var comments = [Comment]()
+    var comments = [Commentary]()
     var post: Post?
 
-    lazy var containerView: CommentInputAccessoryView = {
+    lazy var containerView: CommentaryInputView = {
         let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
-        let containerView = CommentInputAccessoryView(frame: frame)
+        let containerView = CommentaryInputView(frame: frame)
         containerView.delegate = self
         return containerView
     }()
@@ -72,7 +70,7 @@ class CommentViewController: UICollectionViewController, UICollectionViewDelegat
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? CommentaryCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CommentaryCell.reuseIdentifier, for: indexPath) as? CommentaryCell
         else { return UICollectionViewCell() }
         handleHashtagTapped(forCell: cell)
         handleMentionTapped(forCell: cell)
@@ -100,7 +98,7 @@ class CommentViewController: UICollectionViewController, UICollectionViewDelegat
             guard let dictionary = snapshot.value as? [String: AnyObject], let uid = dictionary["uid"] as? String
             else { return }
             Database.fetchUser(with: uid, completion: { (user) in
-                let comment = Comment(user: user, dictionary: dictionary)
+                let comment = Commentary(user: user, dictionary: dictionary)
                 self.comments.append(comment)
                 self.collectionView?.reloadData()
             })
@@ -131,13 +129,13 @@ class CommentViewController: UICollectionViewController, UICollectionViewDelegat
         collectionView?.keyboardDismissMode = .interactive
         collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: -50, right: 0)
         collectionView?.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: -50, right: 0)
-        collectionView?.register(CommentaryCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView?.register(CommentaryCell.self, forCellWithReuseIdentifier: CommentaryCell.reuseIdentifier)
     }
 }
 
 // MARK: - CommentInputAccessoryViewDelegate
 
-extension CommentViewController: CommentInputAccessoryViewDelegate {
+extension CommentaryViewController: CommentaryInputViewDelegate {
     func didSubmit(forComment comment: String) {
         guard let postId = self.post?.postId, let uid = Auth.auth().currentUser?.uid else { return }
         let creationDate = Int(NSDate().timeIntervalSince1970)

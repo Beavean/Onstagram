@@ -144,7 +144,7 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
                             paddingTop: 12,
                             paddingLeft: 24,
                             paddingRight: 24,
-                            width: 0,
+                           
                             height: 40)
     }
 

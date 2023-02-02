@@ -27,7 +27,7 @@ class InputTextView: UITextView {
                                                name: UITextView.textDidChangeNotification,
                                                object: nil)
         addSubview(placeholderLabel)
-        placeholderLabel.anchor(left: leftAnchor, right: rightAnchor, paddingLeft: 8, width: 0, height: 0)
+        placeholderLabel.anchor(left: leftAnchor, right: rightAnchor, paddingLeft: 8)
         placeholderLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 

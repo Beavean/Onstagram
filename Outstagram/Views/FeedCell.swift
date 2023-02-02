@@ -142,13 +142,13 @@ final class FeedCell: UICollectionViewCell {
         profileImageView.anchor(top: topAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 8, width: 40, height: 40)
         profileImageView.layer.cornerRadius = 40 / 2
         addSubview(usernameButton)
-        usernameButton.anchor(left: profileImageView.rightAnchor, paddingTop: 0, paddingLeft: 8, width: 0, height: 0)
+        usernameButton.anchor(left: profileImageView.rightAnchor, paddingTop: 0, paddingLeft: 8)
         usernameButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
         addSubview(optionsButton)
         optionsButton.anchor(right: rightAnchor, paddingRight: 8, width: 40, height: 40)
         optionsButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor).isActive = true
         addSubview(postImageView)
-        postImageView.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 8, width: 0, height: 0)
+        postImageView.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 8)
         postImageView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
 
         configureActionButtons()
@@ -157,7 +157,7 @@ final class FeedCell: UICollectionViewCell {
         addSubview(captionLabel)
         captionLabel.anchor(top: likesLabel.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 8, paddingLeft: 8, paddingRight: 8)
         addSubview(postTimeLabel)
-        postTimeLabel.anchor(top: captionLabel.bottomAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 8, width: 0, height: 0)
+        postTimeLabel.anchor(top: captionLabel.bottomAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 8)
     }
 
     required init?(coder aDecoder: NSCoder) {

@@ -305,6 +305,9 @@ extension FeedViewController: FeedCellDelegate {
     }
 
     func handleCommentTapped(for cell: FeedCell) {
-        // TODO: handleCommentTapped
+        guard let post = cell.post else { return }
+        let commentVC = CommentaryViewController(collectionViewLayout: UICollectionViewFlowLayout())
+        commentVC.post = post
+        navigationController?.pushViewController(commentVC, animated: true)
     }
 }

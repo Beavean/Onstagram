@@ -215,7 +215,7 @@ extension UserProfileViewController: UserProfileHeaderDelegate {
 
     func handleEditFollowTapped(for header: UserProfileHeader) {
         guard let user = header.user else { return }
-        // FIXME: - Edit profile
+        // FIXME: - Edit profile click fix
         if header.editProfileFollowButton.titleLabel?.text == "Edit Profile" {
         } else {
             if header.editProfileFollowButton.titleLabel?.text == "Follow" {

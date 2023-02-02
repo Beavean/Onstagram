@@ -27,7 +27,7 @@ final class UserPostCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(postImageView)
-        postImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, width: 0, height: 0)
+        postImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
     }
 
     required init?(coder aDecoder: NSCoder) {

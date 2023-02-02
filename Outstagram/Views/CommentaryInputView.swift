@@ -1,5 +1,5 @@
 //
-//  CommentInputAccessoryView.swift
+//  CommentaryInputView.swift
 //  Outstagram
 //
 //  Created by Beavean on 31.01.2023.
@@ -7,15 +7,15 @@
 
 import UIKit
 
-protocol CommentInputAccessoryViewDelegate: AnyObject {
+protocol CommentaryInputViewDelegate: AnyObject {
     func didSubmit(forComment comment: String)
 }
 
-final class CommentInputAccessoryView: UIView {
+final class CommentaryInputView: UIView {
 
     // MARK: - Properties
 
-    weak var delegate: CommentInputAccessoryViewDelegate?
+    weak var delegate: CommentaryInputViewDelegate?
 
     private let commentTextView: InputTextView = {
         let textView = InputTextView()
@@ -37,14 +37,10 @@ final class CommentInputAccessoryView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         autoresizingMask = .flexibleHeight
-
         backgroundColor = .white
-
         addSubview(postButton)
         postButton.anchor(top: topAnchor, right: rightAnchor, paddingRight: 8, width: 50, height: 50)
-
         addSubview(commentTextView)
         commentTextView.anchor(top: topAnchor,
                                left: leftAnchor,
@@ -52,14 +48,12 @@ final class CommentInputAccessoryView: UIView {
                                right: postButton.leftAnchor,
                                paddingTop: 8,
                                paddingLeft: 8,
-                               paddingRight: 8,
-                               width: 0,
-                               height: 0)
+                               paddingRight: 8)
 
         let separatorView = UIView()
-        separatorView.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
+        separatorView.backgroundColor = .separator
         addSubview(separatorView)
-        separatorView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, width: 0, height: 0.5)
+        separatorView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, height: 0.5)
     }
 
     required init?(coder aDecoder: NSCoder) {

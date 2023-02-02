@@ -1,5 +1,5 @@
 //
-//  Comment.swift
+//  Commentary.swift
 //  Outstagram
 //
 //  Created by Beavean on 27.01.2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class Comment {
+final class Commentary {
 
     var uid: String!
     var commentText: String!

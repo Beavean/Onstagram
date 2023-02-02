@@ -31,7 +31,7 @@ final class MainTabViewController: UITabBarController, UITabBarControllerDelegat
             case .uploadPost:
                 return UploadPostViewController()
             case .notifications:
-                return NotificationsTableViewController()
+                return NotificationsViewController()
             case .userProfile:
                 return UserProfileViewController(collectionViewLayout: UICollectionViewFlowLayout())
             }

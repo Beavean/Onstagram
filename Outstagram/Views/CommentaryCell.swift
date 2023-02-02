@@ -10,11 +10,7 @@ import ActiveLabel
 
 final class CommentaryCell: UICollectionViewCell {
 
-    var comment: Comment? {
-        didSet {
-            configureWithComment()
-        }
-    }
+    // MARK: - UI Elements
 
     private let profileImageView: CustomImageView = {
         let imageView = CustomImageView()
@@ -30,6 +26,15 @@ final class CommentaryCell: UICollectionViewCell {
         label.numberOfLines = 0
         return label
     }()
+
+    // MARK: - Properties
+
+    static let reuseIdentifier = "CommentaryCell"
+    var comment: Commentary? {
+        didSet {
+            configureWithComment()
+        }
+    }
 
     // MARK: - Init
 
@@ -47,9 +52,7 @@ final class CommentaryCell: UICollectionViewCell {
                             paddingTop: 4,
                             paddingLeft: 4,
                             paddingBottom: 4,
-                            paddingRight: 4,
-                            width: 0,
-                            height: 0)
+                            paddingRight: 4)
     }
 
     required init?(coder aDecoder: NSCoder) {
