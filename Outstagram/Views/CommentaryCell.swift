@@ -78,7 +78,7 @@ final class CommentaryCell: UICollectionViewCell {
             }
             return attributes
         }
-        commentLabel.customize { (label) in
+        commentLabel.customize { label in
             label.text = "\(username) \(commentText)"
             label.customColor[customType] = .black
             label.font = UIFont.systemFont(ofSize: 12)

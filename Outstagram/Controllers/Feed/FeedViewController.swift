@@ -199,7 +199,7 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
     }
 
     func fetchPost(withPostId postId: String) {
-        Database.fetchPost(with: postId) { (post) in
+        Database.fetchPost(with: postId) { post in
             self.posts.append(post)
             self.posts.sort { (post1, post2) -> Bool in
                 return post1.creationDate > post2.creationDate

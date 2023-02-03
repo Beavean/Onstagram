@@ -31,6 +31,10 @@ final class SearchUserCell: UITableViewCell {
         return imageView
     }()
 
+    // MARK: - Properties
+
+    static let reuseIdentifier = String(describing: self)
+
     // MARK: - Lifecycle
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

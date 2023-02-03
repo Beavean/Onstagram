@@ -214,7 +214,7 @@ final class FeedCell: UICollectionViewCell {
             }
             return attributes
         }
-        captionLabel.customize { (label) in
+        captionLabel.customize { label in
             label.text = "\(username) \(caption)"
             label.customColor[customType] = .black
             label.font = UIFont.systemFont(ofSize: 12)
