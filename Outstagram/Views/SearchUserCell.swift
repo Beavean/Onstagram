@@ -33,7 +33,7 @@ final class SearchUserCell: UITableViewCell {
 
     // MARK: - Properties
 
-    static let reuseIdentifier = String(describing: self)
+    static let reuseIdentifier = String(describing: SearchUserCell.self)
 
     // MARK: - Lifecycle
 

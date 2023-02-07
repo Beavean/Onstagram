@@ -23,6 +23,7 @@
 		0849B2392988840200B3F2DC /* CommentaryInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0849B2382988840200B3F2DC /* CommentaryInputView.swift */; };
 		0849B23B2988843300B3F2DC /* InputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0849B23A2988843300B3F2DC /* InputTextView.swift */; };
 		0849B23D2988854300B3F2DC /* CommentaryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0849B23C2988854300B3F2DC /* CommentaryCell.swift */; };
+		0851BBA82992526A005D498B /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0851BBA72992526A005D498B /* MessageCell.swift */; };
 		085E56D5297DFC32007BA4AE /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085E56D4297DFC32007BA4AE /* SelectImageViewController.swift */; };
 		085E56D7297E0068007BA4AE /* SelectPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085E56D6297E0068007BA4AE /* SelectPhotoCell.swift */; };
 		085E56D9297E007A007BA4AE /* SelectPhotoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 085E56D8297E007A007BA4AE /* SelectPhotoHeader.swift */; };
@@ -46,6 +47,7 @@
 		08C109CC297AECF20020DD18 /* FollowLikeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C109CB297AECF20020DD18 /* FollowLikeCell.swift */; };
 		08C109CE297AEDA50020DD18 /* UIButton+Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C109CD297AEDA50020DD18 /* UIButton+Configure.swift */; };
 		08C6AE41296EE0D400362910 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C6AE40296EE0D400362910 /* SignUpViewController.swift */; };
+		08D5FAED2991B65B00F866ED /* MessagesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D5FAEC2991B65B00F866ED /* MessagesController.swift */; };
 		08D65988296B7C610089624D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D65987296B7C610089624D /* AppDelegate.swift */; };
 		08D6598C296B7C610089624D /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08D6598B296B7C610089624D /* LoginViewController.swift */; };
 		08D65991296B7C630089624D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 08D65990296B7C630089624D /* Assets.xcassets */; };
@@ -72,6 +74,7 @@
 		0849B2382988840200B3F2DC /* CommentaryInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentaryInputView.swift; sourceTree = "<group>"; };
 		0849B23A2988843300B3F2DC /* InputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextView.swift; sourceTree = "<group>"; };
 		0849B23C2988854300B3F2DC /* CommentaryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentaryCell.swift; sourceTree = "<group>"; };
+		0851BBA72992526A005D498B /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		085E56D4297DFC32007BA4AE /* SelectImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
 		085E56D6297E0068007BA4AE /* SelectPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoCell.swift; sourceTree = "<group>"; };
 		085E56D8297E007A007BA4AE /* SelectPhotoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoHeader.swift; sourceTree = "<group>"; };
@@ -95,6 +98,7 @@
 		08C109CB297AECF20020DD18 /* FollowLikeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowLikeCell.swift; sourceTree = "<group>"; };
 		08C109CD297AEDA50020DD18 /* UIButton+Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Configure.swift"; sourceTree = "<group>"; };
 		08C6AE40296EE0D400362910 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		08D5FAEC2991B65B00F866ED /* MessagesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessagesController.swift; sourceTree = "<group>"; };
 		08D65984296B7C610089624D /* Outstagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Outstagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		08D65987296B7C610089624D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		08D6598B296B7C610089624D /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -194,6 +198,7 @@
 				0849B23A2988843300B3F2DC /* InputTextView.swift */,
 				0849B23C2988854300B3F2DC /* CommentaryCell.swift */,
 				0831DBCE298B278300220E50 /* NotificationCell.swift */,
+				0851BBA72992526A005D498B /* MessageCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -208,6 +213,7 @@
 				0889385229736A7900BE0612 /* UploadPost */,
 				0889385329736A8900BE0612 /* Notifications */,
 				0889385429736A9100BE0612 /* UserProfile */,
+				08D5FAEB2991B64300F866ED /* Messages */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -262,6 +268,14 @@
 				08C109C9297AEBCF0020DD18 /* FollowViewController.swift */,
 			);
 			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		08D5FAEB2991B64300F866ED /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				08D5FAEC2991B65B00F866ED /* MessagesController.swift */,
+			);
+			path = Messages;
 			sourceTree = "<group>";
 		};
 		08D6597B296B7C600089624D = {
@@ -448,6 +462,7 @@
 			files = (
 				0889384A29731CB900BE0612 /* UploadPostViewController.swift in Sources */,
 				08C6AE41296EE0D400362910 /* SignUpViewController.swift in Sources */,
+				08D5FAED2991B65B00F866ED /* MessagesController.swift in Sources */,
 				08C109CA297AEBCF0020DD18 /* FollowViewController.swift in Sources */,
 				0889384C29731CD600BE0612 /* NotificationsViewController.swift in Sources */,
 				0849B2372988834B00B3F2DC /* CommentaryViewController.swift in Sources */,
@@ -478,6 +493,7 @@
 				0889383C2970C98800BE0612 /* UIViewController+Alert.swift in Sources */,
 				0867A84D296CD69D002F3170 /* UIView+Anchors.swift in Sources */,
 				083A1FDD296F6BA30050C2DA /* AuthenticationImageView.swift in Sources */,
+				0851BBA82992526A005D498B /* MessageCell.swift in Sources */,
 				085E56D9297E007A007BA4AE /* SelectPhotoHeader.swift in Sources */,
 				085E56D5297DFC32007BA4AE /* SelectImageViewController.swift in Sources */,
 				08D65988296B7C610089624D /* AppDelegate.swift in Sources */,

@@ -243,7 +243,7 @@ final class SearchViewController: UITableViewController,
                     if uid != self.userCurrentKey {
                         Database.fetchUser(with: uid) { user in
                             self.users.append(user)
-                            if self.users.count == allObjects.count  {
+                            if self.users.count == allObjects.count {
                                 self.tableView.reloadData()
                             }
                         }

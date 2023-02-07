@@ -53,7 +53,7 @@ final class NotificationCell: UITableViewCell {
 
     // MARK: - Properties
 
-    static let reuseIdentifier = String(describing: self)
+    static let reuseIdentifier = String(describing: NotificationCell.self)
     weak var delegate: NotificationCellDelegate?
     var notification: Notification? {
         didSet {
