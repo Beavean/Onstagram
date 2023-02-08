@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.makeKeyAndVisible()
+        window?.overrideUserInterfaceStyle = .light
         window?.backgroundColor = .systemBackground
 //        window?.rootViewController = UINavigationController(rootViewController: MainTabController())
         window?.rootViewController = MainTabViewController()
