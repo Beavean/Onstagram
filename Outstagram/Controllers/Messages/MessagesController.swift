@@ -85,7 +85,7 @@ final class MessagesController: UITableViewController {
         // TODO: handleNewMessage
     }
 
-    private func showChatController(forUser user: User) {
+    func showChatController(forUser user: User) {
        // TODO: showChatController
     }
 
