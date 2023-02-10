@@ -32,6 +32,12 @@
 		0867A852296CDDFF002F3170 /* AuthenticationTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0867A851296CDDFF002F3170 /* AuthenticationTextField.swift */; };
 		087091362976AE8900807D39 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087091352976AE8900807D39 /* User.swift */; };
 		087091382976B5A600807D39 /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087091372976B5A600807D39 /* CustomImageView.swift */; };
+		087BD4942992EC8C006CEFC4 /* NewMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087BD4932992EC8C006CEFC4 /* NewMessageCell.swift */; };
+		087BD4962992ED60006CEFC4 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087BD4952992ED60006CEFC4 /* NewMessageController.swift */; };
+		087BD4982992F106006CEFC4 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087BD4972992F106006CEFC4 /* ChatCell.swift */; };
+		087BD49C29944665006CEFC4 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087BD49B29944665006CEFC4 /* ChatController.swift */; };
+		087BD49E29944713006CEFC4 /* MessageInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087BD49D29944713006CEFC4 /* MessageInputAccessoryView.swift */; };
+		087BD4A029944768006CEFC4 /* MessageInputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 087BD49F29944768006CEFC4 /* MessageInputTextView.swift */; };
 		0889383C2970C98800BE0612 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889383B2970C98800BE0612 /* UIViewController+Alert.swift */; };
 		0889383E2970CBF800BE0612 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889383D2970CBF800BE0612 /* Constants.swift */; };
 		08893844297319A400BE0612 /* MainTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08893843297319A400BE0612 /* MainTabViewController.swift */; };
@@ -83,6 +89,12 @@
 		0867A851296CDDFF002F3170 /* AuthenticationTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationTextField.swift; sourceTree = "<group>"; };
 		087091352976AE8900807D39 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		087091372976B5A600807D39 /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
+		087BD4932992EC8C006CEFC4 /* NewMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageCell.swift; sourceTree = "<group>"; };
+		087BD4952992ED60006CEFC4 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
+		087BD4972992F106006CEFC4 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		087BD49B29944665006CEFC4 /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
+		087BD49D29944713006CEFC4 /* MessageInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInputAccessoryView.swift; sourceTree = "<group>"; };
+		087BD49F29944768006CEFC4 /* MessageInputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageInputTextView.swift; sourceTree = "<group>"; };
 		0889383B2970C98800BE0612 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		0889383D2970CBF800BE0612 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		08893843297319A400BE0612 /* MainTabViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabViewController.swift; sourceTree = "<group>"; };
@@ -199,6 +211,10 @@
 				0849B23C2988854300B3F2DC /* CommentaryCell.swift */,
 				0831DBCE298B278300220E50 /* NotificationCell.swift */,
 				0851BBA72992526A005D498B /* MessageCell.swift */,
+				087BD4932992EC8C006CEFC4 /* NewMessageCell.swift */,
+				087BD4972992F106006CEFC4 /* ChatCell.swift */,
+				087BD49D29944713006CEFC4 /* MessageInputAccessoryView.swift */,
+				087BD49F29944768006CEFC4 /* MessageInputTextView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -274,6 +290,8 @@
 			isa = PBXGroup;
 			children = (
 				08D5FAEC2991B65B00F866ED /* MessagesController.swift */,
+				087BD4952992ED60006CEFC4 /* NewMessageController.swift */,
+				087BD49B29944665006CEFC4 /* ChatController.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -460,8 +478,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				087BD4A029944768006CEFC4 /* MessageInputTextView.swift in Sources */,
 				0889384A29731CB900BE0612 /* UploadPostViewController.swift in Sources */,
 				08C6AE41296EE0D400362910 /* SignUpViewController.swift in Sources */,
+				087BD4942992EC8C006CEFC4 /* NewMessageCell.swift in Sources */,
 				08D5FAED2991B65B00F866ED /* MessagesController.swift in Sources */,
 				08C109CA297AEBCF0020DD18 /* FollowViewController.swift in Sources */,
 				0889384C29731CD600BE0612 /* NotificationsViewController.swift in Sources */,
@@ -469,6 +489,7 @@
 				0889385629736AAB00BE0612 /* UserProfileHeader.swift in Sources */,
 				0838DA93298467AF008DCC3D /* Commentary.swift in Sources */,
 				0889384E29731CED00BE0612 /* UserProfileViewController.swift in Sources */,
+				087BD4962992ED60006CEFC4 /* NewMessageController.swift in Sources */,
 				0889383E2970CBF800BE0612 /* Constants.swift in Sources */,
 				085E56D7297E0068007BA4AE /* SelectPhotoCell.swift in Sources */,
 				0867A84F296CDC4D002F3170 /* UIViewController+Gradient.swift in Sources */,
@@ -493,6 +514,7 @@
 				0889383C2970C98800BE0612 /* UIViewController+Alert.swift in Sources */,
 				0867A84D296CD69D002F3170 /* UIView+Anchors.swift in Sources */,
 				083A1FDD296F6BA30050C2DA /* AuthenticationImageView.swift in Sources */,
+				087BD49C29944665006CEFC4 /* ChatController.swift in Sources */,
 				0851BBA82992526A005D498B /* MessageCell.swift in Sources */,
 				085E56D9297E007A007BA4AE /* SelectPhotoHeader.swift in Sources */,
 				085E56D5297DFC32007BA4AE /* SelectImageViewController.swift in Sources */,
@@ -500,6 +522,8 @@
 				0867A852296CDDFF002F3170 /* AuthenticationTextField.swift in Sources */,
 				08F2521F297B58FD00F81DF8 /* Database+Fetch.swift in Sources */,
 				0821A7242983285300AEBC7C /* FeedCell.swift in Sources */,
+				087BD4982992F106006CEFC4 /* ChatCell.swift in Sources */,
+				087BD49E29944713006CEFC4 /* MessageInputAccessoryView.swift in Sources */,
 				0838DA9529846800008DCC3D /* Notification.swift in Sources */,
 				08C109CC297AECF20020DD18 /* FollowLikeCell.swift in Sources */,
 				0821A7262983362B00AEBC7C /* Date+TimeAgo.swift in Sources */,

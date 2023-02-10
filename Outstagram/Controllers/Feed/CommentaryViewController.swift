@@ -97,11 +97,11 @@ class CommentaryViewController: UICollectionViewController, UICollectionViewDele
         K.FB.commentReference.child(postId).observe(.childAdded) { snapshot in
             guard let dictionary = snapshot.value as? [String: AnyObject], let uid = dictionary["uid"] as? String
             else { return }
-            Database.fetchUser(with: uid, completion: { user in
+            Database.fetchUser(with: uid) { user in
                 let comment = Commentary(user: user, dictionary: dictionary)
                 self.comments.append(comment)
                 self.collectionView?.reloadData()
-            })
+            }
         }
     }
 

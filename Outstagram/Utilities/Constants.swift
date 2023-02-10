@@ -34,6 +34,9 @@ enum K {
     enum FBSTORE {
         static let storageReference = Storage.storage().reference()
         static let storagePostImageReference = storageReference.child("post_images")
+        static let storageMessageImagesReference = storageReference.child("message_images")
+        static let storageMessageVideoReference = storageReference.child("video_messages")
+
     }
 
     enum UI {

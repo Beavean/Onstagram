@@ -237,7 +237,7 @@ final class SearchViewController: UITableViewController,
                 .observeSingleEvent(of: .value) { snapshot in
                 guard let first = snapshot.children.allObjects.first as? DataSnapshot else { return }
                 guard var allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
-                allObjects.removeAll(where: { $0.key == self.userCurrentKey })
+                allObjects.removeAll { $0.key == self.userCurrentKey }
                 allObjects.forEach { snapshot in
                     let uid = snapshot.key
                     if uid != self.userCurrentKey {

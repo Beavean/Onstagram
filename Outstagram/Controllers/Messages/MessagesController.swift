@@ -73,7 +73,7 @@ final class MessagesController: UITableViewController {
         guard let cell = tableView.cellForRow(at: indexPath) as? MessageCell else { return }
         let message = messages[indexPath.row]
         let chatPartnerId = message.getChatPartnerId()
-        Database.fetchUser(with: chatPartnerId) { (user) in
+        Database.fetchUser(with: chatPartnerId) { user in
             self.showChatController(forUser: user)
             cell.messageTextLabel.font = UIFont.systemFont(ofSize: 12)
         }
@@ -128,7 +128,7 @@ final class MessagesController: UITableViewController {
 extension MessagesController: MessageCellDelegate {
     func configureUserData(for cell: MessageCell) {
         guard let chatPartnerId = cell.message?.getChatPartnerId() else { return }
-        Database.fetchUser(with: chatPartnerId) { (user) in
+        Database.fetchUser(with: chatPartnerId) { user in
             cell.profileImageView.loadImage(with: user.profileImageUrl)
             cell.usernameLabel.text = user.username
         }

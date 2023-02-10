@@ -139,7 +139,7 @@ final class NotificationCell: UITableViewCell {
             followButton.layer.cornerRadius = 3
             followButton.isHidden = false
             postImageView.isHidden = true
-            user.checkIfUserIsFollowed(completion: { followed in
+            user.checkIfUserIsFollowed { followed in
                 if followed {
                     self.followButton.setTitle("Following", for: .normal)
                     self.followButton.setTitleColor(.black, for: .normal)
@@ -152,7 +152,7 @@ final class NotificationCell: UITableViewCell {
                     self.followButton.layer.borderWidth = 0
                     self.followButton.backgroundColor = .systemBlue
                 }
-            })
+            }
         }
         addSubview(notificationLabel)
         notificationLabel.anchor(left: profileImageView.rightAnchor, right: rightAnchor, paddingLeft: 8, paddingRight: 108)
