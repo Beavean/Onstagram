@@ -105,7 +105,9 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
     }
 
     @objc func handleShowMessages() {
-        // TODO: Messages
+        let messagesController = MessagesController()
+        self.messageNotificationView.isHidden = true
+        navigationController?.pushViewController(messagesController, animated: true)
     }
 
     func handleHashtagTapped(forCell cell: FeedCell) {
@@ -140,7 +142,19 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
     }
 
     func setUnreadMessageCount() {
-        // TODO: setUnreadMessageCount
+        if !viewSinglePost {
+            getUnreadMessageCount { unreadMessageCount in
+                guard unreadMessageCount != 0 else { return }
+                self.navigationController?.navigationBar.addSubview(self.messageNotificationView)
+                self.messageNotificationView.anchor(top: self.navigationController?.navigationBar.topAnchor,
+                                                    right: self.navigationController?.navigationBar.rightAnchor,
+                                                    paddingRight: 4,
+                                                    width: 20,
+                                                    height: 20)
+                self.messageNotificationView.layer.cornerRadius = 20 / 2
+                self.messageNotificationView.notificationLabel.text = "\(unreadMessageCount)"
+            }
+        }
     }
 
     @objc func handleLogout() {
@@ -151,22 +165,22 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
                 let loginVC = LoginViewController()
                 let navController = UINavigationController(rootViewController: loginVC)
                 navController.modalPresentationStyle = .fullScreen
-                self.present(navController, animated: true, completion: nil)
+                self.present(navController, animated: true)
             } catch {
                 print("Failed to sign out")
             }
         })
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-        present(alertController, animated: true, completion: nil)
+        present(alertController, animated: true)
     }
 
     // MARK: - API
 
-    func setUserFCMToken() {
+    private func setUserFCMToken() {
        // TODO: setUserFCMToken
     }
 
-    func fetchPosts() {
+    private func fetchPosts() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         if currentKey == nil {
             K.FB.userFeedReference.child(currentUid).queryLimited(toLast: 5).observeSingleEvent(of: .value) { snapshot in
@@ -201,7 +215,7 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
         }
     }
 
-    func fetchPost(withPostId postId: String) {
+    private func fetchPost(withPostId postId: String) {
         Database.fetchPost(with: postId) { post in
             self.posts.append(post)
             self.posts.sort { (post1, post2) -> Bool in
@@ -211,8 +225,25 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
         }
     }
 
-    func getUnreadMessageCount(withCompletion completion: @escaping(Int) -> Void) {
-        // TODO: getUnreadMessageCount
+    private func getUnreadMessageCount(withCompletion completion: @escaping(Int) -> Void) {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        var unreadCount = 0
+        K.FB.userMessagesReference.child(currentUid).observe(.childAdded) { snapshot in
+            let uid = snapshot.key
+            K.FB.userMessagesReference.child(currentUid).child(uid).observe(.childAdded) { snapshot in
+                let messageId = snapshot.key
+                K.FB.messagesReference.child(messageId).observeSingleEvent(of: .value) { snapshot in
+                    guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
+                    let message = Message(dictionary: dictionary)
+                    if message.fromId != currentUid {
+                        if !message.read {
+                            unreadCount += 1
+                        }
+                    }
+                    completion(unreadCount)
+                }
+            }
+        }
     }
 }
 
@@ -246,11 +277,11 @@ extension FeedViewController: FeedCellDelegate {
                 let navigationController = UINavigationController(rootViewController: uploadPostController)
                 uploadPostController.postToEdit = post
                 uploadPostController.uploadAction = UploadPostViewController.UploadAction(index: 1)
-                self.present(navigationController, animated: true, completion: nil)
+                self.present(navigationController, animated: true)
             })
 
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            present(alertController, animated: true, completion: nil)
+            present(alertController, animated: true)
         }
     }
 

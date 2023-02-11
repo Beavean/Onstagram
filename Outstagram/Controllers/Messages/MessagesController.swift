@@ -82,11 +82,16 @@ final class MessagesController: UITableViewController {
     // MARK: - Handlers
 
     @objc private func handleNewMessage() {
-        // TODO: handleNewMessage
+        let newMessageController = NewMessageController()
+        newMessageController.messagesController = self
+        let navigationController = UINavigationController(rootViewController: newMessageController)
+        self.present(navigationController, animated: true)
     }
 
     func showChatController(forUser user: User) {
-       // TODO: showChatController
+        let chatController = ChatController(collectionViewLayout: UICollectionViewFlowLayout())
+        chatController.user = user
+        navigationController?.pushViewController(chatController, animated: true)
     }
 
     private func configureNavigationBar() {
