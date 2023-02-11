@@ -113,7 +113,7 @@ final class MainTabViewController: UITabBarController, UITabBarControllerDelegat
             let navController = UINavigationController(rootViewController: selectImageVC)
             navController.modalPresentationStyle = .overFullScreen
             navController.navigationBar.tintColor = .black
-            present(navController, animated: true, completion: nil)
+            present(navController, animated: true)
             return false
         } else if index == 3 {
             dot.isHidden = true

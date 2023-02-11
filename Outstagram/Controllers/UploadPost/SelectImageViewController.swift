@@ -112,7 +112,7 @@ final class SelectImageViewController: UICollectionViewController, UICollectionV
     // MARK: - Handlers
 
     @objc private func handleCancel() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true)
     }
 
     @objc private func handleNext() {

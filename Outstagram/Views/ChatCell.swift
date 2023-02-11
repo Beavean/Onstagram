@@ -27,7 +27,7 @@ final class ChatCell: UICollectionViewCell {
 
     lazy var playButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+        button.setImage(UIImage(systemName: "play.fill"), for: .normal)
         button.tintColor = .white
         button.addTarget(self, action: #selector(handlePlayVideo), for: .touchUpInside)
         return button

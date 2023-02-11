@@ -23,7 +23,7 @@ final class ChatController: UICollectionViewController {
 
     // MARK: - Properties
 
-    private var user: User?
+    var user: User?
     private var messages = [Message]()
     private var player: AVPlayer?
     private var playerLayer: AVPlayerLayer?
@@ -318,7 +318,7 @@ extension ChatController: UIImagePickerControllerDelegate, UINavigationControlle
                 self.sendMessage(withImageUrl: imageUrl, image: selectedImage)
             }
         }
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 }
 
@@ -337,7 +337,7 @@ extension ChatController: MessageInputAccessoryViewDelegate {
         imagePickerController.delegate = self
         imagePickerController.allowsEditing = true
         imagePickerController.mediaTypes = [kUTTypeImage as String, kUTTypeMovie as String]
-        present(imagePickerController, animated: true, completion: nil)
+        present(imagePickerController, animated: true)
     }
 }
 

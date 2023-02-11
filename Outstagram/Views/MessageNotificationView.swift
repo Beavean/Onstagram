@@ -11,7 +11,7 @@ final class MessageNotificationView: UIView {
 
     // MARK: - UI Elements
 
-    private var notificationLabel: UILabel = {
+    var notificationLabel: UILabel = {
         let label = UILabel()
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 12)

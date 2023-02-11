@@ -89,7 +89,7 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
     }
 
     @objc private func handleCancel() {
-        self.dismiss(animated: true, completion: nil)
+        self.dismiss(animated: true)
     }
 
     private func buttonSelector(uploadAction: UploadAction) {
@@ -156,7 +156,7 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
             self.uploadHashtagToServer(withPostId: post.postId)
         }
         K.FB.postsReference.child(post.postId).child("caption").setValue(updatedCaption) { [weak self] _, _ in
-            self?.dismiss(animated: true, completion: nil)
+            self?.dismiss(animated: true)
         }
     }
 

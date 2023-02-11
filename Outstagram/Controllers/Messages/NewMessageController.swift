@@ -14,7 +14,7 @@ final class NewMessageController: UITableViewController {
     // MARK: - Properties
 
     var users = [User]()
-    private var messagesController: MessagesController?
+    var messagesController: MessagesController?
 
     // MARK: - Lifecycle
 
@@ -54,7 +54,7 @@ final class NewMessageController: UITableViewController {
     // MARK: - Handlers
 
     @objc func handleCancel() {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
 
     private func configureNavigationBar() {
