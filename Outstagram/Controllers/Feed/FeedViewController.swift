@@ -19,7 +19,10 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
     var post: Post?
     var currentKey: String?
     var userProfileController: UserProfileViewController?
-    // TODO: messageNotificationView
+    var messageNotificationView: MessageNotificationView = {
+        let view = MessageNotificationView()
+        return view
+    }()
 
     // MARK: - Init
 

@@ -47,6 +47,7 @@
 		0889384C29731CD600BE0612 /* NotificationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889384B29731CD600BE0612 /* NotificationsViewController.swift */; };
 		0889384E29731CED00BE0612 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889384D29731CED00BE0612 /* UserProfileViewController.swift */; };
 		0889385629736AAB00BE0612 /* UserProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0889385529736AAB00BE0612 /* UserProfileHeader.swift */; };
+		089FC6B12997C5FD0073C0AD /* MessageNotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 089FC6B02997C5FD0073C0AD /* MessageNotificationView.swift */; };
 		08B87F6D29775BB2007DFD3D /* SearchUserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08B87F6C29775BB2007DFD3D /* SearchUserCell.swift */; };
 		08BDA650298099F3001732E0 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08BDA64F298099F3001732E0 /* Post.swift */; };
 		08C109CA297AEBCF0020DD18 /* FollowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08C109C9297AEBCF0020DD18 /* FollowViewController.swift */; };
@@ -104,6 +105,7 @@
 		0889384B29731CD600BE0612 /* NotificationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewController.swift; sourceTree = "<group>"; };
 		0889384D29731CED00BE0612 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		0889385529736AAB00BE0612 /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
+		089FC6B02997C5FD0073C0AD /* MessageNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageNotificationView.swift; sourceTree = "<group>"; };
 		08B87F6C29775BB2007DFD3D /* SearchUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserCell.swift; sourceTree = "<group>"; };
 		08BDA64F298099F3001732E0 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		08C109C9297AEBCF0020DD18 /* FollowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 				087BD4972992F106006CEFC4 /* ChatCell.swift */,
 				087BD49D29944713006CEFC4 /* MessageInputAccessoryView.swift */,
 				087BD49F29944768006CEFC4 /* MessageInputTextView.swift */,
+				089FC6B02997C5FD0073C0AD /* MessageNotificationView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -484,6 +487,7 @@
 				087BD4942992EC8C006CEFC4 /* NewMessageCell.swift in Sources */,
 				08D5FAED2991B65B00F866ED /* MessagesController.swift in Sources */,
 				08C109CA297AEBCF0020DD18 /* FollowViewController.swift in Sources */,
+				089FC6B12997C5FD0073C0AD /* MessageNotificationView.swift in Sources */,
 				0889384C29731CD600BE0612 /* NotificationsViewController.swift in Sources */,
 				0849B2372988834B00B3F2DC /* CommentaryViewController.swift in Sources */,
 				0889385629736AAB00BE0612 /* UserProfileHeader.swift in Sources */,
