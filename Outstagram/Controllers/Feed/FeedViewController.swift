@@ -111,7 +111,11 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
     }
 
     func handleHashtagTapped(forCell cell: FeedCell) {
-        // TODO: handleHashtagTapped
+        cell.captionLabel.handleHashtagTap { hashtag in
+            let hashtagController = HashtagController(collectionViewLayout: UICollectionViewFlowLayout())
+            hashtagController.hashtag = hashtag.lowercased()
+            self.navigationController?.pushViewController(hashtagController, animated: true)
+        }
     }
 
     func handleMentionTapped(forCell cell: FeedCell) {

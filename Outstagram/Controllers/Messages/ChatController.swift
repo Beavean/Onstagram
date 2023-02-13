@@ -173,7 +173,7 @@ final class ChatController: UICollectionViewController {
                                            "fromId": currentUid as AnyObject,
                                            "creationDate": creationDate as AnyObject,
                                            "read": false as AnyObject]
-        properties.forEach({ values[$0] = $1 })
+        properties.forEach { values[$0] = $1 }
         let messageRef = K.FB.messagesReference.childByAutoId()
         guard let messageKey = messageRef.key else { return }
         messageRef.updateChildValues(values) { _, _ in

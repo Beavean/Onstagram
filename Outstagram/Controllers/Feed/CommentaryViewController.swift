@@ -81,7 +81,11 @@ class CommentaryViewController: UICollectionViewController, UICollectionViewDele
     // MARK: - Handlers
 
     func handleHashtagTapped(forCell cell: CommentaryCell) {
-        // TODO: Hashtag
+        cell.commentLabel.handleHashtagTap { hashtag in
+            let hashtagController = HashtagController(collectionViewLayout: UICollectionViewFlowLayout())
+            hashtagController.hashtag = hashtag.lowercased()
+            self.navigationController?.pushViewController(hashtagController, animated: true)
+        }
     }
 
     func handleMentionTapped(forCell cell: CommentaryCell) {

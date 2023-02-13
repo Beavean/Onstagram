@@ -18,6 +18,8 @@
 		083A1FD8296F676D0050C2DA /* AuthenticationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083A1FD7296F676D0050C2DA /* AuthenticationButton.swift */; };
 		083A1FDA296F69B30050C2DA /* AuthenticationSwitchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083A1FD9296F69B30050C2DA /* AuthenticationSwitchButton.swift */; };
 		083A1FDD296F6BA30050C2DA /* AuthenticationImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083A1FDC296F6BA30050C2DA /* AuthenticationImageView.swift */; };
+		0843EDC1299A672700955B1F /* HashtagController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0843EDC0299A672700955B1F /* HashtagController.swift */; };
+		0843EDC3299A676400955B1F /* HashtagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0843EDC2299A676400955B1F /* HashtagCell.swift */; };
 		0849B2352988717A00B3F2DC /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0849B2342988717A00B3F2DC /* Message.swift */; };
 		0849B2372988834B00B3F2DC /* CommentaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0849B2362988834B00B3F2DC /* CommentaryViewController.swift */; };
 		0849B2392988840200B3F2DC /* CommentaryInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0849B2382988840200B3F2DC /* CommentaryInputView.swift */; };
@@ -76,6 +78,8 @@
 		083A1FD7296F676D0050C2DA /* AuthenticationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationButton.swift; sourceTree = "<group>"; };
 		083A1FD9296F69B30050C2DA /* AuthenticationSwitchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationSwitchButton.swift; sourceTree = "<group>"; };
 		083A1FDC296F6BA30050C2DA /* AuthenticationImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationImageView.swift; sourceTree = "<group>"; };
+		0843EDC0299A672700955B1F /* HashtagController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagController.swift; sourceTree = "<group>"; };
+		0843EDC2299A676400955B1F /* HashtagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashtagCell.swift; sourceTree = "<group>"; };
 		0849B2342988717A00B3F2DC /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		0849B2362988834B00B3F2DC /* CommentaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentaryViewController.swift; sourceTree = "<group>"; };
 		0849B2382988840200B3F2DC /* CommentaryInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentaryInputView.swift; sourceTree = "<group>"; };
@@ -218,6 +222,7 @@
 				087BD49D29944713006CEFC4 /* MessageInputAccessoryView.swift */,
 				087BD49F29944768006CEFC4 /* MessageInputTextView.swift */,
 				089FC6B02997C5FD0073C0AD /* MessageNotificationView.swift */,
+				0843EDC2299A676400955B1F /* HashtagCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -251,6 +256,7 @@
 			children = (
 				0889384529731C8B00BE0612 /* FeedViewController.swift */,
 				0849B2362988834B00B3F2DC /* CommentaryViewController.swift */,
+				0843EDC0299A672700955B1F /* HashtagController.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -489,12 +495,14 @@
 				08C109CA297AEBCF0020DD18 /* FollowViewController.swift in Sources */,
 				089FC6B12997C5FD0073C0AD /* MessageNotificationView.swift in Sources */,
 				0889384C29731CD600BE0612 /* NotificationsViewController.swift in Sources */,
+				0843EDC3299A676400955B1F /* HashtagCell.swift in Sources */,
 				0849B2372988834B00B3F2DC /* CommentaryViewController.swift in Sources */,
 				0889385629736AAB00BE0612 /* UserProfileHeader.swift in Sources */,
 				0838DA93298467AF008DCC3D /* Commentary.swift in Sources */,
 				0889384E29731CED00BE0612 /* UserProfileViewController.swift in Sources */,
 				087BD4962992ED60006CEFC4 /* NewMessageController.swift in Sources */,
 				0889383E2970CBF800BE0612 /* Constants.swift in Sources */,
+				0843EDC1299A672700955B1F /* HashtagController.swift in Sources */,
 				085E56D7297E0068007BA4AE /* SelectPhotoCell.swift in Sources */,
 				0867A84F296CDC4D002F3170 /* UIViewController+Gradient.swift in Sources */,
 				08BDA650298099F3001732E0 /* Post.swift in Sources */,
