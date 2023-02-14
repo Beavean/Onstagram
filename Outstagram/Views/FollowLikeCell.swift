@@ -35,6 +35,7 @@ final class FollowLikeCell: UITableViewCell {
 
     // MARK: - Properties
 
+    static let reuseIdentifier = String(describing: FollowLikeCell.self)
     weak var delegate: FollowCellDelegate?
     var user: User? {
         didSet { configureCellWithUser() }

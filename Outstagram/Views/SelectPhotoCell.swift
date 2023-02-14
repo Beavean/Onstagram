@@ -23,6 +23,8 @@ final class SelectPhotoCell: UICollectionViewCell {
         photoImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
     }
 
+    static let reuseIdentifier = String(describing: SelectPhotoCell.self)
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

@@ -32,10 +32,10 @@ final class UserProfileViewController: UICollectionViewController {
     // MARK: - Helpers
 
     private func configure() {
-        collectionView.register(UserPostCell.self, forCellWithReuseIdentifier: K.UI.cellIdentifier)
+        collectionView.register(UserPostCell.self, forCellWithReuseIdentifier: UserPostCell.reuseIdentifier)
         collectionView.register(UserProfileHeader.self,
                                 forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                withReuseIdentifier: K.UI.userProfileHeaderIdentifier)
+                                withReuseIdentifier: UserProfileHeader.reuseIdentifier)
         collectionView.backgroundColor = .white
     }
 
@@ -64,7 +64,7 @@ final class UserProfileViewController: UICollectionViewController {
             uid = Auth.auth().currentUser?.uid
         }
         if currentKey == nil {
-            K.FB.userPostsReference.child(uid).queryLimited(toLast: 10).observeSingleEvent(of: .value) { [weak self] snapshot in
+            FBConstants.DBReferences.userPosts.child(uid).queryLimited(toLast: 10).observeSingleEvent(of: .value) { [weak self] snapshot in
                 self?.collectionView?.refreshControl?.endRefreshing()
                 guard let first = snapshot.children.allObjects.first as? DataSnapshot,
                       let allObjects = snapshot.children.allObjects as? [DataSnapshot]
@@ -76,7 +76,7 @@ final class UserProfileViewController: UICollectionViewController {
                 self?.currentKey = first.key
             }
         } else {
-            K.FB.userPostsReference
+            FBConstants.DBReferences.userPosts
                 .child(uid)
                 .queryOrderedByKey()
                 .queryEnding(atValue: self.currentKey)
@@ -107,7 +107,7 @@ final class UserProfileViewController: UICollectionViewController {
 
     private func fetchCurrentUserData() {
         guard let currentUid = Auth.auth().currentUser?.uid, user == nil else { return }
-        K.FB.usersReference.child(currentUid).observeSingleEvent(of: .value) { [weak self] snapshot, _ in
+        FBConstants.DBReferences.users.child(currentUid).observeSingleEvent(of: .value) { [weak self] snapshot, _ in
             guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
             let uid = snapshot.key
             let user = User(uid: uid, dictionary: dictionary)
@@ -141,7 +141,7 @@ extension UserProfileViewController {
                                  viewForSupplementaryElementOfKind kind: String,
                                  at indexPath: IndexPath) -> UICollectionReusableView {
         guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                           withReuseIdentifier: K.UI.userProfileHeaderIdentifier,
+                                                                           withReuseIdentifier: UserProfileHeader.reuseIdentifier,
                                                                            for: indexPath) as? UserProfileHeader
         else { return UICollectionReusableView() }
         header.delegate = self
@@ -151,7 +151,7 @@ extension UserProfileViewController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.UI.cellIdentifier,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: UserPostCell.reuseIdentifier,
                                                             for: indexPath) as? UserPostCell
         else { return UICollectionViewCell() }
         cell.post = posts[indexPath.item]
@@ -173,13 +173,13 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
+        1
     }
 
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
+        1
     }
 
     func collectionView(_ collectionView: UICollectionView,
@@ -192,7 +192,7 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 200)
+        CGSize(width: view.frame.width, height: 200)
     }
 }
 
@@ -215,7 +215,6 @@ extension UserProfileViewController: UserProfileHeaderDelegate {
 
     func handleEditFollowTapped(for header: UserProfileHeader) {
         guard let user = header.user else { return }
-        // FIXME: - Edit profile click fix
         if header.editProfileFollowButton.titleLabel?.text == "Edit Profile" {
         } else {
             if header.editProfileFollowButton.titleLabel?.text == "Follow" {
@@ -232,7 +231,7 @@ extension UserProfileViewController: UserProfileHeaderDelegate {
         guard let uid = header.user?.uid else { return }
         var numberOfFollowers: Int!
         var numberOfFollowing: Int!
-        K.FB.userFollowersReference.child(uid).observe(.value) { snapshot in
+        FBConstants.DBReferences.userFollowers.child(uid).observe(.value) { snapshot in
             if let snapshot = snapshot.value as? [String: AnyObject] {
                 numberOfFollowers = snapshot.count
             } else {
@@ -246,7 +245,7 @@ extension UserProfileViewController: UserProfileHeaderDelegate {
             header.followersLabel.attributedText = attributedText
         }
 
-        K.FB.userFollowingReference.child(uid).observe(.value) { snapshot in
+        FBConstants.DBReferences.userFollowing.child(uid).observe(.value) { snapshot in
             if let snapshot = snapshot.value as? [String: AnyObject] {
                 numberOfFollowing = snapshot.count
             } else {
@@ -260,7 +259,7 @@ extension UserProfileViewController: UserProfileHeaderDelegate {
             header.followingLabel.attributedText = attributedText
         }
 
-        K.FB.userPostsReference.child(uid).observeSingleEvent(of: .value) { snapshot in
+        FBConstants.DBReferences.userPosts.child(uid).observeSingleEvent(of: .value) { snapshot in
             guard let snapshot = snapshot.children.allObjects as? [DataSnapshot] else { return }
             let postCount = snapshot.count
             let attributedText = NSMutableAttributedString(string: "\(postCount)\n",

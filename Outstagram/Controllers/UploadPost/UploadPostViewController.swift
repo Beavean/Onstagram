@@ -155,7 +155,7 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
         if updatedCaption.contains("#") {
             self.uploadHashtagToServer(withPostId: post.postId)
         }
-        K.FB.postsReference.child(post.postId).child("caption").setValue(updatedCaption) { [weak self] _, _ in
+        FBConstants.DBReferences.posts.child(post.postId).child("caption").setValue(updatedCaption) { [weak self] _, _ in
             self?.dismiss(animated: true)
         }
     }
@@ -169,7 +169,7 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
         else { return }
         let creationDate = Int(NSDate().timeIntervalSince1970)
         let filename = NSUUID().uuidString
-        let storageRef = K.FBSTORE.storagePostImageReference.child(filename)
+        let storageRef = FBConstants.StorageReferences.postImages.child(filename)
         storageRef.putData(uploadData, metadata: nil) { [weak self] _, error in
             if let error {
                 self?.showAlertWith(error)
@@ -186,14 +186,14 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
                               "likes": 0,
                               "imageUrl": imageUrl,
                               "ownerUid": currentUid] as [String: Any]
-                let postId = K.FB.postsReference.childByAutoId()
+                let postId = FBConstants.DBReferences.posts.childByAutoId()
                 guard let postKey = postId.key else { return }
                 postId.updateChildValues(values) { error, _ in
                     if let error {
                         self?.showAlertWith(error)
                         return
                     }
-                    let userPostsRef = K.FB.userPostsReference.child(currentUid)
+                    let userPostsRef = FBConstants.DBReferences.userPosts.child(currentUid)
                     userPostsRef.updateChildValues([postKey: 1])
                     self?.updateUserFeeds(with: postKey)
                     if caption.contains("#") {
@@ -213,11 +213,11 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
     func updateUserFeeds(with postId: String) {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         let values = [postId: 1]
-        K.FB.userFollowersReference.child(currentUid).observe(.childAdded) { snapshot in
+        FBConstants.DBReferences.userFollowers.child(currentUid).observe(.childAdded) { snapshot in
             let followerUid = snapshot.key
-            K.FB.userFeedReference.child(followerUid).updateChildValues(values)
+            FBConstants.DBReferences.userFeed.child(followerUid).updateChildValues(values)
         }
-        K.FB.userFeedReference.child(currentUid).updateChildValues(values)
+        FBConstants.DBReferences.userFeed.child(currentUid).updateChildValues(values)
     }
 
     func uploadHashtagToServer(withPostId postId: String) {
@@ -227,7 +227,7 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
             word = word.trimmingCharacters(in: .punctuationCharacters)
             word = word.trimmingCharacters(in: .symbols)
             let hashtagValues = [postId: 1]
-            K.FB.hashtagPostReference.child(word.lowercased()).updateChildValues(hashtagValues)
+            FBConstants.DBReferences.hashtagPost.child(word.lowercased()).updateChildValues(hashtagValues)
         }
     }
 }

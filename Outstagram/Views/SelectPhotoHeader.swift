@@ -22,6 +22,8 @@ final class SelectPhotoHeader: UICollectionViewCell {
         photoImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
     }
 
+    static let reuseIdentifier = String(describing: SelectPhotoHeader.self)
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

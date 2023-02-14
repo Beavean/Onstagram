@@ -66,7 +66,7 @@ final class NewMessageController: UITableViewController {
     // MARK: - API
 
     private func fetchUsers() {
-        K.FB.usersReference.observe(.childAdded) { snapshot in
+        FBConstants.DBReferences.users.observe(.childAdded) { snapshot in
             let uid = snapshot.key
             if uid != Auth.auth().currentUser?.uid {
                 Database.fetchUser(with: uid) { user in

@@ -9,13 +9,13 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class NotificationsViewController: UITableViewController, NotificationCellDelegate {
+final class NotificationsViewController: UITableViewController, NotificationCellDelegate {
 
     // MARK: - Properties
 
-    var timer: Timer?
+    private var timer: Timer?
     var notifications = [Notification]()
-    var refresher = UIRefreshControl()
+    private var refresher = UIRefreshControl()
 
     // MARK: - Lifecycle
 
@@ -120,7 +120,7 @@ class NotificationsViewController: UITableViewController, NotificationCellDelega
     func getCommentData(forNotification notification: Notification) {
         guard let postId = notification.postId else { return }
         guard let commentId = notification.commentId else { return }
-        K.FB.commentReference.child(postId).child(commentId).observeSingleEvent(of: .value) { snapshot in
+        FBConstants.DBReferences.comments.child(postId).child(commentId).observeSingleEvent(of: .value) { snapshot in
             guard let dictionary = snapshot.value as? [String: AnyObject],
                   let commentText = dictionary["commentText"] as? String
             else { return }
@@ -130,7 +130,7 @@ class NotificationsViewController: UITableViewController, NotificationCellDelega
 
     func fetchNotifications() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        K.FB.notificationsReference.child(currentUid).observeSingleEvent(of: .value) { snapshot in
+        FBConstants.DBReferences.notifications.child(currentUid).observeSingleEvent(of: .value) { snapshot in
             guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
             allObjects.forEach { snapshot in
                 let notificationId = snapshot.key
@@ -153,7 +153,7 @@ class NotificationsViewController: UITableViewController, NotificationCellDelega
                         self.handleReloadTable()
                     }
                 }
-                K.FB.notificationsReference.child(currentUid).child(notificationId).child("checked").setValue(1)
+                FBConstants.DBReferences.notifications.child(currentUid).child(notificationId).child("checked").setValue(1)
             }
         }
     }

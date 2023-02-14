@@ -24,6 +24,8 @@ final class UserPostCell: UICollectionViewCell {
         return imageView
     }()
 
+    static let reuseIdentifier = String(describing: UserPostCell.self)
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(postImageView)

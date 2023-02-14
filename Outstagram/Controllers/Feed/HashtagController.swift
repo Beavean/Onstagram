@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseDatabase
 
-class HashtagController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+final class HashtagController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     // MARK: - Properties
 
@@ -78,7 +78,7 @@ class HashtagController: UICollectionViewController, UICollectionViewDelegateFlo
 
     func fetchPosts() {
         guard let hashtag = self.hashtag else { return }
-        K.FB.hashtagPostReference.child(hashtag).observe(.childAdded) { snapshot in
+        FBConstants.DBReferences.hashtagPost.child(hashtag).observe(.childAdded) { snapshot in
             let postId = snapshot.key
             Database.fetchPost(with: postId) { post in
                 self.posts.append(post)

@@ -32,29 +32,29 @@ final class User {
     func follow() {
         guard let currentUid = Auth.auth().currentUser?.uid, let uid else { return }
         self.isFollowed = true
-        K.FB.userFollowingReference.child(currentUid).updateChildValues([uid: 1])
-        K.FB.userFollowersReference.child(uid).updateChildValues([currentUid: 1])
+        FBConstants.DBReferences.userFollowing.child(currentUid).updateChildValues([uid: 1])
+        FBConstants.DBReferences.userFollowers.child(uid).updateChildValues([currentUid: 1])
         uploadFollowNotificationToServer()
-        K.FB.userPostsReference.child(uid).observe(.childAdded) { snapshot in
+        FBConstants.DBReferences.userPosts.child(uid).observe(.childAdded) { snapshot in
             let postId = snapshot.key
-            K.FB.userFeedReference.child(currentUid).updateChildValues([postId: 1])
+            FBConstants.DBReferences.userFeed.child(currentUid).updateChildValues([postId: 1])
         }
     }
 
     func unfollow() {
         guard let currentUid = Auth.auth().currentUser?.uid, let uid else { return }
         self.isFollowed = false
-        K.FB.userFollowingReference.child(currentUid).child(uid).removeValue()
-        K.FB.userFollowersReference.child(uid).child(currentUid).removeValue()
-        K.FB.userPostsReference.child(uid).observe(.childAdded) { snapshot in
+        FBConstants.DBReferences.userFollowing.child(currentUid).child(uid).removeValue()
+        FBConstants.DBReferences.userFollowers.child(uid).child(currentUid).removeValue()
+        FBConstants.DBReferences.userPosts.child(uid).observe(.childAdded) { snapshot in
             let postId = snapshot.key
-            K.FB.userFeedReference.child(currentUid).child(postId).removeValue()
+            FBConstants.DBReferences.userFeed.child(currentUid).child(postId).removeValue()
         }
     }
 
     func checkIfUserIsFollowed(completion: @escaping(Bool) -> Void) {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        K.FB.userFollowingReference.child(currentUid).observeSingleEvent(of: .value) { snapshot in
+        FBConstants.DBReferences.userFollowing.child(currentUid).observeSingleEvent(of: .value) { snapshot in
             if snapshot.hasChild(self.uid) {
                 self.isFollowed = true
                 completion(true)
@@ -71,7 +71,7 @@ final class User {
         let values = ["checked": 0,
                       "creationDate": creationDate,
                       "uid": currentUid,
-                      "type": K.Values.followIntValue] as [String: Any]
-        K.FB.notificationsReference.child(self.uid).childByAutoId().updateChildValues(values)
+                      "type": FBConstants.Values.follow] as [String: Any]
+        FBConstants.DBReferences.notifications.child(self.uid).childByAutoId().updateChildValues(values)
     }
 }

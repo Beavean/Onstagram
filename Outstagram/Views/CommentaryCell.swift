@@ -29,7 +29,7 @@ final class CommentaryCell: UICollectionViewCell {
 
     // MARK: - Properties
 
-    static let reuseIdentifier = "CommentaryCell"
+    static let reuseIdentifier = String(describing: CommentaryCell.self)
     var comment: Commentary? {
         didSet {
             configureWithComment()

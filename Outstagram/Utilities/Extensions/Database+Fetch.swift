@@ -10,7 +10,7 @@ import FirebaseDatabase
 extension Database {
 
     static func fetchUser(with uid: String, completion: @escaping(User) -> Void) {
-        K.FB.usersReference.child(uid).observeSingleEvent(of: .value) { snapshot in
+        FBConstants.DBReferences.users.child(uid).observeSingleEvent(of: .value) { snapshot in
             guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
             let user = User(uid: uid, dictionary: dictionary)
             completion(user)
@@ -18,7 +18,7 @@ extension Database {
     }
 
     static func fetchPost(with postId: String, completion: @escaping(Post) -> Void) {
-        K.FB.postsReference.child(postId).observeSingleEvent(of: .value) { snapshot in
+        FBConstants.DBReferences.posts.child(postId).observeSingleEvent(of: .value) { snapshot in
             guard let dictionary = snapshot.value as? [String: AnyObject],
                   let ownerUid = dictionary["ownerUid"] as? String
             else { return }

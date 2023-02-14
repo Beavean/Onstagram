@@ -28,7 +28,7 @@ final class HashtagCell: UICollectionViewCell {
 
     // MARK: - Properties
 
-    static let reuseIdentifier = "HashtagCell"
+    static let reuseIdentifier = String(describing: HashtagCell.self)
 
     // MARK: - Init
 

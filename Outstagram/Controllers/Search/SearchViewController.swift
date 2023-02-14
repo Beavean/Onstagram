@@ -217,7 +217,7 @@ final class SearchViewController: UITableViewController,
 
     func fetchUsers() {
         if userCurrentKey == nil {
-            K.FB.usersReference.queryLimited(toLast: 10).observeSingleEvent(of: .value) { snapshot in
+            FBConstants.DBReferences.users.queryLimited(toLast: 10).observeSingleEvent(of: .value) { snapshot in
                 guard let first = snapshot.children.allObjects.first as? DataSnapshot else { return }
                 guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
                 allObjects.forEach { snapshot in
@@ -230,7 +230,7 @@ final class SearchViewController: UITableViewController,
                 self.userCurrentKey = first.key
             }
         } else {
-            K.FB.usersReference
+            FBConstants.DBReferences.users
                 .queryOrderedByKey()
                 .queryEnding(atValue: userCurrentKey)
                 .queryLimited(toLast: 5)
@@ -256,7 +256,7 @@ final class SearchViewController: UITableViewController,
 
     func fetchPosts() {
         if currentKey == nil {
-            K.FB.postsReference.queryLimited(toLast: 21).observeSingleEvent(of: .value) { snapshot in
+            FBConstants.DBReferences.posts.queryLimited(toLast: 21).observeSingleEvent(of: .value) { snapshot in
                 self.tableView.refreshControl?.endRefreshing()
                 guard let first = snapshot.children.allObjects.first as? DataSnapshot else { return }
                 guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
@@ -270,7 +270,7 @@ final class SearchViewController: UITableViewController,
                 self.currentKey = first.key
             }
         } else {
-            K.FB.postsReference.queryOrderedByKey()
+            FBConstants.DBReferences.posts.queryOrderedByKey()
                 .queryEnding(atValue: self.currentKey)
                 .queryLimited(toLast: 10)
                 .observeSingleEvent(of: .value) { snapshot in

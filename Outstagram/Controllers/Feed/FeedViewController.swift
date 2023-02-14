@@ -30,7 +30,7 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = .white
-        self.collectionView!.register(FeedCell.self, forCellWithReuseIdentifier: K.UI.cellIdentifier)
+        self.collectionView!.register(FeedCell.self, forCellWithReuseIdentifier: FeedCell.reuseIdentifier)
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         collectionView?.refreshControl = refreshControl
@@ -80,7 +80,7 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.UI.cellIdentifier, for: indexPath) as? FeedCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCell.reuseIdentifier, for: indexPath) as? FeedCell
         else { return UICollectionViewCell() }
         cell.delegate = self
         if viewSinglePost {
@@ -185,13 +185,13 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         guard let fcmToken = Messaging.messaging().fcmToken else { return }
         let values = ["fcmToken": fcmToken]
-        K.FB.usersReference.child(currentUid).updateChildValues(values)
+        FBConstants.DBReferences.users.child(currentUid).updateChildValues(values)
     }
 
     private func fetchPosts() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         if currentKey == nil {
-            K.FB.userFeedReference.child(currentUid).queryLimited(toLast: 5).observeSingleEvent(of: .value) { snapshot in
+            FBConstants.DBReferences.userFeed.child(currentUid).queryLimited(toLast: 5).observeSingleEvent(of: .value) { snapshot in
                 self.collectionView?.refreshControl?.endRefreshing()
                 guard let first = snapshot.children.allObjects.first as? DataSnapshot,
                       let allObjects = snapshot.children.allObjects as? [DataSnapshot]
@@ -203,7 +203,7 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
                 self.currentKey = first.key
             }
         } else {
-            K.FB.userFeedReference
+            FBConstants.DBReferences.userFeed
                 .child(currentUid)
                 .queryOrderedByKey()
                 .queryEnding(atValue: self.currentKey)
@@ -236,11 +236,11 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
     private func getUnreadMessageCount(withCompletion completion: @escaping(Int) -> Void) {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         var unreadCount = 0
-        K.FB.userMessagesReference.child(currentUid).observe(.childAdded) { snapshot in
+        FBConstants.DBReferences.userMessages.child(currentUid).observe(.childAdded) { snapshot in
             let uid = snapshot.key
-            K.FB.userMessagesReference.child(currentUid).child(uid).observe(.childAdded) { snapshot in
+            FBConstants.DBReferences.userMessages.child(currentUid).child(uid).observe(.childAdded) { snapshot in
                 let messageId = snapshot.key
-                K.FB.messagesReference.child(messageId).observeSingleEvent(of: .value) { snapshot in
+                FBConstants.DBReferences.messages.child(messageId).observeSingleEvent(of: .value) { snapshot in
                     guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
                     let message = Message(dictionary: dictionary)
                     if message.fromId != currentUid {
@@ -323,7 +323,7 @@ extension FeedViewController: FeedCellDelegate {
         guard let post = cell.post,
               let postId = post.postId,
               let currentUid = Auth.auth().currentUser?.uid else { return }
-        K.FB.userLikesReference.child(currentUid).observeSingleEvent(of: .value) { snapshot in
+        FBConstants.DBReferences.userLikes.child(currentUid).observeSingleEvent(of: .value) { snapshot in
             if snapshot.hasChild(postId) {
                 post.didLike = true
                 cell.likeButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
@@ -337,7 +337,7 @@ extension FeedViewController: FeedCellDelegate {
     func configureCommentIndicatorView(for cell: FeedCell) {
         guard let post = cell.post,
               let postId = post.postId else { return }
-        K.FB.commentReference.child(postId).observeSingleEvent(of: .value) { snapshot in
+        FBConstants.DBReferences.comments.child(postId).observeSingleEvent(of: .value) { snapshot in
             if snapshot.exists() {
                 cell.addCommentIndicatorView(toStackView: cell.stackView)
             } else {

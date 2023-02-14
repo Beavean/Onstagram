@@ -29,7 +29,7 @@ final class FollowLikeViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(FollowLikeCell.self, forCellReuseIdentifier: K.UI.followCellIdentifier)
+        tableView.register(FollowLikeCell.self, forCellReuseIdentifier: FollowLikeCell.reuseIdentifier)
         configureNavigationTitle()
         fetchUsers()
         tableView.separatorColor = .clear
@@ -79,11 +79,11 @@ final class FollowLikeViewController: UITableViewController {
         guard let viewingMode = self.viewingMode else { return nil }
         switch viewingMode {
         case .followers:
-            return K.FB.userFollowersReference
+            return FBConstants.DBReferences.userFollowers
         case .following:
-            return K.FB.userFollowingReference
+            return FBConstants.DBReferences.userFollowing
         case .likes:
-            return K.FB.postLikesReference
+            return FBConstants.DBReferences.postLikes
         }
     }
 
@@ -176,7 +176,7 @@ extension FollowLikeViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: K.UI.followCellIdentifier,
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: FollowLikeCell.reuseIdentifier,
                                                        for: indexPath) as? FollowLikeCell
         else { return UITableViewCell() }
         cell.delegate = self

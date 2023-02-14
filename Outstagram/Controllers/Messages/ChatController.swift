@@ -174,11 +174,11 @@ final class ChatController: UICollectionViewController {
                                            "creationDate": creationDate as AnyObject,
                                            "read": false as AnyObject]
         properties.forEach { values[$0] = $1 }
-        let messageRef = K.FB.messagesReference.childByAutoId()
+        let messageRef = FBConstants.DBReferences.messages.childByAutoId()
         guard let messageKey = messageRef.key else { return }
         messageRef.updateChildValues(values) { _, _ in
-            K.FB.userMessagesReference.child(currentUid).child(uid).updateChildValues([messageKey: 1])
-            K.FB.userMessagesReference.child(uid).child(currentUid).updateChildValues([messageKey: 1])
+            FBConstants.DBReferences.userMessages.child(currentUid).child(uid).updateChildValues([messageKey: 1])
+            FBConstants.DBReferences.userMessages.child(uid).child(currentUid).updateChildValues([messageKey: 1])
         }
         uploadMessageNotification(isImageMessage: false, isVideoMessage: false, isTextMessage: true)
     }
@@ -186,14 +186,14 @@ final class ChatController: UICollectionViewController {
     private func observeMessages() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         guard let chatPartnerId = self.user?.uid else { return }
-        K.FB.userMessagesReference.child(currentUid).child(chatPartnerId).observe(.childAdded) { snapshot in
+        FBConstants.DBReferences.userMessages.child(currentUid).child(chatPartnerId).observe(.childAdded) { snapshot in
             let messageId = snapshot.key
             self.fetchMessage(withMessageId: messageId)
         }
     }
 
     private func fetchMessage(withMessageId messageId: String) {
-        K.FB.messagesReference.child(messageId).observeSingleEvent(of: .value) { snapshot in
+        FBConstants.DBReferences.messages.child(messageId).observeSingleEvent(of: .value) { snapshot in
             guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
             let message = Message(dictionary: dictionary)
             self.messages.append(message)
@@ -221,13 +221,13 @@ final class ChatController: UICollectionViewController {
                       "toId": toId,
                       "messageText": messageText as Any] as [String: Any]
 
-        K.FB.userMessageNotificationsReference.child(toId).childByAutoId().updateChildValues(values)
+        FBConstants.DBReferences.userMessageNotifications.child(toId).childByAutoId().updateChildValues(values)
     }
 
     private func uploadImageToStorage(selectedImage image: UIImage, completion: @escaping (_ imageUrl: String) -> Void) {
         let filename = NSUUID().uuidString
         guard let uploadData = image.jpegData(compressionQuality: 0.3) else { return }
-        let ref = K.FBSTORE.storageMessageImagesReference.child(filename)
+        let ref = FBConstants.StorageReferences.messageImages.child(filename)
         ref.putData(uploadData, metadata: nil) { _, error in
             if error != nil {
                 print("DEBUG: Unable to upload image to Firebase Storage")
@@ -248,7 +248,7 @@ final class ChatController: UICollectionViewController {
 
     private func uploadVideoToStorage(withUrl url: URL) {
         let filename = NSUUID().uuidString
-        let ref = K.FBSTORE.storageMessageVideoReference.child(filename)
+        let ref = FBConstants.StorageReferences.messageVideos.child(filename)
         ref.putFile(from: url, metadata: nil) { _, error in
             if error != nil {
                 print("DEBUG: Failed to upload video to FIRStorage with error: ", error as Any)
@@ -285,7 +285,7 @@ final class ChatController: UICollectionViewController {
 
     private func setMessageToRead(forMessageId messageId: String, fromId: String) {
         if fromId != Auth.auth().currentUser?.uid {
-            K.FB.messagesReference.child(messageId).child("read").setValue(true)
+            FBConstants.DBReferences.messages.child(messageId).child("read").setValue(true)
         }
     }
 }

@@ -46,7 +46,7 @@ final class MessagesController: UITableViewController {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let message = messages[indexPath.row]
         let chatPartnerId = message.getChatPartnerId()
-        K.FB.userMessagesReference.child(uid).child(chatPartnerId).removeValue { _, _ in
+        FBConstants.DBReferences.userMessages.child(uid).child(chatPartnerId).removeValue { _, _ in
             self.messages.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
@@ -106,9 +106,9 @@ final class MessagesController: UITableViewController {
         self.messages.removeAll()
         self.messagesDictionary.removeAll()
         self.tableView.reloadData()
-        K.FB.userMessagesReference.child(currentUid).observe(.childAdded) { snapshot in
+        FBConstants.DBReferences.userMessages.child(currentUid).observe(.childAdded) { snapshot in
             let uid = snapshot.key
-            K.FB.userMessagesReference.child(currentUid).child(uid).observe(.childAdded) { snapshot in
+            FBConstants.DBReferences.userMessages.child(currentUid).child(uid).observe(.childAdded) { snapshot in
                 let messageId = snapshot.key
                 self.fetchMessage(withMessageId: messageId)
             }
@@ -116,7 +116,7 @@ final class MessagesController: UITableViewController {
     }
 
     private func fetchMessage(withMessageId messageId: String) {
-        K.FB.messagesReference.child(messageId).observeSingleEvent(of: .value) { snapshot in
+        FBConstants.DBReferences.messages.child(messageId).observeSingleEvent(of: .value) { snapshot in
             guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
             let message = Message(dictionary: dictionary)
             let chatPartnerId = message.getChatPartnerId()

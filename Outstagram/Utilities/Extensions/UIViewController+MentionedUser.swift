@@ -12,9 +12,9 @@ import FirebaseAuth
 extension UIViewController {
 
     func getMentionedUser(withUsername username: String) {
-        K.FB.usersReference.observe(.childAdded) { snapshot in
+        FBConstants.DBReferences.users.observe(.childAdded) { snapshot in
             let uid = snapshot.key
-            K.FB.usersReference.child(uid).observeSingleEvent(of: .value) { snapshot in
+            FBConstants.DBReferences.users.child(uid).observeSingleEvent(of: .value) { snapshot in
                 guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
                 if username == dictionary["username"] as? String {
                     Database.fetchUser(with: uid) { user in
@@ -34,16 +34,16 @@ extension UIViewController {
         let words = text.components(separatedBy: .whitespacesAndNewlines)
         var mentionIntegerValue: Int!
         if isForComment {
-            mentionIntegerValue = K.Values.commentMentionIntValue
+            mentionIntegerValue = FBConstants.Values.commentMention
         } else {
-            mentionIntegerValue = K.Values.postMentionIntValue
+            mentionIntegerValue = FBConstants.Values.postMention
         }
         for var word in words where word.hasPrefix("@") {
             word = word.trimmingCharacters(in: .symbols)
             word = word.trimmingCharacters(in: .punctuationCharacters)
-            K.FB.usersReference.observe(.childAdded) { snapshot in
+            FBConstants.DBReferences.users.observe(.childAdded) { snapshot in
                 let uid = snapshot.key
-                K.FB.usersReference.child(uid).observeSingleEvent(of: .value) { snapshot in
+                FBConstants.DBReferences.users.child(uid).observeSingleEvent(of: .value) { snapshot in
                     guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
                     if word == dictionary["username"] as? String {
                         let notificationValues = ["postId": postId,
@@ -51,7 +51,7 @@ extension UIViewController {
                                                   "type": mentionIntegerValue as Int,
                                                   "creationDate": creationDate] as [String: Any]
                         if currentUid != uid {
-                            K.FB.notificationsReference.child(uid).childByAutoId().updateChildValues(notificationValues)
+                            FBConstants.DBReferences.notifications.child(uid).childByAutoId().updateChildValues(notificationValues)
                         }
                     }
                 }

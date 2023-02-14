@@ -126,6 +126,7 @@ final class FeedCell: UICollectionViewCell {
 
     // MARK: - Properties
 
+    static let reuseIdentifier = String(describing: FeedCell.self)
     weak var delegate: FeedCellDelegate?
     var stackView: UIStackView!
     var post: Post? {

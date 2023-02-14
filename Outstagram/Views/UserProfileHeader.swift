@@ -75,6 +75,7 @@ final class UserProfileHeader: UICollectionViewCell {
 
     // MARK: - Properties
 
+    static let reuseIdentifier = String(describing: UserProfileHeader.self)
     weak var delegate: UserProfileHeaderDelegate?
     var user: User? {
         didSet {

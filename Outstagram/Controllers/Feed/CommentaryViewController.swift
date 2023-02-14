@@ -9,7 +9,7 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
-class CommentaryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+final class CommentaryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
     // MARK: - Properties
 
@@ -98,7 +98,7 @@ class CommentaryViewController: UICollectionViewController, UICollectionViewDele
 
     func fetchComments() {
         guard let postId = self.post?.postId else { return }
-        K.FB.commentReference.child(postId).observe(.childAdded) { snapshot in
+        FBConstants.DBReferences.comments.child(postId).observe(.childAdded) { snapshot in
             guard let dictionary = snapshot.value as? [String: AnyObject], let uid = dictionary["uid"] as? String
             else { return }
             Database.fetchUser(with: uid) { user in
@@ -118,10 +118,10 @@ class CommentaryViewController: UICollectionViewController, UICollectionViewDele
         let values = ["checked": 0,
                       "creationDate": creationDate,
                       "uid": currentUid,
-                      "type": K.Values.commentIntValue,
+                      "type": FBConstants.Values.comment,
                       "postId": postId] as [String: Any]
         if uid != currentUid {
-            K.FB.notificationsReference.child(uid).childByAutoId().updateChildValues(values)
+            FBConstants.DBReferences.notifications.child(uid).childByAutoId().updateChildValues(values)
         }
     }
 
@@ -146,7 +146,7 @@ extension CommentaryViewController: CommentaryInputViewDelegate {
         let values = ["commentText": comment,
                       "creationDate": creationDate,
                       "uid": uid] as [String: Any]
-        K.FB.commentReference.child(postId).childByAutoId().updateChildValues(values) { [weak self] _, _ in
+        FBConstants.DBReferences.comments.child(postId).childByAutoId().updateChildValues(values) { [weak self] _, _ in
             self?.uploadCommentNotificationToServer()
             if comment.contains("@") {
                 self?.uploadMentionNotification(forPostId: postId, withText: comment, isForComment: true)

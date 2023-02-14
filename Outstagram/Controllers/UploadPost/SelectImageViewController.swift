@@ -22,11 +22,10 @@ final class SelectImageViewController: UICollectionViewController, UICollectionV
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.register(SelectPhotoCell.self,
-                                 forCellWithReuseIdentifier: K.UI.selectPhotoCellIdentifier)
+                                 forCellWithReuseIdentifier: SelectPhotoCell.reuseIdentifier)
         collectionView?.register(SelectPhotoHeader.self,
                                  forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
-                                 withReuseIdentifier: K.UI.selectPhotoHeaderIdentifier)
-
+                                 withReuseIdentifier: SelectPhotoHeader.reuseIdentifier)
         collectionView?.backgroundColor = .white
         configureNavigationButtons()
         fetchPhotos()
@@ -74,7 +73,7 @@ final class SelectImageViewController: UICollectionViewController, UICollectionV
                                  viewForSupplementaryElementOfKind kind: String,
                                  at indexPath: IndexPath) -> UICollectionReusableView {
         guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                           withReuseIdentifier: K.UI.selectPhotoHeaderIdentifier,
+                                                                           withReuseIdentifier: SelectPhotoHeader.reuseIdentifier,
                                                                            for: indexPath) as? SelectPhotoHeader
         else { return UICollectionReusableView() }
         self.header = header
@@ -95,7 +94,7 @@ final class SelectImageViewController: UICollectionViewController, UICollectionV
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: K.UI.selectPhotoCellIdentifier,
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SelectPhotoCell.reuseIdentifier,
                                                             for: indexPath) as? SelectPhotoCell
         else { return UICollectionViewCell() }
         cell.photoImageView.image = images[indexPath.row]
