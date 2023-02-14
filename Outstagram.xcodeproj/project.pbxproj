@@ -110,6 +110,7 @@
 		0889384D29731CED00BE0612 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		0889385529736AAB00BE0612 /* UserProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeader.swift; sourceTree = "<group>"; };
 		089FC6B02997C5FD0073C0AD /* MessageNotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageNotificationView.swift; sourceTree = "<group>"; };
+		08A31895299BEBC50056B5F2 /* Outstagram.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Outstagram.entitlements; sourceTree = "<group>"; };
 		08B87F6C29775BB2007DFD3D /* SearchUserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserCell.swift; sourceTree = "<group>"; };
 		08BDA64F298099F3001732E0 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		08C109C9297AEBCF0020DD18 /* FollowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowViewController.swift; sourceTree = "<group>"; };
@@ -326,6 +327,7 @@
 		08D65986296B7C610089624D /* Outstagram */ = {
 			isa = PBXGroup;
 			children = (
+				08A31895299BEBC50056B5F2 /* Outstagram.entitlements */,
 				08D65987296B7C610089624D /* AppDelegate.swift */,
 				088938382970C15100BE0612 /* Models */,
 				088938392970C15B00BE0612 /* Views */,
@@ -677,6 +679,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Outstagram/Outstagram.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9PF2GLF6PD;
@@ -706,6 +709,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Outstagram/Outstagram.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 9PF2GLF6PD;
