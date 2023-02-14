@@ -9,6 +9,7 @@ import UIKit
 import ActiveLabel
 import FirebaseAuth
 import FirebaseDatabase
+import FirebaseMessaging
 
 final class FeedViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
@@ -181,7 +182,10 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
     // MARK: - API
 
     private func setUserFCMToken() {
-       // TODO: setUserFCMToken
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        guard let fcmToken = Messaging.messaging().fcmToken else { return }
+        let values = ["fcmToken": fcmToken]
+        K.FB.usersReference.child(currentUid).updateChildValues(values)
     }
 
     private func fetchPosts() {

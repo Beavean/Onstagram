@@ -30,7 +30,6 @@ final class HashtagCell: UICollectionViewCell {
 
     static let reuseIdentifier = "HashtagCell"
 
-
     // MARK: - Init
 
     override init(frame: CGRect) {
