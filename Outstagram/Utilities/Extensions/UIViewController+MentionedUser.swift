@@ -12,7 +12,7 @@ import FirebaseAuth
 extension UIViewController {
 
     func getMentionedUser(withUsername username: String) {
-        FBConstants.DBReferences.users.observe(.childAdded) { snapshot in
+        FBConstants.DBReferences.users.observe(.childAdded) { [weak self] snapshot in
             let uid = snapshot.key
             FBConstants.DBReferences.users.child(uid).observeSingleEvent(of: .value) { snapshot in
                 guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
@@ -20,7 +20,7 @@ extension UIViewController {
                     Database.fetchUser(with: uid) { user in
                         let userProfileController = UserProfileViewController(collectionViewLayout: UICollectionViewFlowLayout())
                         userProfileController.user = user
-                        self.navigationController?.pushViewController(userProfileController, animated: true)
+                        self?.navigationController?.pushViewController(userProfileController, animated: true)
                         return
                     }
                 }

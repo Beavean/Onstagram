@@ -139,7 +139,8 @@ final class NotificationCell: UITableViewCell {
             followButton.layer.cornerRadius = 3
             followButton.isHidden = false
             postImageView.isHidden = true
-            user.checkIfUserIsFollowed { followed in
+            user.checkIfUserIsFollowed { [weak self] followed in
+                guard let self else { return }
                 if followed {
                     self.followButton.setTitle("Following", for: .normal)
                     self.followButton.setTitleColor(.black, for: .normal)

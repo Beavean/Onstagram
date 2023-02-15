@@ -54,7 +54,8 @@ final class User {
 
     func checkIfUserIsFollowed(completion: @escaping(Bool) -> Void) {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        FBConstants.DBReferences.userFollowing.child(currentUid).observeSingleEvent(of: .value) { snapshot in
+        FBConstants.DBReferences.userFollowing.child(currentUid).observeSingleEvent(of: .value) { [weak self] snapshot in
+            guard let self else { return }
             if snapshot.hasChild(self.uid) {
                 self.isFollowed = true
                 completion(true)

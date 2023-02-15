@@ -81,16 +81,16 @@ final class CommentaryViewController: UICollectionViewController, UICollectionVi
     // MARK: - Handlers
 
     func handleHashtagTapped(forCell cell: CommentaryCell) {
-        cell.commentLabel.handleHashtagTap { hashtag in
+        cell.commentLabel.handleHashtagTap { [weak self] hashtag in
             let hashtagController = HashtagController(collectionViewLayout: UICollectionViewFlowLayout())
             hashtagController.hashtag = hashtag.lowercased()
-            self.navigationController?.pushViewController(hashtagController, animated: true)
+            self?.navigationController?.pushViewController(hashtagController, animated: true)
         }
     }
 
     func handleMentionTapped(forCell cell: CommentaryCell) {
-        cell.commentLabel.handleMentionTap { username in
-            self.getMentionedUser(withUsername: username)
+        cell.commentLabel.handleMentionTap { [weak self] username in
+            self?.getMentionedUser(withUsername: username)
         }
     }
 
@@ -101,7 +101,8 @@ final class CommentaryViewController: UICollectionViewController, UICollectionVi
         FBConstants.DBReferences.comments.child(postId).observe(.childAdded) { snapshot in
             guard let dictionary = snapshot.value as? [String: AnyObject], let uid = dictionary["uid"] as? String
             else { return }
-            Database.fetchUser(with: uid) { user in
+            Database.fetchUser(with: uid) { [weak self] user in
+                guard let self else { return }
                 let comment = Commentary(user: user, dictionary: dictionary)
                 self.comments.append(comment)
                 self.collectionView?.reloadData()

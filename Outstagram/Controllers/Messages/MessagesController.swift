@@ -46,9 +46,9 @@ final class MessagesController: UITableViewController {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let message = messages[indexPath.row]
         let chatPartnerId = message.getChatPartnerId()
-        FBConstants.DBReferences.userMessages.child(uid).child(chatPartnerId).removeValue { _, _ in
-            self.messages.remove(at: indexPath.row)
-            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+        FBConstants.DBReferences.userMessages.child(uid).child(chatPartnerId).removeValue { [weak self] _, _ in
+            self?.messages.remove(at: indexPath.row)
+            self?.tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
 
@@ -73,8 +73,8 @@ final class MessagesController: UITableViewController {
         guard let cell = tableView.cellForRow(at: indexPath) as? MessageCell else { return }
         let message = messages[indexPath.row]
         let chatPartnerId = message.getChatPartnerId()
-        Database.fetchUser(with: chatPartnerId) { user in
-            self.showChatController(forUser: user)
+        Database.fetchUser(with: chatPartnerId) { [weak self] user in
+            self?.showChatController(forUser: user)
             cell.messageTextLabel.font = UIFont.systemFont(ofSize: 12)
         }
     }
@@ -106,18 +106,18 @@ final class MessagesController: UITableViewController {
         self.messages.removeAll()
         self.messagesDictionary.removeAll()
         self.tableView.reloadData()
-        FBConstants.DBReferences.userMessages.child(currentUid).observe(.childAdded) { snapshot in
+        FBConstants.DBReferences.userMessages.child(currentUid).observe(.childAdded) { [weak self] snapshot in
             let uid = snapshot.key
             FBConstants.DBReferences.userMessages.child(currentUid).child(uid).observe(.childAdded) { snapshot in
                 let messageId = snapshot.key
-                self.fetchMessage(withMessageId: messageId)
+                self?.fetchMessage(withMessageId: messageId)
             }
         }
     }
 
     private func fetchMessage(withMessageId messageId: String) {
-        FBConstants.DBReferences.messages.child(messageId).observeSingleEvent(of: .value) { snapshot in
-            guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
+        FBConstants.DBReferences.messages.child(messageId).observeSingleEvent(of: .value) { [weak self] snapshot in
+            guard let self, let dictionary = snapshot.value as? [String: AnyObject] else { return }
             let message = Message(dictionary: dictionary)
             let chatPartnerId = message.getChatPartnerId()
             self.messagesDictionary[chatPartnerId] = message

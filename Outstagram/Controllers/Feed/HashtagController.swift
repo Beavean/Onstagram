@@ -80,9 +80,9 @@ final class HashtagController: UICollectionViewController, UICollectionViewDeleg
         guard let hashtag = self.hashtag else { return }
         FBConstants.DBReferences.hashtagPost.child(hashtag).observe(.childAdded) { snapshot in
             let postId = snapshot.key
-            Database.fetchPost(with: postId) { post in
-                self.posts.append(post)
-                self.collectionView?.reloadData()
+            Database.fetchPost(with: postId) { [weak self] post in
+                self?.posts.append(post)
+                self?.collectionView?.reloadData()
             }
         }
     }

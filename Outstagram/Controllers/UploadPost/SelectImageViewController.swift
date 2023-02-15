@@ -138,21 +138,21 @@ final class SelectImageViewController: UICollectionViewController, UICollectionV
     private func fetchPhotos() {
         let allPhotos = PHAsset.fetchAssets(with: .image, options: getAssetFetchOptions())
         DispatchQueue.global(qos: .background).async {
-            allPhotos.enumerateObjects { asset, count, _ in
+            allPhotos.enumerateObjects { [weak self] asset, count, _ in
                 let imageManager = PHImageManager.default()
                 let targetSize = CGSize(width: 200, height: 200)
                 let options = PHImageRequestOptions()
                 options.isSynchronous = true
                 imageManager.requestImage(for: asset, targetSize: targetSize, contentMode: .aspectFit, options: options) { image, _ in
                     if let image = image {
-                        self.images.append(image)
-                        self.assets.append(asset)
-                        if self.selectedImage == nil {
-                            self.selectedImage = image
+                        self?.images.append(image)
+                        self?.assets.append(asset)
+                        if self?.selectedImage == nil {
+                            self?.selectedImage = image
                         }
                         if count == allPhotos.count - 1 {
                             DispatchQueue.main.async {
-                                self.collectionView?.reloadData()
+                                self?.collectionView?.reloadData()
                             }
                         }
                     }

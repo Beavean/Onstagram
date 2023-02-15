@@ -40,7 +40,7 @@ final class SearchViewController: UITableViewController,
 
     // MARK: - UITableView
 
-   override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
 
@@ -217,76 +217,80 @@ final class SearchViewController: UITableViewController,
 
     func fetchUsers() {
         if userCurrentKey == nil {
-            FBConstants.DBReferences.users.queryLimited(toLast: 10).observeSingleEvent(of: .value) { snapshot in
+            FBConstants.DBReferences.users.queryLimited(toLast: 10).observeSingleEvent(of: .value) { [weak self] snapshot in
                 guard let first = snapshot.children.allObjects.first as? DataSnapshot else { return }
                 guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
                 allObjects.forEach { snapshot in
                     let uid = snapshot.key
                     Database.fetchUser(with: uid) { user in
-                        self.users.append(user)
-                        self.tableView.reloadData()
+                        self?.users.append(user)
+                        self?.tableView.reloadData()
                     }
                 }
-                self.userCurrentKey = first.key
+                self?.userCurrentKey = first.key
             }
         } else {
             FBConstants.DBReferences.users
                 .queryOrderedByKey()
                 .queryEnding(atValue: userCurrentKey)
                 .queryLimited(toLast: 5)
-                .observeSingleEvent(of: .value) { snapshot in
-                guard let first = snapshot.children.allObjects.first as? DataSnapshot else { return }
-                guard var allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
-                allObjects.removeAll { $0.key == self.userCurrentKey }
-                allObjects.forEach { snapshot in
-                    let uid = snapshot.key
-                    if uid != self.userCurrentKey {
-                        Database.fetchUser(with: uid) { user in
-                            self.users.append(user)
-                            if self.users.count == allObjects.count {
-                                self.tableView.reloadData()
+                .observeSingleEvent(of: .value) { [weak self] snapshot in
+                    guard let self,
+                          let first = snapshot.children.allObjects.first as? DataSnapshot,
+                          var allObjects = snapshot.children.allObjects as? [DataSnapshot]
+                    else { return }
+                    allObjects.removeAll { $0.key == self.userCurrentKey }
+                    allObjects.forEach { snapshot in
+                        let uid = snapshot.key
+                        if uid != self.userCurrentKey {
+                            Database.fetchUser(with: uid) { [weak self] user in
+                                self?.users.append(user)
+                                if self?.users.count == allObjects.count {
+                                    self?.tableView.reloadData()
+                                }
                             }
                         }
                     }
+                    self.userCurrentKey = first.key
                 }
-                self.userCurrentKey = first.key
-            }
         }
     }
 
     func fetchPosts() {
         if currentKey == nil {
-            FBConstants.DBReferences.posts.queryLimited(toLast: 21).observeSingleEvent(of: .value) { snapshot in
-                self.tableView.refreshControl?.endRefreshing()
+            FBConstants.DBReferences.posts.queryLimited(toLast: 21).observeSingleEvent(of: .value) { [weak self] snapshot in
+                self?.tableView.refreshControl?.endRefreshing()
                 guard let first = snapshot.children.allObjects.first as? DataSnapshot else { return }
                 guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
                 allObjects.forEach { snapshot in
                     let postId = snapshot.key
-                    Database.fetchPost(with: postId) { post in
-                        self.posts.append(post)
-                        self.collectionView.reloadData()
+                    Database.fetchPost(with: postId) { [weak self] post in
+                        self?.posts.append(post)
+                        self?.collectionView.reloadData()
                     }
                 }
-                self.currentKey = first.key
+                self?.currentKey = first.key
             }
         } else {
             FBConstants.DBReferences.posts.queryOrderedByKey()
                 .queryEnding(atValue: self.currentKey)
                 .queryLimited(toLast: 10)
-                .observeSingleEvent(of: .value) { snapshot in
-                guard let first = snapshot.children.allObjects.first as? DataSnapshot else { return }
-                guard let allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
-                allObjects.forEach { snapshot in
-                    let postId = snapshot.key
-                    if postId != self.currentKey {
-                        Database.fetchPost(with: postId) { post in
-                            self.posts.append(post)
-                            self.collectionView.reloadData()
+                .observeSingleEvent(of: .value) { [weak self] snapshot in
+                    guard let self,
+                          let first = snapshot.children.allObjects.first as? DataSnapshot,
+                          let allObjects = snapshot.children.allObjects as? [DataSnapshot]
+                    else { return }
+                    allObjects.forEach { snapshot in
+                        let postId = snapshot.key
+                        if postId != self.currentKey {
+                            Database.fetchPost(with: postId) { [weak self] post in
+                                self?.posts.append(post)
+                                self?.collectionView.reloadData()
+                            }
                         }
                     }
+                    self.currentKey = first.key
                 }
-                self.currentKey = first.key
-            }
         }
     }
 }

@@ -137,20 +137,20 @@ final class NotificationsViewController: UITableViewController, NotificationCell
                 guard let dictionary = snapshot.value as? [String: AnyObject],
                       let uid = dictionary["uid"] as? String
                 else { return }
-                Database.fetchUser(with: uid) { user in
+                Database.fetchUser(with: uid) { [weak self] user in
                     if let postId = dictionary["postId"] as? String {
                         Database.fetchPost(with: postId) { post in
                             let notification = Notification(user: user, post: post, dictionary: dictionary)
                             if notification.notificationType == .comment {
-                                self.getCommentData(forNotification: notification)
+                                self?.getCommentData(forNotification: notification)
                             }
-                            self.notifications.append(notification)
-                            self.handleReloadTable()
+                            self?.notifications.append(notification)
+                            self?.handleReloadTable()
                         }
                     } else {
                         let notification = Notification(user: user, dictionary: dictionary)
-                        self.notifications.append(notification)
-                        self.handleReloadTable()
+                        self?.notifications.append(notification)
+                        self?.handleReloadTable()
                     }
                 }
                 FBConstants.DBReferences.notifications.child(currentUid).child(notificationId).child("checked").setValue(1)

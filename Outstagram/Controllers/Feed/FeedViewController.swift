@@ -51,7 +51,7 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = view.frame.width
-        var height = width + 180
+        let height = width + 180
         return CGSize(width: width, height: height)
     }
 
@@ -110,16 +110,16 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
     }
 
     func handleHashtagTapped(forCell cell: FeedCell) {
-        cell.captionLabel.handleHashtagTap { hashtag in
+        cell.captionLabel.handleHashtagTap { [weak self] hashtag in
             let hashtagController = HashtagController(collectionViewLayout: UICollectionViewFlowLayout())
             hashtagController.hashtag = hashtag.lowercased()
-            self.navigationController?.pushViewController(hashtagController, animated: true)
+            self?.navigationController?.pushViewController(hashtagController, animated: true)
         }
     }
 
     func handleMentionTapped(forCell cell: FeedCell) {
-        cell.captionLabel.handleMentionTap { username in
-            self.getMentionedUser(withUsername: username)
+        cell.captionLabel.handleMentionTap { [weak self] username in
+            self?.getMentionedUser(withUsername: username)
         }
     }
 
@@ -128,10 +128,10 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
               let username = user.username
         else { return }
         let customType = ActiveType.custom(pattern: "^\(username)\\b")
-        cell.captionLabel.handleCustomTap(for: customType) { _ in
+        cell.captionLabel.handleCustomTap(for: customType) { [weak self] _ in
             let userProfileController = UserProfileViewController(collectionViewLayout: UICollectionViewFlowLayout())
             userProfileController.user = user
-            self.navigationController?.pushViewController(userProfileController, animated: true)
+            self?.navigationController?.pushViewController(userProfileController, animated: true)
         }
     }
 
@@ -146,8 +146,8 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
 
     func setUnreadMessageCount() {
         if !viewSinglePost {
-            getUnreadMessageCount { unreadMessageCount in
-                guard unreadMessageCount != 0 else { return }
+            getUnreadMessageCount { [weak self] unreadMessageCount in
+                guard let self, unreadMessageCount != 0 else { return }
                 self.navigationController?.navigationBar.addSubview(self.messageNotificationView)
                 self.messageNotificationView.anchor(top: self.navigationController?.navigationBar.topAnchor,
                                                     right: self.navigationController?.navigationBar.rightAnchor,
@@ -162,13 +162,13 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
 
     @objc func handleLogout() {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive) { _ in
+        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive) { [weak self] _ in
             do {
                 try Auth.auth().signOut()
                 let loginVC = LoginViewController()
                 let navController = UINavigationController(rootViewController: loginVC)
                 navController.modalPresentationStyle = .fullScreen
-                self.present(navController, animated: true)
+                self?.present(navController, animated: true)
             } catch {
                 print("Failed to sign out")
             }
@@ -189,7 +189,8 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
     private func fetchPosts() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         if currentKey == nil {
-            FBConstants.DBReferences.userFeed.child(currentUid).queryLimited(toLast: 5).observeSingleEvent(of: .value) { snapshot in
+            FBConstants.DBReferences.userFeed.child(currentUid).queryLimited(toLast: 5).observeSingleEvent(of: .value) { [weak self] snapshot in
+                guard let self else { return }
                 self.collectionView?.refreshControl?.endRefreshing()
                 guard let first = snapshot.children.allObjects.first as? DataSnapshot,
                       let allObjects = snapshot.children.allObjects as? [DataSnapshot]
@@ -206,8 +207,9 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
                 .queryOrderedByKey()
                 .queryEnding(atValue: self.currentKey)
                 .queryLimited(toLast: 6)
-                .observeSingleEvent(of: .value) { snapshot in
-                guard let first = snapshot.children.allObjects.first as? DataSnapshot,
+                .observeSingleEvent(of: .value) { [weak self] snapshot in
+                guard let self,
+                      let first = snapshot.children.allObjects.first as? DataSnapshot,
                       let allObjects = snapshot.children.allObjects as? [DataSnapshot]
                 else { return }
                 allObjects.forEach { snapshot in
@@ -222,7 +224,8 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
     }
 
     private func fetchPost(withPostId postId: String) {
-        Database.fetchPost(with: postId) { post in
+        Database.fetchPost(with: postId) { [weak self] post in
+            guard let self else { return }
             self.posts.append(post)
             self.posts.sort { (post1, post2) -> Bool in
                 return post1.creationDate > post2.creationDate

@@ -66,12 +66,12 @@ final class NewMessageController: UITableViewController {
     // MARK: - API
 
     private func fetchUsers() {
-        FBConstants.DBReferences.users.observe(.childAdded) { snapshot in
+        FBConstants.DBReferences.users.observe(.childAdded) { [weak self] snapshot in
             let uid = snapshot.key
             if uid != Auth.auth().currentUser?.uid {
                 Database.fetchUser(with: uid) { user in
-                    self.users.append(user)
-                    self.tableView.reloadData()
+                    self?.users.append(user)
+                    self?.tableView.reloadData()
                 }
             }
         }

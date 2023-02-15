@@ -81,27 +81,27 @@ final class UserProfileViewController: UICollectionViewController {
                 .queryOrderedByKey()
                 .queryEnding(atValue: self.currentKey)
                 .queryLimited(toLast: 7)
-                .observeSingleEvent(of: .value) { snapshot in
+                .observeSingleEvent(of: .value) { [weak self] snapshot in
                 guard let first = snapshot.children.allObjects.first as? DataSnapshot,
                       let allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
                 allObjects.forEach { snapshot in
                     let postId = snapshot.key
-                    if postId != self.currentKey {
-                        self.fetchPost(withPostId: postId)
+                    if postId != self?.currentKey {
+                        self?.fetchPost(withPostId: postId)
                     }
                 }
-                self.currentKey = first.key
+                self?.currentKey = first.key
             }
         }
     }
 
     func fetchPost(withPostId postId: String) {
-        Database.fetchPost(with: postId) { post in
-            self.posts.append(post)
-            self.posts.sort { (firstPost, secondPost) -> Bool in
+        Database.fetchPost(with: postId) { [weak self] post in
+            self?.posts.append(post)
+            self?.posts.sort { (firstPost, secondPost) -> Bool in
                 return firstPost.creationDate > secondPost.creationDate
             }
-            self.collectionView?.reloadData()
+            self?.collectionView?.reloadData()
         }
     }
 

@@ -186,15 +186,15 @@ final class ChatController: UICollectionViewController {
     private func observeMessages() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         guard let chatPartnerId = self.user?.uid else { return }
-        FBConstants.DBReferences.userMessages.child(currentUid).child(chatPartnerId).observe(.childAdded) { snapshot in
+        FBConstants.DBReferences.userMessages.child(currentUid).child(chatPartnerId).observe(.childAdded) { [weak self] snapshot in
             let messageId = snapshot.key
-            self.fetchMessage(withMessageId: messageId)
+            self?.fetchMessage(withMessageId: messageId)
         }
     }
 
     private func fetchMessage(withMessageId messageId: String) {
-        FBConstants.DBReferences.messages.child(messageId).observeSingleEvent(of: .value) { snapshot in
-            guard let dictionary = snapshot.value as? [String: AnyObject] else { return }
+        FBConstants.DBReferences.messages.child(messageId).observeSingleEvent(of: .value) { [weak self] snapshot in
+            guard let self, let dictionary = snapshot.value as? [String: AnyObject] else { return }
             let message = Message(dictionary: dictionary)
             self.messages.append(message)
             DispatchQueue.main.async {
@@ -249,14 +249,13 @@ final class ChatController: UICollectionViewController {
     private func uploadVideoToStorage(withUrl url: URL) {
         let filename = NSUUID().uuidString
         let ref = FBConstants.StorageReferences.messageVideos.child(filename)
-        ref.putFile(from: url, metadata: nil) { _, error in
+        ref.putFile(from: url, metadata: nil) { [weak self] _, error in
             if error != nil {
                 print("DEBUG: Failed to upload video to FIRStorage with error: ", error as Any)
                 return
             }
             ref.downloadURL { url, _ in
-                guard let url = url else { return }
-                guard let thumbnailImage = self.thumbnailImage(forFileUrl: url) else { return }
+                guard let self, let url, let thumbnailImage = self.thumbnailImage(forFileUrl: url) else { return }
                 let videoUrl = url.absoluteString
                 self.uploadImageToStorage(selectedImage: thumbnailImage) { imageUrl in
                     let properties: [String: AnyObject] = ["imageWidth": thumbnailImage.size.width as AnyObject,
@@ -314,8 +313,8 @@ extension ChatController: UIImagePickerControllerDelegate, UINavigationControlle
         if let videoUrl = info[.mediaURL] as? URL {
             uploadVideoToStorage(withUrl: videoUrl)
         } else if let selectedImage = info[.editedImage] as? UIImage {
-            uploadImageToStorage(selectedImage: selectedImage) { imageUrl in
-                self.sendMessage(withImageUrl: imageUrl, image: selectedImage)
+            uploadImageToStorage(selectedImage: selectedImage) { [weak self] imageUrl in
+                self?.sendMessage(withImageUrl: imageUrl, image: selectedImage)
             }
         }
         dismiss(animated: true)

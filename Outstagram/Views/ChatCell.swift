@@ -82,9 +82,9 @@ final class ChatCell: UICollectionViewCell {
                 textView.text = messageText
             }
             guard let chatPartnerId = message?.getChatPartnerId() else { return }
-            Database.fetchUser(with: chatPartnerId) { user in
+            Database.fetchUser(with: chatPartnerId) { [weak self] user in
                 guard let profileImageUrl = user.profileImageUrl else { return }
-                self.profileImageView.loadImage(with: profileImageUrl)
+                self?.profileImageView.loadImage(with: profileImageUrl)
             }
         }
     }
