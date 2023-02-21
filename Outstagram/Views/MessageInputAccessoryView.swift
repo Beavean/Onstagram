@@ -13,7 +13,6 @@ protocol MessageInputAccessoryViewDelegate: AnyObject {
 }
 
 final class MessageInputAccessoryView: UIView {
-
     // MARK: - Properties
 
     weak var delegate: MessageInputAccessoryViewDelegate?
@@ -69,7 +68,8 @@ final class MessageInputAccessoryView: UIView {
         return .zero
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

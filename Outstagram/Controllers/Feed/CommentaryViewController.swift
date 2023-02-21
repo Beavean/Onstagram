@@ -5,12 +5,11 @@
 //  Created by Beavean on 31.01.2023.
 //
 
-import UIKit
-import FirebaseDatabase
 import FirebaseAuth
+import FirebaseDatabase
+import UIKit
 
 final class CommentaryViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-
     // MARK: - Properties
 
     var comments = [Commentary]()
@@ -52,8 +51,8 @@ final class CommentaryViewController: UICollectionViewController, UICollectionVi
 
     // MARK: - UICollectionView
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
+    func collectionView(_: UICollectionView,
+                        layout _: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
         let dummyCell = CommentaryCell(frame: frame)
@@ -65,7 +64,7 @@ final class CommentaryViewController: UICollectionViewController, UICollectionVi
         return CGSize(width: view.frame.width, height: height)
     }
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         return comments.count
     }
 
@@ -97,7 +96,7 @@ final class CommentaryViewController: UICollectionViewController, UICollectionVi
     // MARK: - API
 
     func fetchComments() {
-        guard let postId = self.post?.postId else { return }
+        guard let postId = post?.postId else { return }
         FBConstants.DBReferences.comments.child(postId).observe(.childAdded) { snapshot in
             guard let dictionary = snapshot.value as? [String: AnyObject], let uid = dictionary["uid"] as? String
             else { return }
@@ -112,8 +111,8 @@ final class CommentaryViewController: UICollectionViewController, UICollectionVi
 
     func uploadCommentNotificationToServer() {
         guard let currentUid = Auth.auth().currentUser?.uid,
-        let postId = self.post?.postId,
-        let uid = post?.user?.uid
+              let postId = post?.postId,
+              let uid = post?.user?.uid
         else { return }
         let creationDate = Int(NSDate().timeIntervalSince1970)
         let values = ["checked": 0,
@@ -142,7 +141,7 @@ final class CommentaryViewController: UICollectionViewController, UICollectionVi
 
 extension CommentaryViewController: CommentaryInputViewDelegate {
     func didSubmit(forComment comment: String) {
-        guard let postId = self.post?.postId, let uid = Auth.auth().currentUser?.uid else { return }
+        guard let postId = post?.postId, let uid = Auth.auth().currentUser?.uid else { return }
         let creationDate = Int(NSDate().timeIntervalSince1970)
         let values = ["commentText": comment,
                       "creationDate": creationDate,

@@ -5,12 +5,11 @@
 //  Created by Beavean on 07.02.2023.
 //
 
-import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import UIKit
 
 final class NewMessageController: UITableViewController {
-
     // MARK: - Properties
 
     var users = [User]()
@@ -28,11 +27,11 @@ final class NewMessageController: UITableViewController {
 
     // MARK: - UITableView
 
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         75
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         users.count
     }
 
@@ -44,8 +43,8 @@ final class NewMessageController: UITableViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.dismiss(animated: true) {
+    override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dismiss(animated: true) {
             let user = self.users[indexPath.row]
             self.messagesController?.showChatController(forUser: user)
         }

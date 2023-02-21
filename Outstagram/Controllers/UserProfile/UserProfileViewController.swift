@@ -5,12 +5,11 @@
 //  Created by Beavean on 14.01.2023.
 //
 
-import UIKit
-import FirebaseDatabase
 import FirebaseAuth
+import FirebaseDatabase
+import UIKit
 
 final class UserProfileViewController: UICollectionViewController {
-
     // MARK: - Properties
 
     var posts = [Post]()
@@ -43,7 +42,7 @@ final class UserProfileViewController: UICollectionViewController {
 
     @objc func handleRefresh() {
         posts.removeAll(keepingCapacity: false)
-        self.currentKey = nil
+        currentKey = nil
         fetchPosts()
         collectionView?.reloadData()
     }
@@ -58,7 +57,7 @@ final class UserProfileViewController: UICollectionViewController {
 
     func fetchPosts() {
         var uid: String!
-        if let user = self.user {
+        if let user = user {
             uid = user.uid
         } else {
             uid = Auth.auth().currentUser?.uid
@@ -79,27 +78,27 @@ final class UserProfileViewController: UICollectionViewController {
             FBConstants.DBReferences.userPosts
                 .child(uid)
                 .queryOrderedByKey()
-                .queryEnding(atValue: self.currentKey)
+                .queryEnding(atValue: currentKey)
                 .queryLimited(toLast: 7)
                 .observeSingleEvent(of: .value) { [weak self] snapshot in
-                guard let first = snapshot.children.allObjects.first as? DataSnapshot,
-                      let allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
-                allObjects.forEach { snapshot in
-                    let postId = snapshot.key
-                    if postId != self?.currentKey {
-                        self?.fetchPost(withPostId: postId)
+                    guard let first = snapshot.children.allObjects.first as? DataSnapshot,
+                          let allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
+                    allObjects.forEach { snapshot in
+                        let postId = snapshot.key
+                        if postId != self?.currentKey {
+                            self?.fetchPost(withPostId: postId)
+                        }
                     }
+                    self?.currentKey = first.key
                 }
-                self?.currentKey = first.key
-            }
         }
     }
 
     func fetchPost(withPostId postId: String) {
         Database.fetchPost(with: postId) { [weak self] post in
             self?.posts.append(post)
-            self?.posts.sort { (firstPost, secondPost) -> Bool in
-                return firstPost.creationDate > secondPost.creationDate
+            self?.posts.sort { firstPost, secondPost -> Bool in
+                firstPost.creationDate > secondPost.creationDate
             }
             self?.collectionView?.reloadData()
         }
@@ -121,11 +120,11 @@ final class UserProfileViewController: UICollectionViewController {
 // MARK: UICollectionView
 
 extension UserProfileViewController {
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in _: UICollectionView) -> Int {
         return 1
     }
 
-    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    override func collectionView(_: UICollectionView, willDisplay _: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if posts.count > 9 {
             if indexPath.item == posts.count - 1 {
                 fetchPosts()
@@ -133,7 +132,7 @@ extension UserProfileViewController {
         }
     }
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         return posts.count
     }
 
@@ -145,7 +144,7 @@ extension UserProfileViewController {
                                                                            for: indexPath) as? UserProfileHeader
         else { return UICollectionReusableView() }
         header.delegate = self
-        header.user = self.user
+        header.user = user
         navigationItem.title = user?.username
         return header
     }
@@ -158,7 +157,7 @@ extension UserProfileViewController {
         return cell
     }
 
-    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    override func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let feedVC = FeedViewController(collectionViewLayout: UICollectionViewFlowLayout())
         feedVC.viewSinglePost = true
         feedVC.userProfileController = self
@@ -170,28 +169,28 @@ extension UserProfileViewController {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension UserProfileViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_: UICollectionView,
+                        layout _: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt _: Int) -> CGFloat {
         1
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_: UICollectionView,
+                        layout _: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt _: Int) -> CGFloat {
         1
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_: UICollectionView,
+                        layout _: UICollectionViewLayout,
+                        sizeForItemAt _: IndexPath) -> CGSize {
         let width = (view.frame.width - 2) / 3
         return CGSize(width: width, height: width)
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        referenceSizeForHeaderInSection section: Int) -> CGSize {
+    func collectionView(_: UICollectionView,
+                        layout _: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection _: Int) -> CGSize {
         CGSize(width: view.frame.width, height: 200)
     }
 }
@@ -199,14 +198,14 @@ extension UserProfileViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - UserProfileHeaderDelegate
 
 extension UserProfileViewController: UserProfileHeaderDelegate {
-    func handleFollowersTapped(for header: UserProfileHeader) {
+    func handleFollowersTapped(for _: UserProfileHeader) {
         let followViewController = FollowLikeViewController()
         followViewController.viewingMode = .followers
         followViewController.uid = user?.uid
         navigationController?.pushViewController(followViewController, animated: true)
     }
 
-    func handleFollowingTapped(for header: UserProfileHeader) {
+    func handleFollowingTapped(for _: UserProfileHeader) {
         let followViewController = FollowLikeViewController()
         followViewController.viewingMode = .following
         followViewController.uid = user?.uid

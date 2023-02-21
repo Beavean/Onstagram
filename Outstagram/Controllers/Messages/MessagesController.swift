@@ -5,12 +5,11 @@
 //  Created by Beavean on 07.02.2023.
 //
 
-import UIKit
 import FirebaseAuth
 import FirebaseDatabase
+import UIKit
 
 final class MessagesController: UITableViewController {
-
     // MARK: - Properties
 
     var messages = [Message]()
@@ -38,11 +37,11 @@ final class MessagesController: UITableViewController {
 
     // MARK: - UITableView
 
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    override func tableView(_: UITableView, canEditRowAt _: IndexPath) -> Bool {
         return true
     }
 
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_: UITableView, commit _: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard let uid = Auth.auth().currentUser?.uid else { return }
         let message = messages[indexPath.row]
         let chatPartnerId = message.getChatPartnerId()
@@ -52,11 +51,11 @@ final class MessagesController: UITableViewController {
         }
     }
 
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return 75
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return messages.count
     }
 
@@ -85,7 +84,7 @@ final class MessagesController: UITableViewController {
         let newMessageController = NewMessageController()
         newMessageController.messagesController = self
         let navigationController = UINavigationController(rootViewController: newMessageController)
-        self.present(navigationController, animated: true)
+        present(navigationController, animated: true)
     }
 
     func showChatController(forUser user: User) {
@@ -103,9 +102,9 @@ final class MessagesController: UITableViewController {
 
     private func fetchMessages() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        self.messages.removeAll()
-        self.messagesDictionary.removeAll()
-        self.tableView.reloadData()
+        messages.removeAll()
+        messagesDictionary.removeAll()
+        tableView.reloadData()
         FBConstants.DBReferences.userMessages.child(currentUid).observe(.childAdded) { [weak self] snapshot in
             let uid = snapshot.key
             FBConstants.DBReferences.userMessages.child(currentUid).child(uid).observe(.childAdded) { snapshot in
@@ -122,8 +121,8 @@ final class MessagesController: UITableViewController {
             let chatPartnerId = message.getChatPartnerId()
             self.messagesDictionary[chatPartnerId] = message
             self.messages = Array(self.messagesDictionary.values)
-            self.messages.sort { (message1, message2) -> Bool in
-                return message1.creationDate > message2.creationDate
+            self.messages.sort { message1, message2 -> Bool in
+                message1.creationDate > message2.creationDate
             }
             self.tableView?.reloadData()
         }

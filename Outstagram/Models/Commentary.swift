@@ -8,7 +8,6 @@
 import Foundation
 
 final class Commentary {
-
     var uid: String!
     var commentText: String!
     var creationDate: Date!

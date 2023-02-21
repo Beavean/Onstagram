@@ -12,7 +12,6 @@ protocol Printable {
 }
 
 final class Notification {
-
     enum NotificationType: Int, Printable {
         case like
         case comment
@@ -62,7 +61,7 @@ final class Notification {
             self.creationDate = Date(timeIntervalSince1970: creationDate)
         }
         if let type = dictionary["type"] as? Int {
-            self.notificationType = NotificationType(index: type)
+            notificationType = NotificationType(index: type)
         }
         if let uid = dictionary["uid"] as? String {
             self.uid = uid
@@ -75,9 +74,9 @@ final class Notification {
         }
         if let checked = dictionary["checked"] as? Int {
             if checked == 0 {
-                self.didCheck = false
+                didCheck = false
             } else {
-                self.didCheck = true
+                didCheck = true
             }
         }
     }

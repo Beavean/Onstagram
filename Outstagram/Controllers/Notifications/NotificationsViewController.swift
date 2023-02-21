@@ -5,12 +5,11 @@
 //  Created by Beavean on 14.01.2023.
 //
 
-import UIKit
-import FirebaseDatabase
 import FirebaseAuth
+import FirebaseDatabase
+import UIKit
 
 final class NotificationsViewController: UITableViewController, NotificationCellDelegate {
-
     // MARK: - Properties
 
     private var timer: Timer?
@@ -30,11 +29,11 @@ final class NotificationsViewController: UITableViewController, NotificationCell
 
     // MARK: - UITableViewDataSource
 
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return 60
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         return notifications.count
     }
 
@@ -52,7 +51,7 @@ final class NotificationsViewController: UITableViewController, NotificationCell
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         let notification = notifications[indexPath.row]
         let userProfileVC = UserProfileViewController(collectionViewLayout: UICollectionViewFlowLayout())
         userProfileVC.user = notification.user
@@ -90,29 +89,29 @@ final class NotificationsViewController: UITableViewController, NotificationCell
     // MARK: - Handlers
 
     @objc private func handleRefresh() {
-        self.notifications.removeAll()
-        self.tableView.reloadData()
+        notifications.removeAll()
+        tableView.reloadData()
         fetchNotifications()
         refresher.endRefreshing()
     }
 
     @objc private func handleSortNotifications() {
-        self.notifications.sort { $0.creationDate > $1.creationDate }
-        self.tableView.reloadData()
+        notifications.sort { $0.creationDate > $1.creationDate }
+        tableView.reloadData()
     }
 
     func handleReloadTable() {
-        self.timer?.invalidate()
-        self.timer = Timer.scheduledTimer(timeInterval: 0.1,
-                                          target: self,
-                                          selector: #selector(handleSortNotifications),
-                                          userInfo: nil,
-                                          repeats: false)
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 0.1,
+                                     target: self,
+                                     selector: #selector(handleSortNotifications),
+                                     userInfo: nil,
+                                     repeats: false)
     }
 
     func configureRefreshControl() {
         refresher.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-        self.tableView.refreshControl = refresher
+        tableView.refreshControl = refresher
     }
 
     // MARK: - API

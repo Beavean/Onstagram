@@ -5,8 +5,8 @@
 //  Created by Beavean on 13.01.2023.
 //
 
-import FirebaseStorage
 import FirebaseDatabase
+import FirebaseStorage
 
 enum FBConstants {
     enum DBReferences {
@@ -33,7 +33,6 @@ enum FBConstants {
         static let postImages = storageReference.child("post_images")
         static let messageImages = storageReference.child("message_images")
         static let messageVideos = storageReference.child("video_messages")
-
     }
 
     enum Values {

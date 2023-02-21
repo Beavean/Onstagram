@@ -5,11 +5,10 @@
 //  Created by Beavean on 17.01.2023.
 //
 
-import Foundation
 import FirebaseAuth
+import Foundation
 
 final class User {
-
     var username: String!
     var name: String!
     var profileImageUrl: String!
@@ -31,7 +30,7 @@ final class User {
 
     func follow() {
         guard let currentUid = Auth.auth().currentUser?.uid, let uid else { return }
-        self.isFollowed = true
+        isFollowed = true
         FBConstants.DBReferences.userFollowing.child(currentUid).updateChildValues([uid: 1])
         FBConstants.DBReferences.userFollowers.child(uid).updateChildValues([currentUid: 1])
         uploadFollowNotificationToServer()
@@ -43,7 +42,7 @@ final class User {
 
     func unfollow() {
         guard let currentUid = Auth.auth().currentUser?.uid, let uid else { return }
-        self.isFollowed = false
+        isFollowed = false
         FBConstants.DBReferences.userFollowing.child(currentUid).child(uid).removeValue()
         FBConstants.DBReferences.userFollowers.child(uid).child(currentUid).removeValue()
         FBConstants.DBReferences.userPosts.child(uid).observe(.childAdded) { snapshot in
@@ -52,7 +51,7 @@ final class User {
         }
     }
 
-    func checkIfUserIsFollowed(completion: @escaping(Bool) -> Void) {
+    func checkIfUserIsFollowed(completion: @escaping (Bool) -> Void) {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         FBConstants.DBReferences.userFollowing.child(currentUid).observeSingleEvent(of: .value) { [weak self] snapshot in
             guard let self else { return }
@@ -73,6 +72,6 @@ final class User {
                       "creationDate": creationDate,
                       "uid": currentUid,
                       "type": FBConstants.Values.follow] as [String: Any]
-        FBConstants.DBReferences.notifications.child(self.uid).childByAutoId().updateChildValues(values)
+        FBConstants.DBReferences.notifications.child(uid).childByAutoId().updateChildValues(values)
     }
 }

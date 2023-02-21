@@ -5,11 +5,10 @@
 //  Created by Beavean on 20.01.2023.
 //
 
-import UIKit
 import FirebaseDatabase
+import UIKit
 
 final class FollowLikeViewController: UITableViewController {
-
     // MARK: - Properties
 
     enum ViewingMode: Int {
@@ -38,7 +37,7 @@ final class FollowLikeViewController: UITableViewController {
     // MARK: - Handlers
 
     private func configureNavigationTitle() {
-        guard let viewingMode = self.viewingMode else { return }
+        guard let viewingMode = viewingMode else { return }
         switch viewingMode {
         case .followers: navigationItem.title = "Followers"
         case .following: navigationItem.title = "Following"
@@ -56,17 +55,17 @@ final class FollowLikeViewController: UITableViewController {
     }
 
     private func fetchUsers() {
-        guard let databaseReference = getDatabaseReference(), let viewingMode = self.viewingMode else { return }
+        guard let databaseReference = getDatabaseReference(), let viewingMode = viewingMode else { return }
         switch viewingMode {
         case .followers, .following:
-            guard let uid = self.uid else { return }
+            guard let uid = uid else { return }
             if followCurrentKey == nil {
                 getFollowCurrentKey(reference: databaseReference, uid: uid)
             } else {
                 setFollowCurrentKey(reference: databaseReference, uid: uid)
             }
         case .likes:
-            guard let postId = self.postId else { return }
+            guard let postId = postId else { return }
             if likeCurrentKey == nil {
                 getLikeCurrentKey(reference: databaseReference, postId: postId)
             } else {
@@ -76,7 +75,7 @@ final class FollowLikeViewController: UITableViewController {
     }
 
     private func getDatabaseReference() -> DatabaseReference? {
-        guard let viewingMode = self.viewingMode else { return nil }
+        guard let viewingMode = viewingMode else { return nil }
         switch viewingMode {
         case .followers:
             return FBConstants.DBReferences.userFollowers
@@ -103,7 +102,7 @@ final class FollowLikeViewController: UITableViewController {
     private func setFollowCurrentKey(reference: DatabaseReference, uid: String) {
         reference.child(uid)
             .queryOrderedByKey()
-            .queryEnding(atValue: self.followCurrentKey)
+            .queryEnding(atValue: followCurrentKey)
             .queryLimited(toLast: 5)
             .observeSingleEvent(of: .value) { [weak self] snapshot in
                 guard let first = snapshot.children.allObjects.first as? DataSnapshot,
@@ -135,7 +134,7 @@ final class FollowLikeViewController: UITableViewController {
     private func setLikeCurrentKey(reference: DatabaseReference, postId: String) {
         reference.child(postId)
             .queryOrderedByKey()
-            .queryEnding(atValue: self.likeCurrentKey)
+            .queryEnding(atValue: likeCurrentKey)
             .queryLimited(toLast: 5)
             .observeSingleEvent(of: .value) { [weak self] snapshot in
                 guard let first = snapshot.children.allObjects.first as? DataSnapshot,
@@ -155,15 +154,15 @@ final class FollowLikeViewController: UITableViewController {
 // MARK: - UITableView
 
 extension FollowLikeViewController {
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         60
     }
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in _: UITableView) -> Int {
         1
     }
 
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    override func tableView(_: UITableView, willDisplay _: UITableViewCell, forRowAt indexPath: IndexPath) {
         if users.count > 3 {
             if indexPath.item == users.count - 1 {
                 fetchUsers()
@@ -171,7 +170,7 @@ extension FollowLikeViewController {
         }
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         users.count
     }
 
@@ -184,7 +183,7 @@ extension FollowLikeViewController {
         return cell
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = users[indexPath.row]
         let userProfileVC = UserProfileViewController(collectionViewLayout: UICollectionViewFlowLayout())
         userProfileVC.user = user

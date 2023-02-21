@@ -8,17 +8,16 @@
 import UIKit
 
 final class CustomImageView: UIImageView {
-
     var imageCache = [String: UIImage]()
 
     var lastImgUrlUsedToLoadImage: String?
 
     func loadImage(with urlString: String?) {
         guard let urlString else { return }
-        self.image = nil
+        image = nil
         lastImgUrlUsedToLoadImage = urlString
         if let cachedImage = imageCache[urlString] {
-            self.image = cachedImage
+            image = cachedImage
             return
         }
         guard let url = URL(string: urlString) else { return }

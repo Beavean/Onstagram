@@ -12,7 +12,6 @@ protocol CommentaryInputViewDelegate: AnyObject {
 }
 
 final class CommentaryInputView: UIView {
-
     // MARK: - Properties
 
     weak var delegate: CommentaryInputViewDelegate?
@@ -56,7 +55,8 @@ final class CommentaryInputView: UIView {
         separatorView.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor, height: 0.5)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

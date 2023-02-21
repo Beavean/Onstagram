@@ -5,8 +5,8 @@
 //  Created by Beavean on 15.01.2023.
 //
 
-import UIKit
 import FirebaseAuth
+import UIKit
 
 protocol UserProfileHeaderDelegate: AnyObject {
     func handleEditFollowTapped(for header: UserProfileHeader)
@@ -16,7 +16,6 @@ protocol UserProfileHeaderDelegate: AnyObject {
 }
 
 final class UserProfileHeader: UICollectionViewCell {
-
     // MARK: - UI Elements
 
     private let profileImageView: CustomImageView = {
@@ -100,7 +99,7 @@ final class UserProfileHeader: UICollectionViewCell {
         addSubview(editProfileFollowButton)
         editProfileFollowButton.anchor(top: postsLabel.bottomAnchor,
                                        left: postsLabel.leftAnchor,
-                                       right: self.rightAnchor,
+                                       right: rightAnchor,
                                        paddingTop: 4,
                                        paddingLeft: 8,
                                        paddingRight: 12,
@@ -108,7 +107,8 @@ final class UserProfileHeader: UICollectionViewCell {
         configureBottomToolBar()
     }
 
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -126,7 +126,7 @@ final class UserProfileHeader: UICollectionViewCell {
         delegate?.handleEditFollowTapped(for: self)
     }
 
-    func setUserStats(for user: User?) {
+    func setUserStats(for _: User?) {
         delegate?.setUserStats(for: self)
     }
 

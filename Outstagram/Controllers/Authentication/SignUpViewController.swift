@@ -5,12 +5,11 @@
 //  Created by Beavean on 11.01.2023.
 //
 
-import UIKit
-import FirebaseStorage
 import FirebaseAuth
+import FirebaseStorage
+import UIKit
 
 final class SignUpViewController: UIViewController {
-
     // MARK: - UI Elements
 
     private let profilePhotoImageView = AuthenticationImageView(image: UIImage(systemName: "person.crop.circle.badge.plus"))
@@ -41,7 +40,7 @@ final class SignUpViewController: UIViewController {
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
         imagePicker.allowsEditing = true
-        self.present(imagePicker, animated: true)
+        present(imagePicker, animated: true)
     }
 
     @objc private func handleShowLogin() {
@@ -99,7 +98,8 @@ final class SignUpViewController: UIViewController {
             passwordTextField.hasText,
             fullNameTextField.hasText,
             usernameTextField.hasText,
-            imageSelected else {
+            imageSelected
+        else {
             signUpButton.isEnabled = false
             signUpButton.alpha = 0.5
             return
@@ -157,7 +157,7 @@ final class SignUpViewController: UIViewController {
 // MARK: - UIImagePickerControllerDelegate & UINavigationControllerDelegate
 
 extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+    func imagePickerController(_: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let profileImage = info[.editedImage] as? UIImage else {
             imageSelected = false
             return
@@ -168,6 +168,6 @@ extension SignUpViewController: UIImagePickerControllerDelegate, UINavigationCon
         profilePhotoImageView.layer.borderColor = UIColor.white.cgColor
         profilePhotoImageView.layer.borderWidth = 3
         profilePhotoImageView.image = profileImage.withRenderingMode(.alwaysOriginal)
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 }

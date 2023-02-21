@@ -8,7 +8,6 @@
 import UIKit
 
 final class AuthenticationSwitchButton: UIButton {
-
     init(firstLabelText: String, secondLabelText: String) {
         super.init(frame: .zero)
         let mainAttributes = [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18), NSAttributedString.Key.foregroundColor: UIColor.white]
@@ -21,7 +20,8 @@ final class AuthenticationSwitchButton: UIButton {
         setAttributedTitle(attributedTitle, for: .normal)
     }
 
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

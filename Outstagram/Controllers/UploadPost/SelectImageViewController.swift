@@ -5,11 +5,10 @@
 //  Created by Beavean on 23.01.2023.
 //
 
-import UIKit
 import Photos
+import UIKit
 
 final class SelectImageViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-
     // MARK: - Properties
 
     private var images = [UIImage]()
@@ -33,39 +32,39 @@ final class SelectImageViewController: UICollectionViewController, UICollectionV
 
     // MARK: - UICollectionViewFlowLayout
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        referenceSizeForHeaderInSection section: Int) -> CGSize {
+    func collectionView(_: UICollectionView,
+                        layout _: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection _: Int) -> CGSize {
         let width = view.frame.width
         return CGSize(width: width, height: width)
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_: UICollectionView,
+                        layout _: UICollectionViewLayout,
+                        sizeForItemAt _: IndexPath) -> CGSize {
         let width = (view.frame.width - 3) / 4
         return CGSize(width: width, height: width)
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_: UICollectionView,
+                        layout _: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt _: Int) -> CGFloat {
         return 1
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_: UICollectionView,
+                        layout _: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt _: Int) -> CGFloat {
         return 1
     }
 
     // MARK: - UICollectionViewDataSource
 
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in _: UICollectionView) -> Int {
         return 1
     }
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         return images.count
     }
 
@@ -77,9 +76,9 @@ final class SelectImageViewController: UICollectionViewController, UICollectionV
                                                                            for: indexPath) as? SelectPhotoHeader
         else { return UICollectionReusableView() }
         self.header = header
-        if let selectedImage = self.selectedImage {
-            if let index = self.images.firstIndex(of: selectedImage) {
-                let selectedAsset = self.assets[index]
+        if let selectedImage = selectedImage {
+            if let index = images.firstIndex(of: selectedImage) {
+                let selectedAsset = assets[index]
                 let imageManager = PHImageManager.default()
                 let targetSize = CGSize(width: 600, height: 600)
                 imageManager.requestImage(for: selectedAsset,
@@ -102,7 +101,7 @@ final class SelectImageViewController: UICollectionViewController, UICollectionV
     }
 
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.selectedImage = images[indexPath.row]
+        selectedImage = images[indexPath.row]
         self.collectionView?.reloadData()
         let indexPath = IndexPath(item: 0, section: 0)
         collectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
@@ -111,7 +110,7 @@ final class SelectImageViewController: UICollectionViewController, UICollectionV
     // MARK: - Handlers
 
     @objc private func handleCancel() {
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 
     @objc private func handleNext() {

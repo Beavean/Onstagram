@@ -5,17 +5,16 @@
 //  Created by Beavean on 07.02.2023.
 //
 
-import UIKit
+import AVFoundation
 import FirebaseAuth
 import FirebaseDatabase
-import AVFoundation
+import UIKit
 
 protocol ChatCellDelegate: AnyObject {
     func handlePlayVideo(for cell: ChatCell)
 }
 
 final class ChatCell: UICollectionViewCell {
-
     // MARK: - UI Elements
 
     let activityIndicatorView: UIActivityIndicatorView = {
@@ -102,7 +101,7 @@ final class ChatCell: UICollectionViewCell {
         bubbleView.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
         bubbleWidthAnchor = bubbleView.widthAnchor.constraint(equalToConstant: 200)
         bubbleWidthAnchor?.isActive = true
-        bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        bubbleView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
 
         bubbleView.addSubview(messageImageView)
         messageImageView.anchor(top: bubbleView.topAnchor,
@@ -129,9 +128,9 @@ final class ChatCell: UICollectionViewCell {
 
         addSubview(textView)
         textView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 8).isActive = true
-        textView.topAnchor.constraint(equalTo: self.topAnchor, constant: 8).isActive = true
+        textView.topAnchor.constraint(equalTo: topAnchor, constant: 8).isActive = true
         textView.rightAnchor.constraint(equalTo: bubbleView.rightAnchor).isActive = true
-        textView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        textView.heightAnchor.constraint(equalTo: heightAnchor).isActive = true
     }
 
     override func prepareForReuse() {
@@ -141,7 +140,8 @@ final class ChatCell: UICollectionViewCell {
         playerLayer?.removeFromSuperlayer()
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 

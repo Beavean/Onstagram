@@ -8,7 +8,6 @@
 import UIKit
 
 final class UserPostCell: UICollectionViewCell {
-
     var post: Post? {
         didSet {
             guard let imageUrl = post?.imageUrl else { return }
@@ -32,7 +31,8 @@ final class UserPostCell: UICollectionViewCell {
         postImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

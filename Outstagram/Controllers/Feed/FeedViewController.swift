@@ -5,14 +5,13 @@
 //  Created by Beavean on 14.01.2023.
 //
 
-import UIKit
 import ActiveLabel
 import FirebaseAuth
 import FirebaseDatabase
 import FirebaseMessaging
+import UIKit
 
 final class FeedViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-
     // MARK: - Properties
 
     var posts = [Post]()
@@ -30,7 +29,7 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView?.backgroundColor = .white
-        self.collectionView!.register(FeedCell.self, forCellWithReuseIdentifier: FeedCell.reuseIdentifier)
+        collectionView!.register(FeedCell.self, forCellWithReuseIdentifier: FeedCell.reuseIdentifier)
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         collectionView?.refreshControl = refreshControl
@@ -47,9 +46,9 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
 
     // MARK: - UICollectionViewFlowLayout
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_: UICollectionView,
+                        layout _: UICollectionViewLayout,
+                        sizeForItemAt _: IndexPath) -> CGSize {
         let width = view.frame.width
         let height = width + 180
         return CGSize(width: width, height: height)
@@ -57,7 +56,7 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
 
     // MARK: - UICollectionViewDataSource
 
-    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    override func collectionView(_: UICollectionView, willDisplay _: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if posts.count > 4 {
             if indexPath.item == posts.count - 1 {
                 fetchPosts()
@@ -65,11 +64,11 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
         }
     }
 
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in _: UICollectionView) -> Int {
         return 1
     }
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         if viewSinglePost {
             return 1
         } else {
@@ -82,7 +81,7 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
         else { return UICollectionViewCell() }
         cell.delegate = self
         if viewSinglePost {
-            if let post = self.post {
+            if let post = post {
                 cell.post = post
             }
         } else {
@@ -98,14 +97,14 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
 
     @objc func handleRefresh() {
         posts.removeAll(keepingCapacity: false)
-        self.currentKey = nil
+        currentKey = nil
         fetchPosts()
         collectionView?.reloadData()
     }
 
     @objc func handleShowMessages() {
         let messagesController = MessagesController()
-        self.messageNotificationView.isHidden = true
+        messageNotificationView.isHidden = true
         navigationController?.pushViewController(messagesController, animated: true)
     }
 
@@ -137,11 +136,11 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
 
     func configureNavigationBar() {
         if !viewSinglePost {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
             let image = UIImage(systemName: "paperplane")
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(handleShowMessages))
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(handleShowMessages))
         }
-        self.navigationItem.title = "Feed"
+        navigationItem.title = "Feed"
     }
 
     func setUnreadMessageCount() {
@@ -205,21 +204,21 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
             FBConstants.DBReferences.userFeed
                 .child(currentUid)
                 .queryOrderedByKey()
-                .queryEnding(atValue: self.currentKey)
+                .queryEnding(atValue: currentKey)
                 .queryLimited(toLast: 6)
                 .observeSingleEvent(of: .value) { [weak self] snapshot in
-                guard let self,
-                      let first = snapshot.children.allObjects.first as? DataSnapshot,
-                      let allObjects = snapshot.children.allObjects as? [DataSnapshot]
-                else { return }
-                allObjects.forEach { snapshot in
-                    let postId = snapshot.key
-                    if postId != self.currentKey {
-                        self.fetchPost(withPostId: postId)
+                    guard let self,
+                          let first = snapshot.children.allObjects.first as? DataSnapshot,
+                          let allObjects = snapshot.children.allObjects as? [DataSnapshot]
+                    else { return }
+                    allObjects.forEach { snapshot in
+                        let postId = snapshot.key
+                        if postId != self.currentKey {
+                            self.fetchPost(withPostId: postId)
+                        }
                     }
+                    self.currentKey = first.key
                 }
-                self.currentKey = first.key
-            }
         }
     }
 
@@ -227,14 +226,14 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
         Database.fetchPost(with: postId) { [weak self] post in
             guard let self else { return }
             self.posts.append(post)
-            self.posts.sort { (post1, post2) -> Bool in
-                return post1.creationDate > post2.creationDate
+            self.posts.sort { post1, post2 -> Bool in
+                post1.creationDate > post2.creationDate
             }
             self.collectionView?.reloadData()
         }
     }
 
-    private func getUnreadMessageCount(withCompletion completion: @escaping(Int) -> Void) {
+    private func getUnreadMessageCount(withCompletion completion: @escaping (Int) -> Void) {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         var unreadCount = 0
         FBConstants.DBReferences.userMessages.child(currentUid).observe(.childAdded) { snapshot in
@@ -257,7 +256,6 @@ final class FeedViewController: UICollectionViewController, UICollectionViewDele
 }
 
 extension FeedViewController: FeedCellDelegate {
-
     func handleUsernameTapped(for cell: FeedCell) {
         guard let post = cell.post else { return }
         let userProfileVC = UserProfileViewController(collectionViewLayout: UICollectionViewFlowLayout())

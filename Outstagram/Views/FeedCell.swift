@@ -5,9 +5,9 @@
 //  Created by Beavean on 26.01.2023.
 //
 
-import UIKit
 import ActiveLabel
 import FirebaseDatabase
+import UIKit
 
 protocol FeedCellDelegate: AnyObject {
     func handleUsernameTapped(for cell: FeedCell)
@@ -20,7 +20,6 @@ protocol FeedCellDelegate: AnyObject {
 }
 
 final class FeedCell: UICollectionViewCell {
-
     // MARK: - UI Elements
 
     private let profileImageView: CustomImageView = {
@@ -161,7 +160,8 @@ final class FeedCell: UICollectionViewCell {
         postTimeLabel.anchor(top: captionLabel.bottomAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 8)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -195,12 +195,12 @@ final class FeedCell: UICollectionViewCell {
         delegate?.handleConfigureLikeButton(for: self)
     }
 
-   private func configureCommentIndicatorView() {
+    private func configureCommentIndicatorView() {
         delegate?.configureCommentIndicatorView(for: self)
     }
 
-   private func configurePostCaption(user: User) {
-        guard let post = self.post,
+    private func configurePostCaption(user _: User) {
+        guard let post = post,
               let caption = post.caption,
               let username = post.user?.username
         else { return }
@@ -240,7 +240,7 @@ final class FeedCell: UICollectionViewCell {
         configureCommentIndicatorView()
     }
 
-   private func configureActionButtons() {
+    private func configureActionButtons() {
         stackView = UIStackView(arrangedSubviews: [likeButton, commentButton, messageButton])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually

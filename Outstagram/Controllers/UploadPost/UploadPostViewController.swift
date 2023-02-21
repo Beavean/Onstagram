@@ -5,12 +5,11 @@
 //  Created by Beavean on 14.01.2023.
 //
 
-import UIKit
 import FirebaseAuth
 import FirebaseStorage
+import UIKit
 
 final class UploadPostViewController: UIViewController, UITextViewDelegate {
-
     // MARK: - Properties
 
     enum UploadAction: Int {
@@ -89,7 +88,7 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
     }
 
     @objc private func handleCancel() {
-        self.dismiss(animated: true)
+        dismiss(animated: true)
     }
 
     private func buttonSelector(uploadAction: UploadAction) {
@@ -103,21 +102,21 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
 
     private func configureViewController(forUploadAction uploadAction: UploadAction) {
         if uploadAction == .saveChanges {
-            guard let post = self.postToEdit else { return }
+            guard let post = postToEdit else { return }
             actionButton.setTitle("Save Changes", for: .normal)
-            self.navigationItem.title = "Edit Post"
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
+            navigationItem.title = "Edit Post"
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))
             navigationController?.navigationBar.tintColor = .black
             photoImageView.loadImage(with: post.imageUrl)
             captionTextView.text = post.caption
         } else {
             actionButton.setTitle("Share", for: .normal)
-            self.navigationItem.title = "Upload Post"
+            navigationItem.title = "Upload Post"
         }
     }
 
     private func loadImage() {
-        guard let selectedImage = self.selectedImage else { return }
+        guard let selectedImage = selectedImage else { return }
         photoImageView.image = selectedImage
     }
 
@@ -150,10 +149,10 @@ final class UploadPostViewController: UIViewController, UITextViewDelegate {
     // MARK: - API
 
     private func handleSavePostChanges() {
-        guard let post = self.postToEdit else { return }
+        guard let post = postToEdit else { return }
         guard let updatedCaption = captionTextView.text else { return }
         if updatedCaption.contains("#") {
-            self.uploadHashtagToServer(withPostId: post.postId)
+            uploadHashtagToServer(withPostId: post.postId)
         }
         FBConstants.DBReferences.posts.child(post.postId).child("caption").setValue(updatedCaption) { [weak self] _, _ in
             self?.dismiss(animated: true)

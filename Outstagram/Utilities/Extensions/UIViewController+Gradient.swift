@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIViewController {
-
     func configureGradientLayer() {
         let topColor = UIColor.orange
         let bottomColor = UIColor.red

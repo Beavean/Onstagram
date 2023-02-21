@@ -5,15 +5,14 @@
 //  Created by Beavean on 07.02.2023.
 //
 
-import UIKit
 import FirebaseAuth
+import UIKit
 
 protocol MessageCellDelegate: AnyObject {
     func configureUserData(for cell: MessageCell)
 }
 
 final class MessageCell: UITableViewCell {
-
     // MARK: - UI Elements
 
     let profileImageView: CustomImageView = {
@@ -50,7 +49,7 @@ final class MessageCell: UITableViewCell {
     weak var delegate: MessageCellDelegate?
     var message: Message? {
         didSet {
-           configureWithMessage()
+            configureWithMessage()
         }
     }
 
@@ -72,7 +71,8 @@ final class MessageCell: UITableViewCell {
         timestampLabel.anchor(top: topAnchor, right: rightAnchor, paddingTop: 20, paddingRight: 12)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -87,7 +87,7 @@ final class MessageCell: UITableViewCell {
     }
 
     private func configureWithMessage() {
-        guard let message = self.message else { return }
+        guard let message = message else { return }
         guard let messageText = message.messageText else { return }
         guard let read = message.read else { return }
         if !read && message.fromId != Auth.auth().currentUser?.uid {

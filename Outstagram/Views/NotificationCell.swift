@@ -13,8 +13,7 @@ protocol NotificationCellDelegate: AnyObject {
 }
 
 final class NotificationCell: UITableViewCell {
-
-  // MARK: - UI Elements
+    // MARK: - UI Elements
 
     private let profileImageView: CustomImageView = {
         let imageView = CustomImageView()
@@ -34,7 +33,7 @@ final class NotificationCell: UITableViewCell {
         let button = UIButton(type: .system)
         button.setTitle("Loading", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)
+        button.backgroundColor = UIColor(red: 17 / 255, green: 154 / 255, blue: 237 / 255, alpha: 1)
         button.addTarget(self, action: #selector(handleFollowTapped), for: .touchUpInside)
         return button
     }()
@@ -68,12 +67,12 @@ final class NotificationCell: UITableViewCell {
         selectionStyle = .none
         addSubview(profileImageView)
         profileImageView.anchor(left: leftAnchor, paddingLeft: 8, width: 40, height: 40)
-        profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        profileImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         profileImageView.layer.cornerRadius = 40 / 2
-
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -88,7 +87,7 @@ final class NotificationCell: UITableViewCell {
     }
 
     func configureNotificationLabel(withCommentText commentText: String?) {
-        guard let notification = self.notification,
+        guard let notification = notification,
               let user = notification.user,
               let username = user.username,
               let notificationDate = getNotificationTimeStamp()
@@ -106,8 +105,8 @@ final class NotificationCell: UITableViewCell {
                                                  attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]))
         attributedText.append(NSAttributedString(string: " \(notificationDate)",
                                                  attributes: [
-                                                    NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
-                                                    NSAttributedString.Key.foregroundColor: UIColor.lightGray
+                                                     NSAttributedString.Key.font: UIFont.systemFont(ofSize: 12),
+                                                     NSAttributedString.Key.foregroundColor: UIColor.lightGray
                                                  ]))
         notificationLabel.attributedText = attributedText
     }
@@ -123,19 +122,19 @@ final class NotificationCell: UITableViewCell {
     }
 
     private func configureNotificationType() {
-        guard let notification = self.notification,
+        guard let notification = notification,
               let user = notification.user
         else { return }
         if notification.notificationType != .follow {
             addSubview(postImageView)
             postImageView.anchor(right: rightAnchor, paddingRight: 8, width: 40, height: 40)
-            postImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+            postImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             followButton.isHidden = true
             postImageView.isHidden = false
         } else {
             addSubview(followButton)
             followButton.anchor(right: rightAnchor, paddingRight: 8, width: 90, height: 30)
-            followButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+            followButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             followButton.layer.cornerRadius = 3
             followButton.isHidden = false
             postImageView.isHidden = true
@@ -157,11 +156,11 @@ final class NotificationCell: UITableViewCell {
         }
         addSubview(notificationLabel)
         notificationLabel.anchor(left: profileImageView.rightAnchor, right: rightAnchor, paddingLeft: 8, paddingRight: 108)
-        notificationLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        notificationLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 
     private func getNotificationTimeStamp() -> String? {
-        guard let notification = self.notification else { return nil }
+        guard let notification = notification else { return nil }
         let dateFormatter = DateComponentsFormatter()
         dateFormatter.allowedUnits = [.second, .minute, .hour, .day, .weekOfMonth]
         dateFormatter.maximumUnitCount = 1

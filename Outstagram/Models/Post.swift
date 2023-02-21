@@ -5,12 +5,11 @@
 //  Created by Beavean on 25.01.2023.
 //
 
-import Foundation
 import FirebaseAuth
 import FirebaseStorage
+import Foundation
 
 final class Post {
-
     var caption: String!
     var likes: Int!
     var imageUrl: String!
@@ -40,9 +39,9 @@ final class Post {
         }
     }
 
-    func adjustLikes(addLike: Bool, completion: @escaping(Int) -> Void) {
+    func adjustLikes(addLike: Bool, completion: @escaping (Int) -> Void) {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        guard let postId = self.postId else { return }
+        guard let postId = postId else { return }
         if addLike {
             FBConstants.DBReferences.userLikes.child(currentUid).updateChildValues([postId: 1]) { [weak self] _, _ in
                 self?.sendLikeNotificationToServer()
@@ -75,9 +74,9 @@ final class Post {
 
     func removeLike(withCompletion completion: @escaping (Int) -> Void) {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        FBConstants.DBReferences.userLikes.child(currentUid).child(self.postId).removeValue { [weak self] _, _ in
+        FBConstants.DBReferences.userLikes.child(currentUid).child(postId).removeValue { [weak self] _, _ in
             guard let postId = self?.postId, var likes = self?.likes else { return }
-            FBConstants.DBReferences.postLikes.child(postId).child(currentUid).removeValue { _, _  in
+            FBConstants.DBReferences.postLikes.child(postId).child(currentUid).removeValue { _, _ in
                 guard likes > 0 else { return }
                 likes -= 1
                 self?.likes -= likes
@@ -90,7 +89,7 @@ final class Post {
 
     func deletePost() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        Storage.storage().reference(forURL: self.imageUrl).delete(completion: nil)
+        Storage.storage().reference(forURL: imageUrl).delete(completion: nil)
         FBConstants.DBReferences.userFollowers.child(currentUid).observe(.childAdded) { [weak self] snapshot in
             guard let postId = self?.postId else { return }
             let followerUid = snapshot.key
@@ -122,13 +121,13 @@ final class Post {
     func sendLikeNotificationToServer() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         let creationDate = Int(NSDate().timeIntervalSince1970)
-        if currentUid != self.ownerUid {
+        if currentUid != ownerUid {
             let values = ["checked": 0,
                           "creationDate": creationDate,
                           "uid": currentUid,
                           "type": FBConstants.Values.like,
                           "postId": postId!] as [String: Any]
-            let notificationRef = FBConstants.DBReferences.notifications.child(self.ownerUid).childByAutoId()
+            let notificationRef = FBConstants.DBReferences.notifications.child(ownerUid).childByAutoId()
             notificationRef.updateChildValues(values) { [weak self] _, _ in
                 guard let postId = self?.postId else { return }
                 FBConstants.DBReferences.userLikes.child(currentUid).child(postId).setValue(notificationRef.key)

@@ -8,18 +8,17 @@
 import UIKit
 
 final class SearchUserCell: UITableViewCell {
-
     // MARK: - Properties
 
     var user: User? {
         didSet {
             guard let profileImageUrl = user?.profileImageUrl,
-            let username = user?.username,
-            let fullName = user?.name
+                  let username = user?.username,
+                  let fullName = user?.name
             else { return }
             profileImageView.loadImage(with: profileImageUrl)
-            self.textLabel?.text = username
-            self.detailTextLabel?.text = fullName
+            textLabel?.text = username
+            detailTextLabel?.text = fullName
         }
     }
 
@@ -37,15 +36,15 @@ final class SearchUserCell: UITableViewCell {
 
     // MARK: - Lifecycle
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         addSubview(profileImageView)
         profileImageView.anchor(left: leftAnchor, paddingLeft: 8, width: 48, height: 48)
         profileImageView.centerY(inView: self)
         profileImageView.layer.cornerRadius = 48 / 2
-        self.textLabel?.text = "Username"
-        self.detailTextLabel?.text = "Full name"
-        self.selectionStyle = .none
+        textLabel?.text = "Username"
+        detailTextLabel?.text = "Full name"
+        selectionStyle = .none
     }
 
     override func layoutSubviews() {
@@ -57,13 +56,14 @@ final class SearchUserCell: UITableViewCell {
         textLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         detailTextLabel?.frame = CGRect(x: 68,
                                         y: detailTextLabel!.frame.origin.y,
-                                        width: self.frame.width - 108,
+                                        width: frame.width - 108,
                                         height: detailTextLabel!.frame.height)
         detailTextLabel?.textColor = .lightGray
         detailTextLabel?.font = UIFont.systemFont(ofSize: 12)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

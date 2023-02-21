@@ -5,11 +5,10 @@
 //  Created by Beavean on 31.01.2023.
 //
 
-import UIKit
 import ActiveLabel
+import UIKit
 
 final class CommentaryCell: UICollectionViewCell {
-
     // MARK: - UI Elements
 
     private let profileImageView: CustomImageView = {
@@ -42,7 +41,7 @@ final class CommentaryCell: UICollectionViewCell {
         super.init(frame: frame)
         addSubview(profileImageView)
         profileImageView.anchor(left: leftAnchor, paddingLeft: 8, width: 40, height: 40)
-        profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        profileImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         profileImageView.layer.cornerRadius = 40 / 2
         addSubview(commentLabel)
         commentLabel.anchor(top: topAnchor,
@@ -55,14 +54,15 @@ final class CommentaryCell: UICollectionViewCell {
                             paddingRight: 4)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Handlers
 
     private func configureCommentLabel() {
-        guard let comment = self.comment,
+        guard let comment = comment,
               let user = comment.user,
               let username = user.username,
               let commentText = comment.commentText
@@ -96,7 +96,7 @@ final class CommentaryCell: UICollectionViewCell {
     }
 
     private func getCommentTimeStamp() -> String? {
-        guard let comment = self.comment else { return nil }
+        guard let comment = comment else { return nil }
         let dateFormatter = DateComponentsFormatter()
         dateFormatter.allowedUnits = [.second, .minute, .hour, .day, .weekOfMonth]
         dateFormatter.maximumUnitCount = 1

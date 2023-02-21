@@ -5,13 +5,12 @@
 //  Created by Beavean on 08.02.2023.
 //
 
-import UIKit
+import AVFoundation
 import FirebaseAuth
 import MobileCoreServices
-import AVFoundation
+import UIKit
 
 final class ChatController: UICollectionViewController {
-
     // MARK: - UI Elements
 
     lazy var containerView: MessageInputAccessoryView = {
@@ -64,7 +63,7 @@ final class ChatController: UICollectionViewController {
 
     // MARK: - UICollectionView
 
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         messages.count
     }
 
@@ -105,7 +104,7 @@ final class ChatController: UICollectionViewController {
             cell.frame.size.height = estimateFrameForText(messageText).height + 20
             cell.messageImageView.isHidden = true
             cell.textView.isHidden = false
-            cell.bubbleView.backgroundColor  = .systemBlue
+            cell.bubbleView.backgroundColor = .systemBlue
         } else if let messageImageUrl = message.imageUrl {
             cell.bubbleWidthAnchor?.constant = 200
             cell.messageImageView.loadImage(with: messageImageUrl)
@@ -139,7 +138,7 @@ final class ChatController: UICollectionViewController {
     }
 
     private func configureNavigationBar() {
-        guard let user = self.user else { return }
+        guard let user = user else { return }
         navigationItem.title = user.username
         let infoButton = UIButton(type: .infoLight)
         infoButton.tintColor = .black
@@ -166,7 +165,7 @@ final class ChatController: UICollectionViewController {
 
     private func uploadMessageToServer(withProperties properties: [String: AnyObject]) {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        guard let user = self.user else { return }
+        guard let user = user else { return }
         let creationDate = Int(NSDate().timeIntervalSince1970)
         guard let uid = user.uid else { return }
         var values: [String: AnyObject] = ["toId": user.uid as AnyObject,
@@ -185,7 +184,7 @@ final class ChatController: UICollectionViewController {
 
     private func observeMessages() {
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        guard let chatPartnerId = self.user?.uid else { return }
+        guard let chatPartnerId = user?.uid else { return }
         FBConstants.DBReferences.userMessages.child(currentUid).child(chatPartnerId).observe(.childAdded) { [weak self] snapshot in
             let messageId = snapshot.key
             self?.fetchMessage(withMessageId: messageId)
@@ -242,8 +241,8 @@ final class ChatController: UICollectionViewController {
 
     private func sendMessage(withImageUrl imageUrl: String, image: UIImage) {
         let properties = ["imageUrl": imageUrl, "imageWidth": image.size.width as Any, "imageHeight": image.size.height as Any] as [String: AnyObject]
-        self.uploadMessageToServer(withProperties: properties)
-        self.uploadMessageNotification(isImageMessage: true, isVideoMessage: false, isTextMessage: false)
+        uploadMessageToServer(withProperties: properties)
+        uploadMessageNotification(isImageMessage: true, isVideoMessage: false, isTextMessage: false)
     }
 
     private func uploadVideoToStorage(withUrl url: URL) {
@@ -276,7 +275,7 @@ final class ChatController: UICollectionViewController {
             let time = CMTimeMake(value: 1, timescale: 60)
             let thumbnailCGImage = try imageGenerator.copyCGImage(at: time, actualTime: nil)
             return UIImage(cgImage: thumbnailCGImage)
-        } catch let error {
+        } catch {
             print("DEBUG: Exception error: ", error)
         }
         return nil
@@ -292,8 +291,8 @@ final class ChatController: UICollectionViewController {
 // MARK: - UICollectionViewDelegateFlowLayout
 
 extension ChatController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
+    func collectionView(_: UICollectionView,
+                        layout _: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         var height: CGFloat = 80
         let message = messages[indexPath.item]
@@ -309,7 +308,7 @@ extension ChatController: UICollectionViewDelegateFlowLayout {
 // MARK: - UIImagePickerControllerDelegate
 
 extension ChatController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+    func imagePickerController(_: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         if let videoUrl = info[.mediaURL] as? URL {
             uploadVideoToStorage(withUrl: videoUrl)
         } else if let selectedImage = info[.editedImage] as? UIImage {
@@ -328,7 +327,7 @@ extension ChatController: MessageInputAccessoryViewDelegate {
         let properties = ["messageText": message] as [String: AnyObject]
         uploadMessageToServer(withProperties: properties)
 
-        self.containerView.clearMessageTextView()
+        containerView.clearMessageTextView()
     }
 
     func handleSelectImage() {
@@ -344,8 +343,8 @@ extension ChatController: MessageInputAccessoryViewDelegate {
 
 extension ChatController: ChatCellDelegate {
     func handlePlayVideo(for cell: ChatCell) {
-        guard let player = self.player else { return }
-        guard let playerLayer = self.playerLayer else { return }
+        guard let player = player else { return }
+        guard let playerLayer = playerLayer else { return }
         playerLayer.frame = cell.bubbleView.bounds
         cell.bubbleView.layer.addSublayer(playerLayer)
         cell.activityIndicatorView.startAnimating()

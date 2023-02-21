@@ -363,7 +363,7 @@
 			buildConfigurationList = 08D65998296B7C630089624D /* Build configuration list for PBXNativeTarget "Outstagram" */;
 			buildPhases = (
 				D4F497FB0576ECC2F9155E93 /* [CP] Check Pods Manifest.lock */,
-				08103E61296C80DE006120E7 /* ShellScript */,
+				08103E61296C80DE006120E7 /* SwiftLint */,
 				08D65980296B7C610089624D /* Sources */,
 				08D65981296B7C610089624D /* Frameworks */,
 				08D65982296B7C610089624D /* Resources */,
@@ -425,7 +425,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		08103E61296C80DE006120E7 /* ShellScript */ = {
+		08103E61296C80DE006120E7 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
@@ -435,6 +435,7 @@
 			);
 			inputPaths = (
 			);
+			name = SwiftLint;
 			outputFileListPaths = (
 			);
 			outputPaths = (

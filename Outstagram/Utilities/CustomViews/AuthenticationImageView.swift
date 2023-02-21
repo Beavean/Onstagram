@@ -8,7 +8,6 @@
 import UIKit
 
 final class AuthenticationImageView: UIImageView {
-
     override init(image: UIImage?) {
         super.init(frame: .zero)
         self.image = image
@@ -17,7 +16,8 @@ final class AuthenticationImageView: UIImageView {
         setDimensions(height: 150, width: 150)
     }
 
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

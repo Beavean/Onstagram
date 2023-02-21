@@ -8,7 +8,6 @@
 import UIKit
 
 final class MessageNotificationView: UIView {
-
     // MARK: - UI Elements
 
     var notificationLabel: UILabel = {
@@ -29,7 +28,8 @@ final class MessageNotificationView: UIView {
         notificationLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

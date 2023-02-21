@@ -5,12 +5,11 @@
 //  Created by Beavean on 24.01.2023.
 //
 
-import UIKit
-import FirebaseDatabase
 import FirebaseAuth
+import FirebaseDatabase
+import UIKit
 
 extension UIViewController {
-
     func getMentionedUser(withUsername username: String) {
         FBConstants.DBReferences.users.observe(.childAdded) { [weak self] snapshot in
             let uid = snapshot.key
@@ -21,7 +20,6 @@ extension UIViewController {
                         let userProfileController = UserProfileViewController(collectionViewLayout: UICollectionViewFlowLayout())
                         userProfileController.user = user
                         self?.navigationController?.pushViewController(userProfileController, animated: true)
-                        return
                     }
                 }
             }

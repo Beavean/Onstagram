@@ -8,8 +8,8 @@
 import UIKit
 
 final class NewMessageCell: UITableViewCell {
-
     // MARK: - Properties
+
     static let reuseIdentifier = String(describing: NewMessageCell.self)
     weak var delegate: MessageCellDelegate?
     var user: User? {
@@ -34,7 +34,7 @@ final class NewMessageCell: UITableViewCell {
 
     // MARK: - Init
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         addSubview(profileImageView)
         profileImageView.anchor(left: leftAnchor, paddingLeft: 12, width: 50, height: 50)
@@ -46,17 +46,18 @@ final class NewMessageCell: UITableViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        textLabel?.frame = CGRect(x: 68, y: textLabel!.frame.origin.y - 2, width: textLabel!.frame.width, height: (textLabel!.frame.height))
+        textLabel?.frame = CGRect(x: 68, y: textLabel!.frame.origin.y - 2, width: textLabel!.frame.width, height: textLabel!.frame.height)
         detailTextLabel?.frame = CGRect(x: 68,
                                         y: detailTextLabel!.frame.origin.y + 2,
-                                        width: self.frame.width - 108,
+                                        width: frame.width - 108,
                                         height: (detailTextLabel?.frame.height)!)
         textLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         detailTextLabel?.font = UIFont.systemFont(ofSize: 12)
         detailTextLabel?.textColor = .lightGray
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

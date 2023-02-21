@@ -8,7 +8,6 @@
 import UIKit
 
 final class AuthenticationButton: UIButton {
-
     init(labelText: String) {
         super.init(frame: .zero)
         alpha = 0.5
@@ -20,7 +19,8 @@ final class AuthenticationButton: UIButton {
         layer.cornerRadius = 5
     }
 
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

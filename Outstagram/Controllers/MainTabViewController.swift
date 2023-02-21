@@ -5,11 +5,10 @@
 //  Created by Beavean on 14.01.2023.
 //
 
-import UIKit
 import FirebaseAuth
+import UIKit
 
 final class MainTabViewController: UITabBarController, UITabBarControllerDelegate {
-
     // MARK: - Properties
 
     private let dot = UIView()
@@ -87,8 +86,8 @@ final class MainTabViewController: UITabBarController, UITabBarControllerDelegat
         var createdControllers = [UIViewController]()
         NavigationItems.allCases.forEach { item in
             createdControllers.append(createNavigationController(unselectedImage: item.unselectedImage,
-                                                               selectedImage: item.selectedImage,
-                                                               rootViewController: item.controller))
+                                                                 selectedImage: item.selectedImage,
+                                                                 rootViewController: item.controller))
         }
         viewControllers = createdControllers
         tabBar.tintColor = .black
@@ -106,7 +105,7 @@ final class MainTabViewController: UITabBarController, UITabBarControllerDelegat
 
     // MARK: - UITabBar
 
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+    func tabBarController(_: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         let index = viewControllers?.firstIndex(of: viewController)
         if index == 2 {
             let selectImageVC = SelectImageViewController(collectionViewLayout: UICollectionViewFlowLayout())
@@ -128,6 +127,6 @@ final class MainTabViewController: UITabBarController, UITabBarControllerDelegat
         guard Auth.auth().currentUser == nil else { return }
         let navigationController = UINavigationController(rootViewController: LoginViewController())
         navigationController.modalPresentationStyle = .fullScreen
-        self.present(navigationController, animated: true)
+        present(navigationController, animated: true)
     }
 }

@@ -8,7 +8,6 @@
 import UIKit
 
 final class HashtagCell: UICollectionViewCell {
-
     // MARK: - UI Elements
 
     var post: Post? {
@@ -38,7 +37,8 @@ final class HashtagCell: UICollectionViewCell {
         postImageView.anchor(top: topAnchor, left: leftAnchor, bottom: bottomAnchor, right: rightAnchor)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }

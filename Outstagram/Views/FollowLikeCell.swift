@@ -5,15 +5,14 @@
 //  Created by Beavean on 20.01.2023.
 //
 
-import UIKit
 import FirebaseAuth
+import UIKit
 
 protocol FollowCellDelegate: AnyObject {
     func handleFollowTapped(for cell: FollowLikeCell)
 }
 
 final class FollowLikeCell: UITableViewCell {
-
     // MARK: - UI Elements
 
     let profileImageView: CustomImageView = {
@@ -49,22 +48,22 @@ final class FollowLikeCell: UITableViewCell {
 
     // MARK: - Init
 
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+    override init(style _: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
 
         addSubview(profileImageView)
         profileImageView.anchor(left: leftAnchor, paddingLeft: 8, width: 48, height: 48)
-        profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        profileImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         profileImageView.layer.cornerRadius = 48 / 2
 
         addSubview(followButton)
         followButton.anchor(right: rightAnchor, paddingRight: 12, width: 90, height: 30)
-        followButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        followButton.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         followButton.layer.cornerRadius = 3
 
         textLabel?.text = "Username"
         detailTextLabel?.text = "Full name"
-        self.selectionStyle = .none
+        selectionStyle = .none
     }
 
     override func layoutSubviews() {
@@ -73,13 +72,14 @@ final class FollowLikeCell: UITableViewCell {
         textLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         detailTextLabel?.frame = CGRect(x: 68,
                                         y: detailTextLabel!.frame.origin.y,
-                                        width: self.frame.width - 108,
+                                        width: frame.width - 108,
                                         height: detailTextLabel!.frame.height)
         detailTextLabel?.textColor = .lightGray
         detailTextLabel?.font = UIFont.systemFont(ofSize: 12)
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
@@ -88,8 +88,8 @@ final class FollowLikeCell: UITableViewCell {
               let username = user?.username,
               let fullName = user?.name else { return }
         profileImageView.loadImage(with: profileImageUrl)
-        self.textLabel?.text = username
-        self.detailTextLabel?.text = fullName
+        textLabel?.text = username
+        detailTextLabel?.text = fullName
         if user?.uid == Auth.auth().currentUser?.uid {
             followButton.isHidden = true
         }

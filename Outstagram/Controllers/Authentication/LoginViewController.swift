@@ -5,11 +5,10 @@
 //  Created by Beavean on 09.01.2023.
 //
 
-import UIKit
 import FirebaseAuth
+import UIKit
 
 final class LoginViewController: UIViewController {
-
     // MARK: - UI Elements
 
     private let logoContainerView = AuthenticationImageView(image: UIImage(systemName: "camera"))
@@ -21,6 +20,7 @@ final class LoginViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
+
     private let emailTextField = AuthenticationTextField(placeholder: "Email")
     private let passwordTextField = AuthenticationTextField(placeholder: "Password", isSecureField: true)
     private let loginButton = AuthenticationButton(labelText: "Login")

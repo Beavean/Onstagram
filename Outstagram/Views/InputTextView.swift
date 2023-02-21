@@ -8,7 +8,6 @@
 import UIKit
 
 final class InputTextView: UITextView {
-
     // MARK: - Properties
 
     let placeholderLabel: UILabel = {
@@ -31,13 +30,14 @@ final class InputTextView: UITextView {
         placeholderLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
 
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
     // MARK: - Handlers
 
     @objc func handleInputTextChange() {
-        placeholderLabel.isHidden = !self.text.isEmpty
+        placeholderLabel.isHidden = !text.isEmpty
     }
 }

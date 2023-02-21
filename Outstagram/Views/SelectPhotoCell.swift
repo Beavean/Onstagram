@@ -8,7 +8,6 @@
 import UIKit
 
 final class SelectPhotoCell: UICollectionViewCell {
-
     let photoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -25,8 +24,8 @@ final class SelectPhotoCell: UICollectionViewCell {
 
     static let reuseIdentifier = String(describing: SelectPhotoCell.self)
 
-    required init?(coder aDecoder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
 }

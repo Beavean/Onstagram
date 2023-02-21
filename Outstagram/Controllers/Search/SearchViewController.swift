@@ -5,15 +5,14 @@
 //  Created by Beavean on 14.01.2023.
 //
 
-import UIKit
 import FirebaseDatabase
+import UIKit
 
 final class SearchViewController: UITableViewController,
-                                  UISearchBarDelegate,
-                                  UICollectionViewDelegate,
-                                  UICollectionViewDataSource,
-                                  UICollectionViewDelegateFlowLayout {
-
+    UISearchBarDelegate,
+    UICollectionViewDelegate,
+    UICollectionViewDataSource,
+    UICollectionViewDelegateFlowLayout {
     // MARK: - Properties
 
     private var users = [User]()
@@ -40,15 +39,15 @@ final class SearchViewController: UITableViewController,
 
     // MARK: - UITableView
 
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    override func tableView(_: UITableView, heightForRowAt _: IndexPath) -> CGFloat {
         return 60
     }
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in _: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
         if inSearchMode {
             return filteredUsers.count
         } else {
@@ -56,7 +55,7 @@ final class SearchViewController: UITableViewController,
         }
     }
 
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    override func tableView(_: UITableView, willDisplay _: UITableViewCell, forRowAt indexPath: IndexPath) {
         if users.count > 3 {
             if indexPath.item == users.count - 1 {
                 fetchUsers()
@@ -64,7 +63,7 @@ final class SearchViewController: UITableViewController,
         }
     }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    override func tableView(_: UITableView, didSelectRowAt indexPath: IndexPath) {
         var user: User!
         if inSearchMode {
             user = filteredUsers[indexPath.row]
@@ -110,26 +109,26 @@ final class SearchViewController: UITableViewController,
         tableView.separatorColor = .clear
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_: UICollectionView,
+                        layout _: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt _: Int) -> CGFloat {
         return 1
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_: UICollectionView,
+                        layout _: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt _: Int) -> CGFloat {
         return 1
     }
 
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_: UICollectionView,
+                        layout _: UICollectionViewLayout,
+                        sizeForItemAt _: IndexPath) -> CGSize {
         let width = (view.frame.width - 2) / 3
         return CGSize(width: width, height: width)
     }
 
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_: UICollectionView, willDisplay _: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if posts.count > 20 {
             if indexPath.item == posts.count - 1 {
                 fetchPosts()
@@ -137,7 +136,7 @@ final class SearchViewController: UITableViewController,
         }
     }
 
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_: UICollectionView, numberOfItemsInSection _: Int) -> Int {
         return posts.count
     }
 
@@ -148,7 +147,7 @@ final class SearchViewController: UITableViewController,
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let feedVC = FeedViewController(collectionViewLayout: UICollectionViewFlowLayout())
         feedVC.viewSinglePost = true
         feedVC.post = posts[indexPath.item]
@@ -173,15 +172,15 @@ final class SearchViewController: UITableViewController,
         tableView.separatorColor = .lightGray
     }
 
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_: UISearchBar, textDidChange searchText: String) {
         let searchText = searchText.lowercased()
         if searchText.isEmpty || searchText == " " {
             inSearchMode = false
             tableView.reloadData()
         } else {
             inSearchMode = true
-            filteredUsers = users.filter { (user) -> Bool in
-                return user.username.contains(searchText)
+            filteredUsers = users.filter { user -> Bool in
+                user.username.contains(searchText)
             }
             tableView.reloadData()
         }
@@ -202,7 +201,7 @@ final class SearchViewController: UITableViewController,
 
     @objc func handleRefresh() {
         posts.removeAll(keepingCapacity: false)
-        self.currentKey = nil
+        currentKey = nil
         fetchPosts()
         collectionView?.reloadData()
     }
@@ -210,7 +209,7 @@ final class SearchViewController: UITableViewController,
     func configureRefreshControl() {
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
-        self.tableView.refreshControl = refreshControl
+        tableView.refreshControl = refreshControl
     }
 
     // MARK: - API
@@ -273,7 +272,7 @@ final class SearchViewController: UITableViewController,
             }
         } else {
             FBConstants.DBReferences.posts.queryOrderedByKey()
-                .queryEnding(atValue: self.currentKey)
+                .queryEnding(atValue: currentKey)
                 .queryLimited(toLast: 10)
                 .observeSingleEvent(of: .value) { [weak self] snapshot in
                     guard let self,

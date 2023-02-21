@@ -5,11 +5,10 @@
 //  Created by Beavean on 30.01.2023.
 //
 
-import Foundation
 import FirebaseAuth
+import Foundation
 
 final class Message {
-
     var messageText: String!
     var fromId: String!
     var toId: String!
@@ -51,7 +50,7 @@ final class Message {
     }
 
     func getChatPartnerId() -> String {
-        guard let currentUid = Auth.auth().currentUser?.uid else { return ""}
+        guard let currentUid = Auth.auth().currentUser?.uid else { return "" }
         if fromId == currentUid {
             return toId
         } else {

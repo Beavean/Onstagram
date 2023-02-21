@@ -8,7 +8,6 @@
 import UIKit
 
 final class AuthenticationTextField: UITextField {
-
     init(placeholder: String, isSecureField: Bool = false) {
         super.init(frame: .zero)
         let spacer = UIView()
@@ -25,7 +24,8 @@ final class AuthenticationTextField: UITextField {
         isSecureTextEntry = isSecureField
     }
 
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
